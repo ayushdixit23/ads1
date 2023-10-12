@@ -495,7 +495,7 @@ const Section4 = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/getData")
+      .get(`${API}/getData`)
       .then((res) => {
         setPointsCategory(res.data.Newcategory);
         setMyLocation(res.data.NewLocations);
