@@ -10,18 +10,35 @@ const MobileNav = () => {
   const [colors, setColors] = useState(0);
 
   useEffect(() => {
+    // Retrieve the selected color from sessionStorage
     const storedColor = sessionStorage.getItem("selectedColor");
-    setColors(storedColor !== null ? parseInt(storedColor, 10) : 0);
-  }, []);
 
-  useEffect(() => {
-    // Store the selected color in sessionStorage
-    sessionStorage.setItem("selectedColor", colors?.toString());
-  }, [colors]);
+    if (storedColor !== null) {
+      setColors(parseInt(storedColor, 10));
+    }
+  }, []);
 
   const handleColor = (i) => {
     setColors(i);
+
+    // Store the selected color in sessionStorage
+    sessionStorage.setItem("selectedColor", i.toString());
+
+    switch (i) {
+      case 0:
+        router.push("/main/dashboard");
+        break;
+      case 1:
+        router.push("/main/wallet");
+        break;
+      case 2:
+        router.push("/setting");
+        break;
+      default:
+        break;
+    }
   };
+
   return (
     <>
       <div className="fixed left-0 w-full sm:hidden bottom-0 bg-white z-10 p-2">
@@ -30,7 +47,6 @@ const MobileNav = () => {
             <li
               onClick={() => {
                 handleColor(0);
-                router.push("/main/dashboard");
               }}
             >
               <div className="flex flex-col justify-center gap-2 hover:text-blue-500 items-center">
@@ -50,7 +66,6 @@ const MobileNav = () => {
             <li
               onClick={() => {
                 handleColor(1);
-                router.push("/main/wallet");
               }}
             >
               <div
@@ -69,7 +84,6 @@ const MobileNav = () => {
             <li
               onClick={() => {
                 handleColor(2);
-                router.push("/setting");
               }}
             >
               <div

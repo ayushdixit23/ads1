@@ -13,19 +13,33 @@ const Sidebar = () => {
   const [color, setColor] = useState(0);
 
   useEffect(() => {
+    // Retrieve the selected color from sessionStorage
     const storedColor = sessionStorage.getItem("selectedColor");
-    setColor(storedColor !== null ? parseInt(storedColor, 10) : 0);
+
+    if (storedColor !== null) {
+      setColor(parseInt(storedColor, 10));
+    }
   }, []);
-
-  useEffect(() => {
-    // Store the selected color in sessionStorage
-    // Use sessionStorage to retrieve the stored state or default to 0
-
-    sessionStorage.setItem("selectedColor", color?.toString());
-  }, [color]);
 
   const handleColor = (i) => {
     setColor(i);
+
+    // Store the selected color in sessionStorage
+    sessionStorage.setItem("selectedColor", i.toString());
+
+    switch (i) {
+      case 0:
+        router.push("/main/dashboard");
+        break;
+      case 1:
+        router.push("/main/wallet");
+        break;
+      case 2:
+        router.push("/setting");
+        break;
+      default:
+        break;
+    }
   };
   useEffect(() => {
     const pics = sessionStorage.getItem("image");
@@ -44,18 +58,21 @@ const Sidebar = () => {
               <li
                 onClick={() => {
                   handleColor(0);
-                  router.push("/main/dashboard");
                 }}
               >
                 <div className="flex flex-col justify-center gap-2 hover:text-blue-500 items-center">
                   <div>
                     <AiOutlineBarChart
                       className={`text-[26px] ${
-                        color === 0 ? "text-blue-600 " : null
+                        color === 0 ? "active [&.active]:text-blue-600 " : null
                       }`}
                     />
                   </div>
-                  <div className={`${color === 0 ? "text-blue-600 " : null}`}>
+                  <div
+                    className={`${
+                      color === 0 ? "active [&.active]:text-blue-600 " : null
+                    }`}
+                  >
                     Overview
                   </div>
                 </div>
@@ -64,18 +81,21 @@ const Sidebar = () => {
               <li
                 onClick={() => {
                   handleColor(1);
-                  router.push("/main/wallet");
                 }}
               >
                 <div
                   className={` flex flex-col justify-center gap-2 hover:text-blue-500 items-center ${
-                    color === 1 ? "text-blue-600 " : null
+                    color === 1 ? "active [&.active]:text-blue-600 " : null
                   }`}
                 >
                   <div>
                     <BiWallet className={` text-[26px]`} />
                   </div>
-                  <div className={`${color === 1 ? "text-blue-600 " : null}`}>
+                  <div
+                    className={`${
+                      color === 1 ? "active [&.active]:text-blue-600 " : null
+                    }`}
+                  >
                     Wallet
                   </div>
                 </div>
@@ -83,7 +103,6 @@ const Sidebar = () => {
               <li
                 onClick={() => {
                   handleColor(2);
-                  router.push("/setting");
                 }}
               >
                 <div
@@ -93,11 +112,15 @@ const Sidebar = () => {
                   <div>
                     <FiSettings
                       className={`text-[26px] ${
-                        color === 2 ? "text-blue-600 " : null
+                        color === 2 ? "active [&.active]:text-blue-600 " : null
                       }`}
                     />
                   </div>
-                  <div className={`${color === 2 ? "text-blue-600 " : null}`}>
+                  <div
+                    className={`${
+                      color === 2 ? "active [&.active]:text-blue-600 " : null
+                    }`}
+                  >
                     Settings
                   </div>
                 </div>

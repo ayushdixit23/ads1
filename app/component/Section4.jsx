@@ -18,6 +18,7 @@ import {
   AiFillCheckCircle,
   AiOutlineEdit,
   AiTwotoneEdit,
+  AiOutlinePlus,
 } from "react-icons/ai";
 import { BiMap } from "react-icons/bi";
 import Square3 from "./Square3";
@@ -88,10 +89,6 @@ const Section4 = () => {
       inputElement.focus();
     }
   };
-
-  useEffect(() => {
-    console.log("render");
-  }, []);
 
   const [myArray, setMyArray] = useState([]);
   const [myTags, setMyTags] = useState([]);
@@ -322,7 +319,7 @@ const Section4 = () => {
   const validateData = () => {
     if (
       // three.location.length === 0 ||
-      // three.tags.length === 0 ||
+      three.tags.length === 0 ||
       (three.age === "All age group"
         ? three.age === ""
         : three.selectedAgeRange === "") ||
@@ -358,6 +355,8 @@ const Section4 = () => {
   };
 
   const validDatas = validateDatas();
+
+  console.log(step);
 
   const myAgeHandle = () => {
     setCLick(1);
@@ -475,21 +474,18 @@ const Section4 = () => {
   //   console.log("doest matter");
   // }, [step]);
 
-  const handleBack = () => {
-    if (step > 1) {
-      setStep((step) => step - 1);
-    }
-  };
-
   useEffect(() => {
-    const popStateHandler = () => {
-      handleBack();
-    };
+    window.history.pushState(null, null, window.location.href);
 
-    window.addEventListener("popstate", popStateHandler);
-
-    return () => {
-      window.removeEventListener("popstate", popStateHandler);
+    // Intercept the back button click and simulate step changes
+    window.onpopstate = function () {
+      if (step > 0) {
+        // If step is greater than 0, decrement it
+        setStep(step - 1);
+      } else {
+        // If step is 0, navigate to "/main/dashboard"
+        window.location.href = "/main/dashboard";
+      }
     };
   }, [step]);
 
@@ -2127,37 +2123,35 @@ const Section4 = () => {
                     <div className="">
                       <div className="my-2">
                         <h1 className="text-lg py-1 font-medium">Enter Tags</h1>
-                        <div className="w-full flex justify-center items-center rounded-xl border ">
-                          <BiMap className="border-r-2 p-2 text-4xl" />
-                          <input
-                            onSubmitCapture={() => {
-                              console.log("first");
-                            }}
-                            name="myForm"
-                            type="text"
-                            onChange={(e) => {
-                              setT(e.target.value);
-                            }}
-                            onKeyPress={(e) => {
-                              if (!t) return;
-                              else if (three?.tags?.length < 5) {
-                                if (e.key === "h" || e.key === "H") {
+                        <div className="border flex justify-between items-center rounded-xl">
+                          <div className="flex justify-center  items-center">
+                            <BiMap className="text-3xl  px-1" />
+                            <input
+                              name="myForm"
+                              type="text"
+                              onChange={(e) => {
+                                setT(e.target.value);
+                              }}
+                              value={t}
+                              placeholder="tags"
+                              className="outline-none border-l-2 rounded-l-none p-2 rounded-xl"
+                            />
+                          </div>
+                          <div className="bg-[#2D9AFF] p-2 px-3 font-bold text-xl rounded-r-xl text-white">
+                            <button
+                              onClick={() => {
+                                if (t && three?.tags?.length < 5) {
                                   setThree((three) => ({
                                     ...three,
-                                    tags: [...three.tags, e.target.value],
+                                    tags: [...three.tags, t],
                                   }));
                                   setT("");
                                 }
-                              } else {
-                                if (e.key === "Enter") {
-                                  setT(e.target.value);
-                                }
-                              }
-                            }}
-                            value={t}
-                            placeholder="tags"
-                            className="w-full rounded-xl p-2 outline-none "
-                          />
+                              }}
+                            >
+                              <AiOutlinePlus />
+                            </button>
+                          </div>
                         </div>
                       </div>
 
@@ -2497,7 +2491,7 @@ const Section4 = () => {
                           </div>
                         </div>
                       </div>
-                      <div className={`${click === 1 ? null : "hidden"}`}>
+                      <div className={`${click === 1 ? "my-1" : "hidden"}`}>
                         <label className="font-medium my-2" htmlFor="ageRange">
                           Select Age Range:
                         </label>
@@ -2892,9 +2886,9 @@ const Section4 = () => {
 
           <div className="flex justify-center gap-4 px-[2%] w-full pn:max-md:hidden">
             <div
-              className={`flex bg-[#F0F2F5] p-4 px-[2%] md:min-w-[800px] lg:min-w-[1024px] my-4 max-h-[780px] pn:max-md:hidden rounded-2xl flex-col`}
+              className={`flex bg-[#F0F2F5]  p-4 px-[2%] md:min-w-[800px] lg:min-w-[1024px] my-4 pn:max-md:hidden rounded-2xl flex-col`}
             >
-              <div className="md:min-w-[800px] lg:min-w-[1024px] bg-white rounded-2xl py-5 px-5">
+              <div className="md:min-w-[800px]  lg:min-w-[1024px] bg-white  rounded-2xl py-5 px-5">
                 <div className="flex justify-between items-center">
                   <div className="text-xl font-semibold py-2">Preview</div>
                   <div
@@ -3028,7 +3022,7 @@ const Section4 = () => {
                 </div>
               </div>
 
-              <div className=" lg:min-w-[700px] bg-white my-4 rounded-2xl py-5 px-5">
+              <div className=" lg:min-w-[700px] bg-white  my-4 rounded-2xl py-5 px-5">
                 <div className="bg-[#FAFAFA] flex justify-between py-5 my-3 px-1 items-center">
                   <div className="flex justify-center space-x-2 sm:space-x-4 items-center">
                     <div>

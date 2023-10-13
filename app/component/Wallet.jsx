@@ -33,7 +33,6 @@ const Wallet = () => {
         const pay = response.data.transaction;
         setPayhistory(pay);
         setCheck(true);
-        setLoad(true);
       } else {
         setCheck(false);
       }
@@ -293,101 +292,30 @@ const Wallet = () => {
             </div>
           )}
 
-          {load ? (
-            <div
-              className={`p-3 ${payhistory != 0 ? null : "pn:max-md:hidden"}`}
-            >
-              <div className="flex justify-between bg-white items-center w-full border rounded-t-2xl py-5 px-3 sm:px-[4%]">
-                <div className="sm:text-2xl text-lg font-semibold">
-                  All Transaction Details
-                </div>
-                <div className="flex pn:max-sm:hidden justify-center items-center space-x-2 md:w-[30%]">
-                  <div className="w-full border px-3 rounded-full ">
-                    <input
-                      type="text"
-                      className="w-full p-2 outline-none rounded-full"
-                      placeholder='Search " Transaction id "'
-                    />
-                  </div>
-                  <div className="bg-[#1A73E8] p-2 rounded-full">
-                    <AiOutlineSearch className="text-2xl text-white" />
-                  </div>
-                </div>
+          <div
+            className={`p-3 ${
+              payhistory.length != 0 ? null : "pn:max-md:hidden"
+            }`}
+          >
+            <div className="flex justify-between bg-white items-center w-full border rounded-t-2xl py-5 px-3 sm:px-[4%]">
+              <div className="sm:text-2xl text-lg font-semibold">
+                All Transaction Details
               </div>
-
-              <div className="h-[400px] bg-white border no-scrollbar overflow-x-auto overflow-y-scroll">
-                <table className="w-full min-w-[700px] border-none">
-                  <thead className="bg-[#F8FAFC]">
-                    <tr>
-                      <th className="text-center px-4 py-2">Transactions ID</th>
-                      <th className="text-center px-4 py-2">Name</th>
-                      <th className="text-center px-4 py-2">Date</th>
-                      <th className="text-center px-4 py-2">Status</th>
-                      <th className="text-center px-4 py-2">Amount</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {payhistory.length > 0 ? (
-                      <>
-                        {payhistory?.map((p, i) => (
-                          <tr key={i}>
-                            <td className=" text-center px-4 py-2">
-                              {p?.transactionid ? p?.transactionid : "-"}
-                            </td>
-                            <td className=" text-center px-4 py-2">
-                              {p?.type ? p?.type : "-"}
-                            </td>
-                            <td className=" text-center px-4 py-2">
-                              {p?.createdAt
-                                ? moment(p?.createdAt).format("DD/MM/yy")
-                                : "-"}
-                            </td>
-                            <td
-                              className={`text-center font-medium px-4 py-2 ${
-                                p?.status === "Pending"
-                                  ? "text-[#F9943B]"
-                                  : null
-                              }
-                          ${p?.status === "Success" ? "text-[#03A65A]" : null}
-                          ${p?.status === "Failed" ? "text-[#FC2E20]" : null}
-    `}
-                            >
-                              {p?.status ? p?.status : "-"}
-                            </td>
-                            <td className=" text-center px-4 py-2">
-                              ₹{p?.amount ? p?.amount : "-"}
-                            </td>
-                          </tr>
-                        ))}
-                      </>
-                    ) : (
-                      <>
-                        <tr>
-                          <td colSpan="7">
-                            <div className="flex flex-col w-full justify-center bg-white p-2 mb-3 py-5 pn:max-md:hidden items-center">
-                              <div>
-                                <div className="flex justify-center items-center">
-                                  <Image src={nodataw} alt="nodataw" />
-                                </div>
-                                <div className="text-xl font-semibold text-center py-2">
-                                  No transactions
-                                </div>
-                                <div className="py-2 text-sm text-[#8B8D97]">
-                                  You have no transactions during this period.
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                      </>
-                    )}
-                  </tbody>
-                </table>
+              <div className="flex pn:max-sm:hidden justify-center items-center space-x-2 md:w-[30%]">
+                <div className="w-full border px-3 rounded-full ">
+                  <input
+                    type="text"
+                    className="w-full p-2 outline-none rounded-full"
+                    placeholder='Search " Transaction id "'
+                  />
+                </div>
+                <div className="bg-[#1A73E8] p-2 rounded-full">
+                  <AiOutlineSearch className="text-2xl text-white" />
+                </div>
               </div>
             </div>
-          ) : (
-            <>
+
+            <div className="h-[400px] bg-white border no-scrollbar overflow-x-auto overflow-y-scroll">
               <table className="w-full min-w-[700px] border-none">
                 <thead className="bg-[#F8FAFC]">
                   <tr>
@@ -400,17 +328,62 @@ const Wallet = () => {
                 </thead>
 
                 <tbody>
-                  <tr>
-                    <td colSpan="7">
-                      <div className="flex justify-center items-center h-[35vh]">
-                        Loading...
-                      </div>
-                    </td>
-                  </tr>
+                  {payhistory.length > 0 ? (
+                    <>
+                      {payhistory?.map((p, i) => (
+                        <tr key={i}>
+                          <td className=" text-center px-4 py-2">
+                            {p?.transactionid ? p?.transactionid : "-"}
+                          </td>
+                          <td className=" text-center px-4 py-2">
+                            {p?.type ? p?.type : "-"}
+                          </td>
+                          <td className=" text-center px-4 py-2">
+                            {p?.createdAt
+                              ? moment(p?.createdAt).format("DD/MM/yy")
+                              : "-"}
+                          </td>
+                          <td
+                            className={`text-center font-medium px-4 py-2 ${
+                              p?.status === "Pending" ? "text-[#F9943B]" : null
+                            }
+                          ${p?.status === "Success" ? "text-[#03A65A]" : null}
+                          ${p?.status === "Failed" ? "text-[#FC2E20]" : null}
+    `}
+                          >
+                            {p?.status ? p?.status : "-"}
+                          </td>
+                          <td className=" text-center px-4 py-2">
+                            ₹{p?.amount ? p?.amount : "-"}
+                          </td>
+                        </tr>
+                      ))}
+                    </>
+                  ) : (
+                    <>
+                      <tr>
+                        <td colSpan="7">
+                          <div className="flex flex-col w-full justify-center bg-white p-2 mb-3 py-5 pn:max-md:hidden items-center">
+                            <div>
+                              <div className="flex justify-center items-center">
+                                <Image src={nodataw} alt="nodataw" />
+                              </div>
+                              <div className="text-xl font-semibold text-center py-2">
+                                No transactions
+                              </div>
+                              <div className="py-2 text-sm text-[#8B8D97]">
+                                You have no transactions during this period.
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </>
+                  )}
                 </tbody>
               </table>
-            </>
-          )}
+            </div>
+          </div>
         </div>
       </div>
     </>
