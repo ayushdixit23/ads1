@@ -89,7 +89,6 @@ const Section4 = () => {
       inputElement.focus();
     }
   };
-
   const [myArray, setMyArray] = useState([]);
   const [myTags, setMyTags] = useState([]);
 
@@ -474,6 +473,39 @@ const Section4 = () => {
   //   console.log("doest matter");
   // }, [step]);
 
+  const handleFileChanges = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const fileExtension = file.name.split(".").pop().toLowerCase();
+
+      if (["jpg", "jpeg", "png", "svg"].includes(fileExtension)) {
+        // If it's an image file
+        setThree({
+          ...three,
+          pic: URL.createObjectURL(file),
+          picname: file.name,
+          picsend: file,
+        });
+      } else if (["mp4", "avi", "mov", "mp3"].includes(fileExtension)) {
+        // If it's a video file
+        setThree({
+          ...three,
+          pic: null, // Reset the image
+          picname: file.name,
+          picsend: file,
+        });
+      } else {
+        // Handle unsupported file types or show an error message
+        alert("Unsupported file type. Please select an image or video.");
+        e.target.value = ""; // Clear the file input
+      }
+    } else {
+      // Reset the state if no file is selected
+      setThree({ ...three, pic: null, picname: "", picsend: null });
+    }
+  };
+
   useEffect(() => {
     window.history.pushState(null, null, window.location.href);
 
@@ -498,6 +530,16 @@ const Section4 = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:5000/getData")
+  //     .then((res) => {
+  //       setPointsCategory(res.data.Newcategory);
+  //       setMyLocation(res.data.NewLocations);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   // console.log(audbyCategory);
 
@@ -1013,7 +1055,7 @@ const Section4 = () => {
                     </div>
                     <div className="text-[#5585FF] border pn:max-sm:w-[80%] pn:max-sm:text-center hover:border-[#5585FF] p-2 rounded-2xl">
                       <label htmlFor="files">Select and Upload</label>
-                      <input
+                      {/* <input
                         name="myForm"
                         onChange={(e) =>
                           setThree({
@@ -1026,6 +1068,14 @@ const Section4 = () => {
                         type="file"
                         id="files"
                         className="hidden"
+                      /> */}
+
+                      <input
+                        name="myForm"
+                        onChange={handleFileChanges}
+                        type="file"
+                        id="files"
+                        className="hidden"
                       />
                     </div>
                   </div>
@@ -1034,13 +1084,48 @@ const Section4 = () => {
                   <div className="bg-[#F3F6F8] py-2 px-[2%]  flex justify-between rounded-2xl items-center w-full">
                     <div className="flex justify-center overflow-hidden space-x-4 items-center">
                       <div>
-                        <Image
+                        {/* <Image
                           width={50}
                           height={50}
                           className="max-w-[50px] max-h-[50px]"
                           src={three.pic ? three.pic : adss}
                           alt="image"
-                        />
+                        /> */}
+                        {three.pic === "" && (
+                          <Image
+                            src={three.pic ? three.pic : adss}
+                            alt={three.picname}
+                            width={350}
+                            height={200}
+                            className="w-auto h-auto object-cover"
+                          />
+                        )}
+                        {three.pic && (
+                          <img
+                            className="max-w-[50px] max-h-[50px]"
+                            src={three.pic}
+                            alt={three.picname}
+                          />
+                        )}
+                        {/* {three.picsend &&
+                          ["mp4", "avi", "mov"].includes(
+                            three.picname.split(".").pop().toLowerCase()
+                          ) && (
+                            <video
+                              className="max-w-[50px] max-h-[50px]"
+                              controls
+                            >
+                              <source
+                                src={URL.createObjectURL(three.picsend)}
+                                type={three.picsend.type}
+                              />
+                            </video>
+                          )} */}
+
+                        {three.picsend &&
+                          ["mp4", "avi", "mov"].includes(
+                            three.picname.split(".").pop().toLowerCase()
+                          ) && <div>Video</div>}
                       </div>
                       <div>
                         {three?.picname ? (
@@ -1087,14 +1172,36 @@ const Section4 = () => {
                       <BsThreeDotsVertical />
                     </div>
                   </div>
+                  {three.pic === "" && (
+                    <Image
+                      src={three.pic ? three.pic : adss}
+                      alt={three.picname}
+                      width={350}
+                      height={200}
+                      className="w-auto h-auto object-cover"
+                    />
+                  )}
+                  {three.pic ? (
+                    <img
+                      src={three.pic ? three.pic : adss}
+                      alt={three.picname}
+                      width={350}
+                      height={200}
+                      className="w-auto h-auto object-cover"
+                    />
+                  ) : null}
 
-                  <img
-                    src={three?.pic ? three?.pic : adss}
-                    width={350}
-                    height={200}
-                    alt="image"
-                    className="w-auto h-auto object-cover"
-                  />
+                  {three.picsend &&
+                  ["mp4", "avi", "mov"].includes(
+                    three.picname.split(".").pop().toLowerCase()
+                  ) ? (
+                    <video width="350" height="200" controls>
+                      <source
+                        src={URL.createObjectURL(three.picsend)}
+                        type={three.picsend.type}
+                      />
+                    </video>
+                  ) : null}
 
                   <div className="py-1">
                     {" "}
