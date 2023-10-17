@@ -74,7 +74,7 @@ const Square4 = ({ ctr, price, display, duration, daily }) => {
               )}
             </h1>
           </div>
-          {/* <div className="p-2 px-4">
+          <div className="p-2 px-4">
             <span className="border-dashed  py-1 border-b border-black">
               CTR
             </span>
@@ -88,7 +88,7 @@ const Square4 = ({ ctr, price, display, duration, daily }) => {
                 <>0.95% - 2%</>
               )}
             </h1>
-          </div> */}
+          </div>
           {/* <div className="p-2 px-4">
             <span className="border-dashed  py-1 border-b border-black">
               1 -day clicks

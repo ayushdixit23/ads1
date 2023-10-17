@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
           <div className="pn:max-sm:hidden"><Sidebar /></div>
           <div><MobileNav /></div>
 
-          <div className="w-full overflow-y-scroll no-scrollbar ">{children}</div>
+          <div className="w-full overflow-y-scroll no-scrollbar">{children}</div>
         </div>
       </div>
     </div>

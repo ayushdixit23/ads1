@@ -355,8 +355,6 @@ const Section4 = () => {
 
   const validDatas = validateDatas();
 
-  console.log(step);
-
   const myAgeHandle = () => {
     setCLick(1);
     setThree({
@@ -431,6 +429,10 @@ const Section4 = () => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    console.log("rendered");
+  }, []);
 
   const toggleType = (type) => {
     if (three.type.includes(type)) {
@@ -1178,7 +1180,7 @@ const Section4 = () => {
                       alt={three.picname}
                       width={350}
                       height={200}
-                      className="w-auto h-auto object-cover"
+                      className="w-auto h-auto rounded-xl object-cover"
                     />
                   )}
                   {three.pic ? (
@@ -1187,7 +1189,7 @@ const Section4 = () => {
                       alt={three.picname}
                       width={350}
                       height={200}
-                      className="w-auto h-auto object-cover"
+                      className="w-auto h-auto rounded-xl object-cover"
                     />
                   ) : null}
 
@@ -1195,7 +1197,12 @@ const Section4 = () => {
                   ["mp4", "avi", "mov"].includes(
                     three.picname.split(".").pop().toLowerCase()
                   ) ? (
-                    <video width="350" height="200" controls>
+                    <video
+                      className="w-auto h-auto rounded-2xl object-cover"
+                      width="350"
+                      height="200"
+                      controls
+                    >
                       <source
                         src={URL.createObjectURL(three.picsend)}
                         type={three.picsend.type}
@@ -1203,8 +1210,7 @@ const Section4 = () => {
                     </video>
                   ) : null}
 
-                  <div className="py-1">
-                    {" "}
+                  <div className="py-1 font-semibold">
                     {three.Headline != ""
                       ? three.Headline
                       : "Never have a bad meal"}
