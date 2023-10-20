@@ -498,7 +498,7 @@ const Register = () => {
                             src={details.myImage}
                             width={120}
                             height={120}
-                            className="object-fill "
+                            className="object-fill"
                             alt="image"
                           />
                         </>

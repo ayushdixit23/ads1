@@ -839,14 +839,14 @@ const Section4 = () => {
                     >
                       Headline
                     </label>
-                    <div className="relative w-full cursor-pointer group">
+                    {/* <div className="relative w-full cursor-pointer group">
                       <FiAlertCircle className="text-sm" />
 
                       <div className="absolute hidden text-black/75 bg-[#fff] shadow-lg text-sm p-2 px-4 rounded-b-xl rounded-r-xl group-hover:inline-block top-4 left-2">
                         <div className="  my-2 h-3 w-3 z-20 bg-white absolute -top-[13px] shadow-2xl left-0 -rotate-45"></div>
                         <div> This is a headline</div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                   <input
                     name="myForm"
@@ -865,13 +865,13 @@ const Section4 = () => {
                     <label htmlFor="des" className="text-lg font-semibold py-2">
                       Description
                     </label>
-                    <div className="relative w-full cursor-pointer group">
+                    {/* <div className="relative w-full cursor-pointer group">
                       <FiAlertCircle className="text-sm" />
                       <div className="absolute hidden text-black/75 bg-[#fff] shadow-lg text-sm p-2 px-4 rounded-b-xl rounded-r-xl group-hover:inline-block top-4 left-2">
                         <div className="  my-2 h-3 w-3 z-20 bg-white absolute -top-[13px] shadow-2xl left-0 -rotate-45"></div>
                         <div> This is a Description</div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                   <input
                     name="myForm"
@@ -904,8 +904,10 @@ const Section4 = () => {
                     </div>
 
                     <div
-                      onClick={() => setDown(1)}
-                      className="flex items-center p-2 border group-hover:rounded-[0] group-hover:rounded-t-xl rounded-xl"
+                      onMouseEnter={() => setDown(1)}
+                      className={`flex items-center p-2 border ${
+                        three.Action && down === 0 ? "" : ""
+                      } group-hover:rounded-[0] group-hover:rounded-t-xl rounded-xl`}
                     >
                       <div
                         placeholder="Order Now"
@@ -1652,6 +1654,7 @@ const Section4 = () => {
                       <span className="text-[#5585FF] mx-1">Learn more</span>
                     </div>
                   </div>
+
                   <div>
                     <h1 className="font-semibold py-2">Gender</h1>
 
@@ -2353,49 +2356,48 @@ const Section4 = () => {
                     </h1>
 
                     <div>
-                      <h1 className="text-xl py-1 font-medium">
-                        Location<span className="text-[#FF4444]">*</span>
+                      <h1 className="text-lg py-1 font-medium">
+                        Location
+                        <span className="text-[#FF4444]">*</span>
                       </h1>
-                      <div className="w-full flex justify-center items-center rounded-xl border ">
+                      <div className="w-full flex justify-center items-center rounded-xl border">
                         <BiMap className="border-r-2 p-2 text-4xl" />
                         <input
-                          name="myFrm"
+                          name="selectinput"
                           type="text"
                           onChange={() => {}}
                           placeholder="Enter the location to target audience"
                           className="w-full rounded-xl p-2 outline-none"
-                          onKeyPress={(e) => {
-                            const inputValue = e.target.value;
-                            if (!inputValue) return;
-                            if (
-                              e.key === "Enter" &&
-                              three?.location?.length < 3
-                            ) {
-                              setThree((prevState) => ({
-                                ...prevState,
-                                location: [...prevState.location, inputValue],
-                              }));
-                              e.target.value = "";
+                          value={inputValue}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              if (inputValue && three.location.length < 3) {
+                                setThree((prevState) => ({
+                                  ...prevState,
+                                  location: [...prevState.location, inputValue],
+                                }));
+                                setInputValue("");
+                              }
                             }
                           }}
                         />
                       </div>
 
-                      <div className="">
-                        {three.location.length >= 3 && (
+                      <div>
+                        {three.location.length >= 3 && inputValue !== "" && (
                           <>
                             <div className="text-sm font-medium py-2 text-red-500">
-                              Max location reached
+                              Cant insert more than 3 locations
                             </div>
                           </>
                         )}
                       </div>
 
-                      <div className="flex items-center flex-wrap gap-2 my-2">
+                      <div className="flex items-center flex-wrap gap-2 my-3 mb-4">
                         {three?.location?.map((m, i) => (
                           <div
                             key={i}
-                            className="flex justify-center items-center gap-2 p-2 px-3 bg-[#fafafa] rounded-full "
+                            className="flex justify-center items-center gap-2 bg-[#FAFAFA] p-2 px-3 rounded-full "
                           >
                             <div>{m}</div>
                             <div
@@ -2414,7 +2416,7 @@ const Section4 = () => {
                         ))}
                       </div>
 
-                      <div className="relative overflow-y-scroll no-scrollbar w-[330px] h-[230px]">
+                      <div className="relative overflow-y-scroll no-scrollbar w-[360px] h-[230px]">
                         <div>
                           <div className="absolute top-0 left-0 h-auto w-full p-3 border rounded-xl z-10 drop-shadow-md bg-white">
                             <div className="text-sm text-[#6B778C] mb-2 pb-2">
@@ -2429,23 +2431,16 @@ const Section4 = () => {
                                   <input
                                     name={i}
                                     type="checkbox"
+                                    onClick={handleCheckboxClick}
                                     checked={three.location.includes(l.name)}
                                     onChange={(event) => {
                                       const isChecked = event.target.checked;
-                                      if (
-                                        isChecked &&
-                                        three.location.length < 3
-                                      ) {
-                                        // If checkbox is checked and less than 3 locations are selected, add the value to the location array
-                                        setThree((prevState) => ({
-                                          ...prevState,
-                                          location: [
-                                            ...prevState.location,
-                                            l.name,
-                                          ],
-                                        }));
-                                      } else if (!isChecked) {
-                                        // If checkbox is unchecked, remove the value from the location array
+                                      if (isChecked) {
+                                        // If checkbox is checked, set the value to the input field
+                                        setInputValue(l.name);
+                                      } else {
+                                        // If checkbox is unchecked, clear the input field and remove from location array
+                                        setInputValue("");
                                         setThree((prevState) => ({
                                           ...prevState,
                                           location: prevState.location.filter(
@@ -2455,6 +2450,7 @@ const Section4 = () => {
                                       }
                                     }}
                                   />
+
                                   <div className="font-medium">{l.name}</div>
                                 </div>
                               ))}

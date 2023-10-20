@@ -9,7 +9,7 @@ const page = () => {
           We'd really like to hear any feedback that you might have for us! This
           will help us improve our app and make it a better experience for you.
         </p>
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-1">
           <label htmlFor="text" className="text-[#6B7280]">
             Label
           </label>

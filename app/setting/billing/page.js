@@ -139,33 +139,33 @@ const Page = () => {
               </div>
               :
               <div className="">
-                <div className="flex justify-between my-2 p-2 items-center">
-                  <div className="font-semibold">Name</div>
-                  <div className="text-[#82888D]">{data?.name}</div>
+                <div className="flex justify-between my-2 p-2 w-full items-center">
+                  <div className="font-semibold max-w-[50%]">Name</div>
+                  <div className="text-[#82888D] max-w-[50%] max-h-[80px] overflow-y-scroll no-scrollbar">{data?.name}</div>
                 </div>
-                <div className="flex justify-between my-2 p-2 items-center">
-                  <div className="font-semibold">Country</div>
-                  <div className="text-[#82888D]">{data?.country}</div>
+                <div className="flex justify-between my-2 p-2 w-full items-center">
+                  <div className="font-semibold max-w-[50%]">Country</div>
+                  <div className="text-[#82888D] max-w-[50%] max-h-[80px] overflow-y-scroll no-scrollbar">{data?.country}</div>
                 </div>
-                <div className="flex justify-between my-2 p-2 items-center">
-                  <div className="font-semibold">City</div>
-                  <div className="text-[#82888D]">{data?.city}</div>
+                <div className="flex justify-between my-2 p-2 w-full items-center">
+                  <div className="font-semibold max-w-[50%]">City</div>
+                  <div className="text-[#82888D] max-w-[50%] max-h-[80px] overflow-y-scroll no-scrollbar">{data?.city}</div>
                 </div>
-                <div className="flex justify-between my-2 p-2 items-center">
-                  <div className="font-semibold">Address</div>
-                  <div className="text-[#82888D]">{data?.address}</div>
+                <div className="flex justify-between my-2 p-2 w-full items-center">
+                  <div className="font-semibold max-w-[50%]">Address</div>
+                  <div className="text-[#82888D] max-w-[50%] max-h-[80px] overflow-y-scroll no-scrollbar">{data?.address}</div>
                 </div>
-                <div className="flex justify-between my-2 p-2 items-center">
-                  <div className="font-semibold">Account Type</div>
-                  <div className="text-[#82888D]">{data?.accounttype}</div>
+                <div className="flex justify-between my-2 p-2 w-full items-center">
+                  <div className="font-semibold max-w-[50%]">Account Type</div>
+                  <div className="text-[#82888D] max-w-[50%] max-h-[80px] overflow-y-scroll no-scrollbar">{data?.accounttype}</div>
                 </div>
-                <div className="flex justify-between my-2 p-2 items-center">
-                  <div className="font-semibold">Tax Info</div>
-                  <div className="text-[#82888D]">{data?.taxinfo}</div>
+                <div className="flex justify-between my-2 p-2 w-full items-center">
+                  <div className="font-semibold max-w-[50%]">Tax Info</div>
+                  <div className="text-[#82888D] max-w-[50%] max-h-[80px] overflow-y-scroll no-scrollbar">{data?.taxinfo}</div>
                 </div>
-                {/* <div className="flex justify-between my-2 p-2 items-center">
-            <div className="font-semibold">Language preference</div>
-            <div className="text-[#82888D]">Not chosen</div>
+                {/* <div className="flex justify-between my-2 p-2 w-full items-center">
+            <div className="font-semibold max-w-[50%]">Language preference</div>
+            <div className="text-[#82888D] max-w-[50%] max-h-[80px] overflow-y-scroll no-scrollbar">Not chosen</div>
           </div> */}
                 {/* <div className="flex justify-end">
                   <div className="flex justify-center gap-3 items-center">

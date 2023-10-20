@@ -48,7 +48,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className=" h-screen w-24 bg-white px-4 shadow-sm flex flex-col justify-between py-6 items-center">
+      <div className="h-screen w-24 bg-white px-4 shadow-sm flex flex-col justify-between py-6 items-center">
         <div className="flex flex-col justify-between items-center h-[45%]">
           <div>
             <Image src={logo} alt="logo" className="w-[50px]" />
@@ -129,7 +129,7 @@ const Sidebar = () => {
           </div>
         </div>
         <div>
-          <img src={image} width={50} height={50} alt="profile" />
+          <Image src={image} width={50} height={50} alt="profile" />
         </div>
       </div>
     </>

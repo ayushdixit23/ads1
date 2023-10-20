@@ -233,7 +233,7 @@ const Section8 = () => {
                     START DATE
                   </th>
                   <th role="columnheader" className="py-2 px-4">
-                    END DATE
+                    DURATION
                   </th>
                 </tr>
               </thead>
