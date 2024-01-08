@@ -12,12 +12,15 @@ import dsh from "../assests/dsh.svg";
 import { AiOutlinePlus } from "react-icons/ai";
 import dashp2 from "../assests/Pic1.svg";
 import { useRouter } from "next/navigation";
+import useTokenAndData from "../utils/token";
 
 const Section8 = () => {
   const [data, setData] = useState();
   const [mount, setMount] = useState(false);
   const [campdata, setCampdata] = useState([]);
   const router = useRouter();
+  const [loading, setLoading] = useState(true)
+  const { appData } = useTokenAndData()
 
   function formatDate(inputDate) {
     // Parse the input date string into a Date object
@@ -39,16 +42,18 @@ const Section8 = () => {
   }
 
   // Example usage:
-  const dateString = "2023-10-06"; // Example input date string in yyyy-mm-dd format
+  const dateString = "2023-10-06";
   const formattedDate = formatDate(dateString);
-  // console.log(formattedDate); // Output: "06 10 2023"
+
 
   const fetchData = async (id) => {
     try {
+
       const res = await axios.get(`${API}/fetchdashboard/${id}`);
+
       if (res?.data?.success) {
-        setData(res.data);
-        // console.log(res.data);
+        setData(res.data, "1");
+
       }
     } catch (e) {
       console.log(e);
@@ -57,33 +62,46 @@ const Section8 = () => {
 
   const CampaignFetch = async (id) => {
     try {
+
       const res = await axios.get(`${API}/getallads/${id}`);
       if (res?.data?.success) {
-        const ad = res.data.ads;
-        const content = res.data.content;
+        const ad = res?.data?.ads;
+        const content = res?.data?.content;
         const merge = ad?.map((a, i) => ({
           a,
           c: content[i],
         }));
 
         setCampdata(merge);
-        // console.log(merge);
+
       }
     } catch (e) {
       console.log(e);
     }
   };
 
-  useEffect(() => {
-    if (!mount) {
-      setMount(true);
-      const id = sessionStorage.getItem("id");
-      if (id) {
-        fetchData(id);
-        CampaignFetch(id);
+
+  const f = async () => {
+    try {
+      if (!mount) {
+        setMount(true);
+        const kuchbhi = await appData()
+
+        const id = kuchbhi.id;
+
+        if (id) {
+          fetchData(id);
+          CampaignFetch(id);
+        }
       }
+    } catch (error) {
+      console.log(error)
     }
+  }
+  useEffect(() => {
+    f()
   }, []);
+
 
   return (
     <>
@@ -205,11 +223,10 @@ const Section8 = () => {
           {/* table */}
 
           <div
-            className={`${
-              campdata.length != 0
-                ? "max-w-full my-6 overflow-x-scroll no-scrollbar"
-                : "pn:max-md:hidden"
-            }`}
+            className={`${campdata.length != 0
+              ? "max-w-full my-6 overflow-x-scroll no-scrollbar"
+              : "pn:max-md:hidden"
+              }`}
           >
             <table className="min-w-[900px] w-full bg-white border border-separate border-spacing-y-5 rounded-lg">
               <thead className="bg-[#FAFAFA] font-semibold text-[#6E7191]">
@@ -241,8 +258,7 @@ const Section8 = () => {
                 {campdata.length > 0 ? (
                   <>
                     {campdata?.map((d, i) => (
-                      // <tr className="bg-red-800">
-                      //   <td colSpan="7 w-full">
+
                       <tr
                         key={i}
                         className="bg-white border-2 font-semibold border-black "
@@ -262,30 +278,11 @@ const Section8 = () => {
                             : "___"}
                         </td>
                         <td className="py-2 px-4 text-center">
-                          {/* {d?.a?.enddate != "Not Selected"
-                            ? formatDate(d?.a?.enddate)
-                            : "___"} */}
+
                           {d?.a?.enddate}
                         </td>
                       </tr>
 
-                      // {/* <div className="flex justify-between  items-center border-y-2 p-3">
-                      //   <div className="font-semibold">
-                      //     {campdata?.length}
-                      //     Ads
-                      //   </div>
-                      //   <div className="flex justify-center space-x-5 items-center">
-                      //     <div className="flex justify-center space-x-1 p-1 px-3 border-2 rounded-full items-center">
-                      //       <div>{campdata?.length}</div>
-                      //       <div>
-                      //         <FaAngleDown />
-                      //       </div>
-                      //     </div>
-                      //   </div>
-                      // </div> */}
-
-                      //   </td>
-                      // </tr>
                     ))}
                     <tr>
                       <td colSpan="7">

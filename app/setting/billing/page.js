@@ -1,12 +1,15 @@
 "use client";
 import { API } from "@/Essentials";
+import {encryptaes } from "@/app/utils/security";
+import useTokenAndData from "@/app/utils/token";
 import axios from "axios";
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { BiPencil } from "react-icons/bi";
-import { BsToggleOn } from "react-icons/bs";
 
 const Page = () => {
   const [edit, setEdit] = useState(false);
+  const { appData } = useTokenAndData()
   const [data, setData] = useState({
     accid: '',
     name: '',
@@ -16,22 +19,31 @@ const Page = () => {
     accounttype: '',
     taxinfo: '',
   });
-
+  
   useEffect(() => {
-    setData({
-      ...data,
-      accid: sessionStorage.getItem("advid"),
-      name: sessionStorage.getItem("firstname"),
-      country: sessionStorage.getItem("country"),
-      city: sessionStorage.getItem("city"),
-      address: sessionStorage.getItem("address"),
-      accounttype: sessionStorage.getItem("accounttype"),
-      taxinfo: sessionStorage.getItem("taxinfo"),
-    });
-  }, [])
+    appData()
+      .then((res) => {
+       setData({
+          ...data,
+          accid: res.advid,
+          name: res.firstname,
+          country: res.country,
+          city: res.city,
+          address: res.address,
+          accounttype: res.accounttype,
+          taxinfo: res.taxinfo,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [appData]);
 
   const handleSave = async () => {
-    const id = sessionStorage.getItem("id")
+   const cookieData= await appData()
+   console.log(cookieData)
+   const id = cookieData?.id
+   console.log(id)
     try {
       const res = await axios.post(`${API}/editadvertiser/${id}`, {
         firstname: data?.name,
@@ -41,7 +53,26 @@ const Page = () => {
         address: data?.address,
         accounttype: data?.accounttype,
       })
-      console.log(res.data)
+    
+      if(res.data?.success){
+        Cookies.remove("adwkpiz")
+        const datatoputinCookie={
+        id: cookieData.id,
+        userid:cookieData.userid,
+        email: cookieData.email,
+        advid:cookieData.advid,
+        image: cookieData.image,
+        firstname: data?.name,
+        city: data?.city,
+        country: data?.country,
+        taxinfo: data?.taxinfo,
+        address: data?.address,
+        accounttype: data?.accounttype,
+        }
+        const str= JSON.stringify(datatoputinCookie)
+        const en= encryptaes(str)
+        Cookies.set("adwkpiz",en)
+      }
       setEdit(false)
     } catch (e) {
       console.log(e)
@@ -52,13 +83,6 @@ const Page = () => {
     <>
       <div className="h-full w-full p-[3%]">
         <h1 className="text-xl font-semibold py-2">Payment Methods</h1>
-
-        {/* <div className="flex justify-between my-5 hover:bg-[#fafafa] p-2 items-center">
-          <div>Auto Payments</div>
-          <div>
-            <BsToggleOn className="text-3xl" />
-          </div>
-        </div> */}
         <div className=" my-5">
           <div className="flex hover:bg-[#fafafa] p-2 justify-between items-center">
             {" "}
@@ -75,14 +99,14 @@ const Page = () => {
                   <div className="font-semibold">Name</div>
                   <input className="text-[#82888D] border outline-none p-2 rounded-lg" value={data?.name} onChange={(e) => {
                     setData({ ...data, name: e.target.value })
-                    sessionStorage.setItem("firstname", e.target.value)
+                    
                   }} />
                 </div>
                 <div className="flex justify-between my-2 items-center">
                   <div className="font-semibold">Country</div>
                   <input className="text-[#82888D] border outline-none p-2 rounded-lg" value={data?.country} onChange={(e) => {
                     setData({ ...data, country: e.target.value })
-                    sessionStorage.setItem("county", e.target.value)
+                    
                   }} />
 
                 </div>
@@ -93,7 +117,7 @@ const Page = () => {
                     value={data.city}
                     onChange={(e) => {
                       setData({ ...data, city: e.target.value })
-                      sessionStorage.setItem("city", e.target.value)
+                    
                     }}
                   />
 
@@ -102,21 +126,21 @@ const Page = () => {
                   <div className="font-semibold">Address</div>
                   <input className="text-[#82888D] border outline-none p-2 rounded-lg" value={data?.address} onChange={(e) => {
                     setData({ ...data, address: e.target.value })
-                    sessionStorage.setItem("address", e.target.value)
+                 
                   }} />
                 </div>
                 <div className="flex justify-between my-2 items-center">
                   <div className="font-semibold">Account Type</div>
                   <input className="text-[#82888D] border outline-none p-2 rounded-lg" value={data?.accounttype} onChange={(e) => {
                     setData({ ...data, accounttype: e.target.value })
-                    sessionStorage.setItem("accounttype", e.target.value)
+                    
                   }} />
                 </div>
                 <div className="flex justify-between my-2 items-center">
                   <div className="font-semibold">Tax Info</div>
                   <input className="text-[#82888D] border outline-none p-2 rounded-lg" value={data?.taxinfo} onChange={(e) => {
                     setData({ ...data, taxinfo: e.target.value })
-                    sessionStorage.setItem("taxinfo", e.target.value)
+                 
                   }} />
 
                 </div>

@@ -18,6 +18,10 @@ import { FaExclamationTriangle } from "react-icons/fa";
 import { BsFillExclamationCircleFill } from "react-icons/bs";
 import Lotties from "../component/Lotties";
 import Link from "next/link";
+import Cookies from "js-cookie";
+import { encryptaes } from "../utils/security";
+import { changeloading } from "../redux/slice/userData";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   // const [theme, setTheme] = useState();
@@ -33,9 +37,9 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [showOTP, setShowOTP] = useState(false);
   const [load, setLoad] = useState(false);
-
+  const dispatch = useDispatch()
   function onCaptchaVerify() {
-    if (!window.recaptchaVerifier) {
+    if (typeof window !== "undefined" && !window.recaptchaVerifier) {
       window.recaptchaVerifier = new RecaptchaVerifier(
         auth,
         "recaptcha-container",
@@ -84,20 +88,13 @@ const Login = () => {
               password,
             });
             if (res.data.success) {
-              sessionStorage.setItem("id", res.data.advertiser._id);
-              sessionStorage.setItem(
-                "firstname",
-                res.data.advertiser.firstname
+              await cookieSetter(res.data)
+              dispatch(
+                changeloading({
+                  loading: true,
+                  path: `/main/dashboard`,
+                })
               );
-              sessionStorage.setItem("country", res.data.advertiser.country);
-              sessionStorage.setItem("city", res.data.advertiser.city);
-              sessionStorage.setItem("address", res.data.advertiser.address);
-              sessionStorage.setItem("accounttype", res.data.advertiser.type);
-              sessionStorage.setItem("taxinfo", res.data.advertiser.taxinfo);
-              sessionStorage.setItem("email", res.data.advertiser.email);
-              sessionStorage.setItem("advid", res.data.advertiser.advertiserid);
-              sessionStorage.setItem("image", res.data.dp);
-              router.push("/main/dashboard");
             } else {
               console.log("something went wrong");
             }
@@ -114,6 +111,32 @@ const Login = () => {
     }
   };
 
+
+  const cookieSetter = async (dataF) => {
+    try {
+      const data = {
+        id: dataF.advertiser._id,
+        firstname: dataF.advertiser.firstname,
+        userid: dataF.userid,
+        country: dataF.advertiser.country,
+        city: dataF.advertiser.city,
+        address: dataF.advertiser.address,
+        accounttype: dataF.advertiser.type,
+        taxinfo: dataF.advertiser.taxinfo,
+        email: dataF.advertiser.email,
+        advid: dataF.advertiser.advertiserid,
+        image: dataF.dp
+      }
+      const stringdata = JSON.stringify(data)
+      const encryptedData = encryptaes(stringdata)
+      Cookies.set("adwkpiz", encryptedData)
+      Cookies.set("axetkn", dataF.access_token)
+      Cookies.set("rvktkn", dataF.refresh_token)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
   //signup
   function onSignup(e) {
     e.preventDefault();
@@ -154,16 +177,7 @@ const Login = () => {
           phone: number,
         });
         if (res.data.success) {
-          sessionStorage.setItem("id", res.data.advertiser._id);
-          sessionStorage.setItem("firstname", res.data.advertiser.firstname);
-          sessionStorage.setItem("country", res.data.advertiser.country);
-          sessionStorage.setItem("city", res.data.advertiser.city);
-          sessionStorage.setItem("address", res.data.advertiser.address);
-          sessionStorage.setItem("accounttype", res.data.advertiser.type);
-          sessionStorage.setItem("taxinfo", res.data.advertiser.taxinfo);
-          sessionStorage.setItem("email", res.data.advertiser.email);
-          sessionStorage.setItem("advid", res.data.advertiser.advertiserid);
-          sessionStorage.setItem("image", res.data.dp);
+          await cookieSetter(res.data)
           router.push("/main/dashboard");
         } else {
           console.log("something went wrong");
@@ -194,16 +208,7 @@ const Login = () => {
         try {
           const res = await axios.get(`${API}/getdetails/${e.data}`);
           if (res.data.success) {
-            sessionStorage.setItem("id", res.data.advertiser._id);
-            sessionStorage.setItem("firstname", res.data.advertiser.firstname);
-            sessionStorage.setItem("country", res.data.advertiser.country);
-            sessionStorage.setItem("city", res.data.advertiser.city);
-            sessionStorage.setItem("address", res.data.advertiser.address);
-            sessionStorage.setItem("accounttype", res.data.advertiser.type);
-            sessionStorage.setItem("taxinfo", res.data.advertiser.taxinfo);
-            sessionStorage.setItem("email", res.data.advertiser.email);
-            sessionStorage.setItem("advid", res.data.advertiser.advertiserid);
-            sessionStorage.setItem("image", res.data.dp);
+            await cookieSetter(res.data)
             router.push("/main/dashboard");
           } else {
             console.log("something went wrong");
@@ -222,9 +227,8 @@ const Login = () => {
     <>
       <div className="flex justify-center items-center">
         <div
-          className={` my-2 text-xl bg-yellow-600 text-white text-center p-2 sm:w-[300px] duration-700 absolute  border-2 font-medium ${
-            login ? "top-[150px]" : "top-[-100px]"
-          }`}
+          className={` my-2 text-xl bg-yellow-600 text-white text-center p-2 sm:w-[300px] duration-700 absolute  border-2 font-medium ${login ? "top-[150px]" : "top-[-100px]"
+            }`}
         >
           <div className="flex justify-center items-center space-x-2">
             {" "}
@@ -267,9 +271,8 @@ const Login = () => {
 
             <form>
               <div
-                className={`${
-                  phone != 1 ? "flex flex-col justify-center" : "hidden"
-                }`}
+                className={`${phone != 1 ? "flex flex-col justify-center" : "hidden"
+                  }`}
               >
                 {showOTP ? (
                   <>
@@ -349,9 +352,8 @@ const Login = () => {
                 )}
               </div>
               <div
-                className={`${
-                  phone != 2 ? "flex flex-col justify-center" : "hidden"
-                }`}
+                className={`${phone != 2 ? "flex flex-col justify-center" : "hidden"
+                  }`}
               >
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between my-2 font-medium items-center">

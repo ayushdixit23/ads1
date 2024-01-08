@@ -11,21 +11,22 @@ import { RxCross2 } from "react-icons/rx";
 import useRazorpay from "react-razorpay";
 import { useRouter } from "next/navigation";
 import moment from "moment";
+import useTokenAndData from "../utils/token";
 
 const Wallet = () => {
   const [wallet, setWallet] = useState(0);
-  const [money, setMoney] = useState();
+  const [money, setMoney] = useState("");
   const [load, setLoad] = useState(false);
   const [payhistory, setPayhistory] = useState([]);
   const [check, setCheck] = useState(false);
   const [inp, setInp] = useState("");
   const [Razorpay] = useRazorpay();
-  const [os, setOs] = useState();
+  const [os, setOs] = useState("");
   const router = useRouter();
-
+  const { appData } = useTokenAndData()
   const fetchdata = useCallback(async () => {
-    const id = sessionStorage.getItem("id");
-
+    const data = await appData()
+    const id = data.id;
     try {
       const response = await axios.get(`${API}/gettransactions/${id}`);
       if (response.data.success) {
@@ -49,9 +50,9 @@ const Wallet = () => {
   const handlePayment = useCallback(
     async (e) => {
       e.preventDefault();
-      const name = sessionStorage.getItem("fullname");
-      const id = sessionStorage.getItem("id");
-
+      const data = await appData()
+      const name = data.fullname;
+      const id = data.id
       if (id && inp) {
         try {
           const response = await axios.post(`${API}/addmoneytowallet/${id}`, {
@@ -59,75 +60,57 @@ const Wallet = () => {
           });
 
           if (response.data.success === true) {
-            const oi = response.data.oi;
-            const options = {
-              key: "rzp_test_lD67Bc4TAAnHOv",
-              amount: inp * 100,
-              currency: "INR",
-              name: "Grovyo Platforms",
-              description: "Test Transaction",
-              image: "https://example.com/your_logo",
+            const order_id = response.data.order_id;
+            var options = {
+              "key": "rzp_test_jXDMq8a2wN26Ss", // Enter the Key ID generated from the Dashboard
+              "amount": `${inp * 100}`, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+              "currency": "INR",
+              "name": "Acme Corp", //your business name
+              "description": "Test Transaction",
+              "image": "https://example.com/your_logo",
+              "order_id": `${order_id}`, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+              "callback_url": "http://localhost:3000/status",
 
-              handler: function (response) {
-                if (response.razorpay_payment_id) {
-                  console.log("Payment successful!");
-                  setOs(true);
-                  try {
-                    const send = async () => {
-                      const res = await axios.post(
-                        `${API}/updatetransactionstatus/${id}`,
-                        { success: "Success", tid: oi, amount: inp }
-                      );
-
-                      if (res.data.success === true) {
-                        console.log("Order status updated successfully.");
-                        setWallet(false);
-                        fetchdata();
-                      } else {
-                        console.log("Failed to update order status.");
-                      }
-                    };
-                    send();
-                  } catch (error) {
-                    console.log(error);
-                  }
-                } else {
-                  console.log("Payment failed!");
-                  setOs(false);
-                  try {
-                    const send = async () => {
-                      const res = await axios.post(
-                        `${API}/updatetransactionstatus/${id}`,
-                        { success: "Failed", tid: oi, amount: inp }
-                      );
-                      if (res.data.success === true) {
-                        router.push("/main/wallet");
-                        console.log("Order status updated successfully.");
-                      } else {
-                        console.log("Failed to update order status.");
-                      }
-                    };
-                    send();
-                  } catch (error) {
-                    console.log(error);
-                  }
+              "handler": async (response) => {
+                try {
+                  const res = await axios.post(`http://192.168.29.225:7700/updatetransactionstatus/${id}`, {
+                    payment_id: response.razorpay_payment_id,
+                    order_id: response.razorpay_order_id,
+                    razorpay_signature: response.razorpay_signature,
+                  })
+                  console.log(res.data)
+                } catch (error) {
+                  console.log(error)
                 }
+                // alert(response.razorpay_payment_id);
+                // alert(response.razorpay_order_id);
+                // alert(response.razorpay_signature)
               },
-              prefill: {
-                name: name,
-                email: "-",
-                contact: "-",
-              },
-              notes: {
-                address: "India",
-              },
-              theme: {
-                color: "#313c58",
-              },
-            };
 
+              "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+                "name": "Ayush Dixit", //your customer's name
+                "email": "gaurav.kumar@example.com",
+                "contact": "9000090000" //Provide the customer's phone number for better conversion rates 
+              },
+              "notes": {
+                "address": "Razorpay Corporate Office"
+              },
+              "theme": {
+                "color": "#3399cc"
+              }
+            };
             const rzpay = new Razorpay(options);
             rzpay.open();
+            rzpay.on('payment.failed', async function (response) {
+              console.log(response)
+              // alert(response.error.code);
+              // alert(response.error.description);
+              // alert(response.error.source);
+              // alert(response.error.step);
+              // alert(response.error.reason);
+              // alert(response.error.metadata.order_id);
+              // alert(response.error.metadata.payment_id);
+            });
             setLoad(true);
           } else {
             console.log("Add money request failed.");
@@ -145,20 +128,18 @@ const Wallet = () => {
   return (
     <>
       <div
-        className={`${
-          wallet === 1
-            ? "fixed inset-0 z-40 bg-black opacity-50 backdrop-blur-2xl"
-            : "hidden"
-        }`}
+        className={`${wallet === 1
+          ? "fixed inset-0 z-40 bg-black opacity-50 backdrop-blur-2xl"
+          : "hidden"
+          }`}
       >
         {" "}
       </div>
       <div
-        className={`${
-          wallet === 1
-            ? "fixed inset-0 flex items-center p-3 justify-center z-50"
-            : "hidden"
-        }`}
+        className={`${wallet === 1
+          ? "fixed inset-0 flex items-center p-3 justify-center z-50"
+          : "hidden"
+          }`}
       >
         <div className="sm:w-[58%] w-[85%] md:w-[43%] h-auto rounded-2xl bg-white p-5 sm:p-[2%]">
           <div className="flex justify-end">
@@ -255,9 +236,8 @@ const Wallet = () => {
           {/* no data */}
           {payhistory.length === 0 && (
             <div
-              className={`p-3 ${
-                payhistory.length === 0 && " pn:max-sm:mb-[5rem]"
-              } `}
+              className={`p-3 ${payhistory.length === 0 && " pn:max-sm:mb-[5rem]"
+                } `}
             >
               <div className="flex justify-between bg-white items-center w-full border md:hidden rounded-t-2xl py-5 px-3 sm:px-[4%]">
                 <div className="sm:text-2xl text-lg font-semibold">
@@ -293,9 +273,8 @@ const Wallet = () => {
           )}
 
           <div
-            className={`p-3 ${
-              payhistory.length != 0 ? null : "pn:max-md:hidden"
-            }`}
+            className={`p-3 ${payhistory.length != 0 ? null : "pn:max-md:hidden"
+              }`}
           >
             <div className="flex justify-between bg-white items-center w-full border rounded-t-2xl py-5 px-3 sm:px-[4%]">
               <div className="sm:text-2xl text-lg font-semibold">
@@ -344,9 +323,8 @@ const Wallet = () => {
                               : "-"}
                           </td>
                           <td
-                            className={`text-center font-medium px-4 py-2 ${
-                              p?.status === "Pending" ? "text-[#F9943B]" : null
-                            }
+                            className={`text-center font-medium px-4 py-2 ${p?.status === "Pending" ? "text-[#F9943B]" : null
+                              }
                           ${p?.status === "Success" ? "text-[#03A65A]" : null}
                           ${p?.status === "Failed" ? "text-[#FC2E20]" : null}
     `}

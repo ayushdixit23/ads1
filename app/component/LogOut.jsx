@@ -2,19 +2,21 @@
 "use client";
 import { API } from "@/Essentials";
 import axios from "axios";
+import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { RxCross1 } from "react-icons/rx";
-import { TbArrowBigLeftLineFilled } from "react-icons/tb";
+import useTokenAndData from "../utils/token";
+
 
 const LogoutModal = ({ isOpen, onClose, onLogout }) => {
   const [id, setId] = useState();
   const router = useRouter();
+  const { appData } = useTokenAndData()
   const handleLogout = async () => {
     try {
       const res = axios.post(`${API}/logoutadv/${id}`);
       if ((await res).data.success) {
-        sessionStorage.clear();
+        Cookies.remove("adwkpiz");
         router.push("/login");
       }
     } catch (e) {
@@ -22,9 +24,16 @@ const LogoutModal = ({ isOpen, onClose, onLogout }) => {
     }
   };
 
+  const f = async () => {
+    try {
+      const data = await appData()
+      setId(data.id)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   useEffect(() => {
-    const id = sessionStorage.getItem("id");
-    setId(id);
+    f()
   }, []);
   return (
     <>
@@ -38,9 +47,8 @@ const LogoutModal = ({ isOpen, onClose, onLogout }) => {
         )}
 
         <div
-          className={`fixed inset-0 flex items-center justify-center z-50 ${
-            isOpen ? "block" : "hidden"
-          }`}
+          className={`fixed inset-0 flex items-center justify-center z-50 ${isOpen ? "block" : "hidden"
+            }`}
         >
           <div className="w-[330px] shadow-lg rounded-2xl p-3 sm:p-4 bg-white">
             <div className="py-2">

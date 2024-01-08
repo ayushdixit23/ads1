@@ -1,8 +1,5 @@
-"use client";
-import { API } from "@/Essentials";
-import axios from "axios";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 
 const Header = () => {

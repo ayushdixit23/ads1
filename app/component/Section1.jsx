@@ -6,11 +6,13 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineDelete, AiOutlinePlus } from "react-icons/ai";
 import { BiPencil } from "react-icons/bi";
 import { FaAngleDown } from "react-icons/fa";
+import useTokenAndData from "../utils/token";
 
 const Section1 = () => {
   const [data, setData] = useState();
   const [load, setLoad] = useState(false);
   const [mount, setMount] = useState(false);
+  const { appData } = useTokenAndData()
 
   const CampaignFetch = async (id) => {
     try {
@@ -32,14 +34,23 @@ const Section1 = () => {
     }
   };
 
-  useEffect(() => {
-    if (!mount) {
-      setMount(true);
-      const id = sessionStorage.getItem("id");
-      if (id) {
-        CampaignFetch(id);
+  const f = async () => {
+    try {
+      const data = await appData()
+      if (!mount) {
+        setMount(true);
+        const id = data.id;
+        if (id) {
+          CampaignFetch(id);
+        }
       }
+    } catch (error) {
+      console.log(error)
     }
+  }
+
+  useEffect(async () => {
+    f()
   }, []);
 
   return (

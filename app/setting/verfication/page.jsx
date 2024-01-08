@@ -9,7 +9,8 @@ const page = () => {
   const [user, setUser] = useState({ name: "", pic: "", picname: "" });
 
   const handleSave = async () => {
-    const id = sessionStorage.getItem("id");
+    const data = appData()
+    const id = data.id
 
     if (user?.name && user?.pic) {
       try {
@@ -35,11 +36,10 @@ const page = () => {
           ></div>
         )}
         <div
-          className={`${
-            pop
-              ? "fixed inset-0 flex items-center p-3 justify-center z-50"
-              : "hidden"
-          }`}
+          className={`${pop
+            ? "fixed inset-0 flex items-center p-3 justify-center z-50"
+            : "hidden"
+            }`}
         >
           <div
             onClick={(e) => e.stopPropagation()}

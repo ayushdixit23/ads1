@@ -6,12 +6,15 @@ import { FiSettings } from "react-icons/fi";
 import { BiWallet } from "react-icons/bi";
 import { AiOutlineBarChart } from "react-icons/ai";
 import { useRouter } from "next/navigation";
+import { BsPeopleFill } from "react-icons/bs";
+import useTokenAndData from "../utils/token";
+
 
 const Sidebar = () => {
-  const [image, setImage] = useState();
+  const [image, setImage] = useState("");
   const router = useRouter();
   const [color, setColor] = useState(0);
-
+  const { appData } = useTokenAndData()
   useEffect(() => {
     // Retrieve the selected color from sessionStorage
     const storedColor = sessionStorage.getItem("selectedColor");
@@ -37,13 +40,25 @@ const Sidebar = () => {
       case 2:
         router.push("/setting");
         break;
+      case 3:
+        router.push("/main/community");
+        break;
       default:
         break;
     }
   };
+
+  const f = async () => {
+    try {
+      const data = await appData()
+      const pics = data.image
+      setImage(pics);
+    } catch (error) {
+      console.log(error)
+    }
+  }
   useEffect(() => {
-    const pics = sessionStorage.getItem("image");
-    setImage(pics);
+    f()
   }, []);
 
   return (
@@ -63,17 +78,37 @@ const Sidebar = () => {
                 <div className="flex flex-col justify-center gap-2 hover:text-blue-500 items-center">
                   <div>
                     <AiOutlineBarChart
-                      className={`text-[26px] ${
-                        color === 0 ? "active [&.active]:text-blue-600 " : null
-                      }`}
+                      className={`text-[26px] ${color === 0 ? "active [&.active]:text-blue-600 " : null
+                        }`}
                     />
                   </div>
                   <div
-                    className={`${
-                      color === 0 ? "active [&.active]:text-blue-600 " : null
-                    }`}
+                    className={`${color === 0 ? "active [&.active]:text-blue-600 " : null
+                      }`}
                   >
                     Overview
+                  </div>
+                </div>
+              </li>
+
+              <li
+                onClick={() => {
+                  handleColor(3);
+                }}
+              >
+                <div
+                  className={` flex flex-col justify-center gap-2 hover:text-blue-500 items-center ${color === 3 ? "active [&.active]:text-blue-600 " : null
+                    }`}
+                >
+                  <div>
+                    <BsPeopleFill
+                      className={` text-[26px]`} />
+                  </div>
+                  <div
+                    className={`${color === 3 ? "active [&.active]:text-blue-600 " : null
+                      }`}
+                  >
+                    Community
                   </div>
                 </div>
               </li>
@@ -84,22 +119,21 @@ const Sidebar = () => {
                 }}
               >
                 <div
-                  className={` flex flex-col justify-center gap-2 hover:text-blue-500 items-center ${
-                    color === 1 ? "active [&.active]:text-blue-600 " : null
-                  }`}
+                  className={` flex flex-col justify-center gap-2 hover:text-blue-500 items-center ${color === 1 ? "active [&.active]:text-blue-600 " : null
+                    }`}
                 >
                   <div>
                     <BiWallet className={` text-[26px]`} />
                   </div>
                   <div
-                    className={`${
-                      color === 1 ? "active [&.active]:text-blue-600 " : null
-                    }`}
+                    className={`${color === 1 ? "active [&.active]:text-blue-600 " : null
+                      }`}
                   >
                     Wallet
                   </div>
                 </div>
               </li>
+
               <li
                 onClick={() => {
                   handleColor(2);
@@ -111,15 +145,13 @@ const Sidebar = () => {
                 >
                   <div>
                     <FiSettings
-                      className={`text-[26px] ${
-                        color === 2 ? "active [&.active]:text-blue-600 " : null
-                      }`}
+                      className={`text-[26px] ${color === 2 ? "active [&.active]:text-blue-600 " : null
+                        }`}
                     />
                   </div>
                   <div
-                    className={`${
-                      color === 2 ? "active [&.active]:text-blue-600 " : null
-                    }`}
+                    className={`${color === 2 ? "active [&.active]:text-blue-600 " : null
+                      }`}
                   >
                     Settings
                   </div>
