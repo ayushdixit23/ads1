@@ -12,7 +12,7 @@ import dsh from "../assests/dsh.svg";
 import { AiOutlinePlus } from "react-icons/ai";
 import dashp2 from "../assests/Pic1.svg";
 import { useRouter } from "next/navigation";
-import useTokenAndData from "../utils/token";
+import { getData } from "../utils/useful";
 
 const Section8 = () => {
   const [data, setData] = useState();
@@ -20,7 +20,8 @@ const Section8 = () => {
   const [campdata, setCampdata] = useState([]);
   const router = useRouter();
   const [loading, setLoading] = useState(true)
-  const { appData } = useTokenAndData()
+  const { userid } = getData()
+
 
   function formatDate(inputDate) {
     // Parse the input date string into a Date object
@@ -85,13 +86,10 @@ const Section8 = () => {
     try {
       if (!mount) {
         setMount(true);
-        const kuchbhi = await appData()
 
-        const id = kuchbhi.id;
-
-        if (id) {
-          fetchData(id);
-          CampaignFetch(id);
+        if (userid) {
+          fetchData(userid);
+          CampaignFetch(userid);
         }
       }
     } catch (error) {
@@ -105,13 +103,13 @@ const Section8 = () => {
 
   return (
     <>
-      <div className="bg-[#f8f8f8] flex flex-col">
+      <div className="bg-maincolor light:bg-[#f8f8f8] flex flex-col">
         <Header />
       </div>
       <div className="grid grid-cols-1 select-none p-4">
         <div className="grid grid-cols-1  gap-4 md:gap-7">
           <div className=" w-full grid md:grid-cols-4 pn:max-md:gap-2 grid-cols-2 py-4 rounded-xl">
-            <div className="flex bg-white justify-center items-center p-2 gap-2 sm:gap-5 pn:max-sm:rounded-md sm:max-md:rounded-xl sm:p-3 md:rounded-tl-2xl md:rounded-bl-2xl md:border-r-2">
+            <div className="flex bg-maincolor justify-center items-center p-2 gap-2 sm:gap-5 pn:max-sm:rounded-md sm:max-md:rounded-xl sm:p-3 md:rounded-tl-2xl md:rounded-bl-2xl md:border-r-2">
               <div className="flex flex-col text-xs justify-center">
                 <div>Spent this month</div>
                 <div className="sm:text-xl text-sm font-semibold">
@@ -128,7 +126,7 @@ const Section8 = () => {
                 />
               </div>
             </div>
-            <div className="flex justify-center w-full items-center pn:max-sm:rounded-md sm:max-md:rounded-xl gap-2 sm:gap-5 p-2 sm:p-3  bg-white md:border-r-2">
+            <div className="flex justify-center w-full items-center pn:max-sm:rounded-md sm:max-md:rounded-xl gap-2 sm:gap-5 p-2 sm:p-3  bg-maincolor md:border-r-2">
               <div>
                 {/* <Icon5 /> */}
                 <Image
@@ -144,7 +142,7 @@ const Section8 = () => {
                 </div>
               </div>
             </div>
-            <div className="flex justify-center items-center gap-2 pn:max-sm:rounded-md sm:max-md:rounded-xl sm:gap-5 p-2 sm:p-3  bg-white md:border-r-2">
+            <div className="flex justify-center items-center gap-2 pn:max-sm:rounded-md sm:max-md:rounded-xl sm:gap-5 p-2 sm:p-3  bg-maincolor md:border-r-2">
               <div>
                 <Image
                   src={dashp2}
@@ -162,7 +160,7 @@ const Section8 = () => {
                 </div>
               </div>
             </div>
-            <div className="flex sm:justify-center items-center p-2 sm:p-3 pn:max-sm:rounded-md sm:max-md:rounded-xl gap-2 sm:gap-5 md:rounded-tr-2xl md:rounded-br-2xl bg-white ">
+            <div className="flex sm:justify-center items-center p-2 sm:p-3 pn:max-sm:rounded-md sm:max-md:rounded-xl gap-2 sm:gap-5 md:rounded-tr-2xl md:rounded-br-2xl bg-maincolor ">
               <div className="flex flex-col ml-3 text-xs">
                 <div>Popularitiy</div>
                 <div className="sm:text-xl text-sm font-semibold">
@@ -182,7 +180,7 @@ const Section8 = () => {
           {campdata.length === 0 && (
             <div
               style={{ marginBottom: "3rem" }}
-              className="flex flex-col w-full justify-center bg-white p-2 py-5 my-3 md:hidden items-center"
+              className="flex flex-col w-full justify-center bg-maincolor p-2 py-5 my-3 md:hidden items-center"
             >
               <div>
                 <div className="flex justify-center items-center">
@@ -228,8 +226,8 @@ const Section8 = () => {
               : "pn:max-md:hidden"
               }`}
           >
-            <table className="min-w-[900px] w-full bg-white border border-separate border-spacing-y-5 rounded-lg">
-              <thead className="bg-[#FAFAFA] font-semibold text-[#6E7191]">
+            <table className="min-w-[900px] w-full bg-maincolor border border-separate border-spacing-y-5 rounded-lg">
+              <thead className="bg-[#FAFAFA] dark:bg-[#273142] font-semibold text-[#6E7191]">
                 <tr>
                   <th role="columnheader" className="py-2 px-4">
                     NAME
@@ -261,7 +259,7 @@ const Section8 = () => {
 
                       <tr
                         key={i}
-                        className="bg-white border-2 font-semibold border-black "
+                        className="bg-maincolor border-2 font-semibold border-black "
                       >
                         <td className="py-2 px-4 ">{d?.a?.adname}</td>
                         <td className="py-2 px-4 text-center text-[#27AE60]">
@@ -356,7 +354,7 @@ const Section8 = () => {
           </div>
 
           {/* <>
-              <table className="min-w-[900px] w-full bg-white border border-separate border-spacing-y-5 rounded-lg">
+              <table className="min-w-[900px] w-full bg-maincolor border border-separate border-spacing-y-5 rounded-lg">
                 <thead className="bg-[#FAFAFA] font-semibold text-[#6E7191]">
                   <tr>
                     <th role="columnheader" className="py-2 px-4">

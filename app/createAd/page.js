@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API } from "@/Essentials";
-import useTokenAndData from "../utils/token";
+import { getData } from "../utils/useful";
+import { useSelector } from "react-redux";
 
 function page() {
   const [three, setThree] = useState({
@@ -35,13 +36,15 @@ function page() {
     duration: "1",
     random_id: Date.now().toString(),
   });
-const {appData} = useTokenAndData()
+  const { firstname, lastname, userid, image, advid } = getData()
   const [inputValue, setInputValue] = useState("");
   const [t, setT] = useState("");
   const [down, setDown] = useState(0);
   const [data, setData] = useState();
   const [click, setCLick] = useState(0);
-  const [step, setStep] = useState(0);
+  // const [step, setStep] = useState(2);
+  // const [step, setStep] = useState(0);
+  const step = useSelector((state) => state.data.step)
   const router = useRouter();
   const [point, setPoint] = useState(null);
   const [PointsCategory, setPointsCategory] = useState([]);
@@ -59,11 +62,9 @@ const {appData} = useTokenAndData()
     setCtr(ctr);
   };
 
-  console.log(three)
-
   const handleCheckboxClick = () => {
     const inputElement = document.querySelector('input[name="selectinput"]');
-    if (inputElement) { 
+    if (inputElement) {
       inputElement.focus();
     }
   };
@@ -230,7 +231,7 @@ const {appData} = useTokenAndData()
     id: "",
   });
 
- 
+
 
   // const PointsCategory = [
   //   { name: "Gaming", points: 4, selected: false },
@@ -278,7 +279,7 @@ const {appData} = useTokenAndData()
   //   { name: "Cooking", points: 3, selected: false },
   // ];
 
- 
+
   // const formastEndDate = formatDateToString(three.endDate);
 
   // useEffect(() => {
@@ -360,9 +361,6 @@ const {appData} = useTokenAndData()
   const isdatavalid = validateData();
   const sendData = async (e) => {
     e.preventDefault();
-    const data =  appData()
-    const advid =data.advid;
-
     try {
       const formDataToSend = new FormData();
       formDataToSend.append("location", three.location);
@@ -408,21 +406,23 @@ const {appData} = useTokenAndData()
     }
   };
 
-const f=async()=>{
-  try {
-  const data=await appData()
-    setUser({
-      fullname: data.firstname,
-      photo: data.image,
-      id: data.id,
-    });
-} catch (error) {
-  console.log(error)
-}}
+  const f = async () => {
+    try {
+      setUser({
+        fullname: firstname + " " + lastname,
+        photo: image,
+        id: userid
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
-    f()
-  }, []);
+    if (firstname && lastname && image && userid) {
+      f()
+    }
+  }, [firstname, lastname, image, userid]);
 
   const handleFileChanges = (e) => {
     const file = e.target.files[0];
@@ -457,19 +457,19 @@ const f=async()=>{
     }
   };
 
-  useEffect(() => {
-    window.history.pushState(null, null, window.location.href);
+  // useEffect(() => {
+  //   window.history.pushState(null, null, window.location.href);
 
-    window.onpopstate = function () {
-      if (step > 0) {
+  //   window.onpopstate = function () {
+  //     if (step > 0) {
 
-        setStep(step - 1);
-      } else {
+  //       setStep(step - 1);
+  //     } else {
 
-        window.location.href = "/main/dashboard";
-      }
-    };
-  }, [step]);
+  //       window.location.href = "/main/dashboard";
+  //     }
+  //   };
+  // }, [step]);
 
   useEffect(() => {
     axios
@@ -481,17 +481,13 @@ const f=async()=>{
       .catch((err) => console.log(err));
   }, []);
 
-
   useEffect(() => {
-
     const selectedLocations = myLocation.filter((location) =>
       three.location.includes(location.name)
     );
-
     const audience = selectedLocations.map((location) => location.audienceNo);
     const menValues = selectedLocations.map((location) => location.men);
     const femaleValues = selectedLocations.map((location) => location.women);
-
     setMen(menValues);
     setFemale(femaleValues);
     setAud(audience);
@@ -499,61 +495,178 @@ const f=async()=>{
 
   return (
     <>
-     <div className="no-scrollbar select-none w-screen h-screen overflow-x-hidden">
-      {step === 0 && (
-        <Ad1
-          setStep={setStep}
-          step={step}
-          validDatas={validDatas}
-          three={three}
+      <div className="no-scrollbar select-none w-screen h-screen overflow-x-hidden">
+        {/* <div>
+          <h2 class="sr-only">Steps</h2>
+
+          <div class="after:mt-4 after:block after:h-1 after:w-full after:rounded-lg after:bg-gray-200">
+            <ol class="grid grid-cols-3 text-sm font-medium text-gray-500">
+              <li class="relative flex justify-start text-blue-600">
+                <span class="absolute -bottom-[1.75rem] start-0 rounded-full bg-blue-600 text-white">
+                  <svg
+                    class="h-5 w-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+
+                <span class="hidden sm:block"> Details </span>
+
+                <svg
+                  class="size-6 sm:hidden"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
+                  />
+                </svg>
+              </li>
+
+              <li class="relative flex justify-center text-blue-600">
+                <span
+                  class="absolute -bottom-[1.75rem] left-1/2 -translate-x-1/2 rounded-full bg-blue-600 text-white"
+                >
+                  <svg
+                    class="h-5 w-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+
+                <span class="hidden sm:block"> Address </span>
+
+                <svg
+                  class="mx-auto size-6 sm:hidden"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+              </li>
+
+              <li class="relative flex justify-end">
+                <span class="absolute -bottom-[1.75rem] end-0 rounded-full bg-gray-600 text-white">
+                  <svg
+                    class="h-5 w-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+
+                <span class="hidden sm:block"> Payment </span>
+
+                <svg
+                  class="size-6 sm:hidden"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                  />
+                </svg>
+              </li>
+            </ol>
+          </div>
+        </div> */}
+
+        {step === 0 && (
+          <Ad1
+            // setStep={setStep}
+            step={step}
+            validDatas={validDatas}
+            three={three}
+            setThree={setThree}
+            down={down}
+            setDown={setDown}
+            handleFileChanges={handleFileChanges}
+            user={user}
+          />
+        )}
+
+        {step === 1 && (<Ad2
+          // setStep={setStep}
+          toggleType={toggleType}
           setThree={setThree}
-          down={down}
-          setDown={setDown}
-          handleFileChanges={handleFileChanges}
-          user={user}
-        />
-      )}
+          setT={setT}
+          setCLick={setCLick}
+          three={three}
+          PointsCategory={PointsCategory}
+          handleCategoryChange={handleCategoryChange}
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+          myAgeHandle={myAgeHandle}
+          click={click}
+          handleAgeRangeChange={handleAgeRangeChange}
+          isdatavalid={isdatavalid}
+          ProperAudience={ProperAudience}
+          ctr={ctr}
+          pricebyDay={pricebyDay}
+          totalPrice={totalPrice}
+          myLocation={myLocation}
+          t={t}
+          step
+        />)
+        }
 
-      {step === 1 && (<Ad2
-        setStep={setStep}
-        toggleType={toggleType}
-        setThree={setThree}
-        setT={setT}
-        setCLick={setCLick}
-        three={three}
-        PointsCategory={PointsCategory}
-        handleCategoryChange={handleCategoryChange}
-        inputValue={inputValue}
-        setInputValue={setInputValue}
-        myAgeHandle={myAgeHandle}
-        click={click}
-        handleAgeRangeChange={handleAgeRangeChange}
-        isdatavalid={isdatavalid}
-        ProperAudience={ProperAudience}
-        ctr={ctr}
-        pricebyDay={pricebyDay}
-        totalPrice={totalPrice}
-        myLocation={myLocation}
-        t={t}
-        step
-      />)
-      }
+        {step === 2 && (<Ad3
+          // setStep={setStep}
+          sendData={sendData}
+          step={step}
+          three={three}
+          pricebyDay={pricebyDay}
+          totalPrice={totalPrice}
+          tax={tax}
+          addTax={addTax}
 
-      {step === 2 && (<Ad3
-        setStep={setStep}
-        sendData={sendData}
-        step={step}
-        three={three}
-        pricebyDay={pricebyDay}
-        totalPrice={totalPrice}
-        tax={tax}
-        addTax={addTax}
-       
-      />)
-      }
-    </div>
+        />)
+        }
+      </div>
     </>
-  );      
+  );
 }
 
 export default page;

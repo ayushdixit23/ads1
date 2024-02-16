@@ -4,21 +4,21 @@ import { BsCheckLg, BsThreeDots } from 'react-icons/bs'
 import adss from "../assests/adss.svg";
 import { formatDateToString } from '../utils/useful';
 const Ad3 = ({
-  setStep,
   sendData,
-  step,
+  // step,
   three,
   pricebyDay,
   totalPrice,
   tax,
   addTax,
 }) => {
+  const setStep = 2
   return (
     <>
       <div>
-        <div className="grid bg-[#f8f8f8] grid-cols-1 pn:max-md:hidden">
-          <div className="flex flex-col">
-            <div className="fixed left-0 w-full top-0 z-10 bg-white ">
+        <div className="grid bg-[#f8f8f8] dark:bg-maincolor grid-cols-1 pn:max-md:hidden">
+          {/* <div className="flex flex-col"> */}
+          {/* <div className="fixed left-0 w-full top-0 z-10 bg-maincolor ">
               <div className="flex justify-between px-5 items-center py-4">
                 <div className="text-[#555555] text-xl font-semibold">
                   Set up a new Ad
@@ -35,17 +35,17 @@ const Ad3 = ({
                     className="p-2 px-7 rounded-full cursor-pointer bg-[#2D9AFF] text-white"
                     onClick={sendData}
                   >
-                    {/* Proceed to Pay */}
+
                     Save
-                    {/* Next */}
+
                   </div>
                 </div>
               </div>
-            </div>
-            <div>
+            </div> */}
+          {/* <div>
               <div
                 style={{ marginTop: "5rem" }}
-                className="flex justify-center bg-[#fafafa] pt-5 py-3 mt-3"
+                className="flex justify-center dark:bg-maincolor bg-[#fafafa] pt-5 py-3 mt-3"
               >
                 <div className=" flex flex-col justify-center items-center">
                   <div
@@ -117,14 +117,14 @@ const Ad3 = ({
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </div> */}
+          {/* </div> */}
 
           <div className="flex justify-center gap-4 px-[2%] w-full pn:max-md:hidden">
             <div
-              className={`flex bg-[#F0F2F5]  p-4 px-[2%] md:min-w-[800px] lg:min-w-[1024px] my-4 pn:max-md:hidden rounded-2xl flex-col`}
+              className={`flex bg-[#F0F2F5] dark:bg-[#1b2431] p-4 px-[2%] md:min-w-[800px] lg:min-w-[1024px] my-4 pn:max-md:hidden rounded-2xl flex-col`}
             >
-              <div className="md:min-w-[800px]  lg:min-w-[1024px] bg-white  rounded-2xl py-5 px-5">
+              <div className="md:min-w-[800px]  lg:min-w-[1024px] bg-maincolor  rounded-2xl py-5 px-5">
                 <div className="flex justify-between items-center">
                   <div className="text-xl font-semibold py-2">Preview</div>
                   <div
@@ -258,8 +258,8 @@ const Ad3 = ({
                 </div>
               </div>
 
-              <div className=" lg:min-w-[700px] bg-white  my-4 rounded-2xl py-5 px-5">
-                <div className="bg-[#FAFAFA] flex justify-between py-5 my-3 px-1 items-center">
+              <div className=" lg:min-w-[700px] bg-maincolor  my-4 rounded-2xl py-5 px-5">
+                <div className="bg-[#FAFAFA] dark:bg-maincolor flex justify-between py-5 my-3 px-1 items-center">
                   <div className="flex justify-center space-x-2 sm:space-x-4 items-center">
                     <div>
                       <img
@@ -287,7 +287,7 @@ const Ad3 = ({
                   </div>
                 </div>
               </div>
-              <div className="lg:min-w-[700px] bg-white my-4 rounded-2xl py-5 px-5">
+              <div className="lg:min-w-[700px] bg-maincolor my-4 rounded-2xl py-5 px-5">
                 <div className="flex flex-col gap-4">
                   <div className="flex flex-col gap-1">
                     <div className="font-bold">Payment Details</div>
@@ -295,7 +295,7 @@ const Ad3 = ({
                       Your Ad will run for 7 days
                     </div> */}
                   </div>
-                  <div className="bg-[#FAFAFA] p-5 rounded-2xl">
+                  <div className="bg-[#FAFAFA] dark:bg-maincolor p-5 rounded-2xl">
                     <div className="flex flex-col gap-2">
                       <div className="flex justify-between p-[2px] items-center">
                         <div className="font-medium">Ad Budget</div>
@@ -330,8 +330,8 @@ const Ad3 = ({
 
         {/* mobile step-2 */}
         <div className="md:hidden">
-          <div className="flex bg-white flex-col">
-            <div className="fixed w-full top-0 z-50 bg-white">
+          <div className="flex bg-maincolor flex-col">
+            {/* <div className="fixed w-full top-0 z-50 bg-maincolor">
               <div className="flex shadow-lg justify-between px-5 items-center py-2">
                 <div className="text-[#555555] text-xl py-2 font-semibold">
                   Ad SetUp
@@ -348,17 +348,17 @@ const Ad3 = ({
                     onClick={sendData}
                     className="p-2 px-7  rounded-full cursor-pointer bg-[#2D9AFF] text-white"
                   >
-                    {/* Proceed To Pay */}
+                  
                     Save
-                    {/* Next */}
+                   
                   </div>
                 </div>
               </div>
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <div
                 style={{ marginTop: "4rem" }}
-                className="flex justify-center bg-[#fafafa] pt-5 py-3 mt-3 pn:max-sm:text-xs text-center px-3"
+                className="flex justify-center bg-[#fafafa] dark:bg-maincolor pt-5 py-3 mt-3 pn:max-sm:text-xs text-center px-3"
               >
                 <div className=" flex flex-col gap-1 justify-center items-center">
                   <div
@@ -430,15 +430,15 @@ const Ad3 = ({
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="grid bg-[#F0F2F5] grid-cols-1">
+            </div> */}
+            <div className="grid bg-[#F0F2F5] dark:bg-[#1b2431] grid-cols-1">
               {/* <div className="flex flex-col">
                 {" "}
                 <Square3 />
                 <Square4 />
               </div> */}
               <div className="flex md:hidden flex-col px-3">
-                <div className="bg-white w-full my-4 rounded-2xl py-5 px-3">
+                <div className="bg-maincolor w-full my-4 rounded-2xl py-5 px-3">
                   <div className="flex justify-between items-center">
                     <div className="text-xl font-semibold py-2">Ad Details</div>
                     <div
@@ -553,7 +553,7 @@ const Ad3 = ({
                       {three.location.map((loc, i) => (
                         <div
                           key={i}
-                          className="bg-[#F3F4F6] font-semibold p-1 px-3 rounded-full"
+                          className="bg-[#F3F4F6] dark:bg-maincolor font-semibold p-1 px-3 rounded-full"
                         >
                           {loc}
                         </div>
@@ -570,7 +570,7 @@ const Ad3 = ({
                       {three.type.map((data, i) => (
                         <div
                           key={i}
-                          className="bg-[#F3F4F6] font-semibold p-1 px-3 rounded-full"
+                          className="bg-[#F3F4F6] dark:bg-maincolor font-semibold p-1 px-3 rounded-full"
                         >
                           {data}
                         </div>
@@ -579,8 +579,8 @@ const Ad3 = ({
                   </div>
                 </div>
 
-                <div className="w-full bg-white my-4 rounded-2xl py-5 px-5">
-                  <div className="bg-[#FAFAFA] flex justify-between py-5 my-3 px-1 items-center">
+                <div className="w-full bg-maincolor my-4 rounded-2xl py-5 px-5">
+                  <div className="bg-[#FAFAFA] dark:bg-maincolor flex justify-between py-5 my-3 px-1 items-center">
                     <div className="flex justify-center space-x-2 sm:space-x-4 items-center">
                       <div>
                         <img
@@ -617,7 +617,7 @@ const Ad3 = ({
 
                 <div
                   style={{ marginBottom: "5rem" }}
-                  className="w-full bg-white my-4 rounded-2xl py-5 px-5"
+                  className="w-full bg-maincolor my-4 rounded-2xl py-5 px-5"
                 >
                   <div className="flex flex-col gap-4">
                     <div className="flex flex-col gap-1">
@@ -626,7 +626,7 @@ const Ad3 = ({
                         Your Ad will run for 7 days
                       </div> */}
                     </div>
-                    <div className="bg-[#FAFAFA] p-3 rounded-2xl">
+                    <div className="bg-[#FAFAFA] dark:bg-maincolor p-3 rounded-2xl">
                       <div className="flex flex-col gap-2">
                         <div className="flex justify-between p-[2px] items-center">
                           <div className="font-medium">Ad Budget</div>
@@ -654,7 +654,7 @@ const Ad3 = ({
                   </div>
                 </div>
               </div>
-              <div className="sm:hidden fixed bottom-0 bg-white w-full p-3">
+              <div className="sm:hidden fixed bottom-0 bg-maincolor w-full p-3">
                 <button className="bg-[#2D9AFF] text-lg font-medium rounded-2xl text-white p-3 w-full">
                   {/* Proceed To Pay */}
                   Save

@@ -6,22 +6,13 @@ import feed from "../../../../assests/feed.svg"
 import { usePathname } from 'next/navigation'
 import { decryptaes } from '@/app/utils/security'
 import { useGetPostsQuery } from '@/app/redux/slice/apiSlice'
+import { getData } from '@/app/utils/useful'
 
 const page = () => {
-	const getCookiedata = async () => {
-		try {
-			const res = await appData();
-			return res;
-		} catch (err) {
-			console.log(err);
-			return null;
-		}
-	};
-	const cookiedata = getCookiedata();
-	const id = useMemo(() => cookiedata.userid, [cookiedata.userid])
+	const { userid } = getData()
 	const comid = useMemo(() => decryptaes(usePathname().split("/").pop()), []);
-	const { data } = useGetPostsQuery({ comid: comid, id: id }, { skip: !id || !comid })
-	console.log(data, id, comid)
+	const { data } = useGetPostsQuery({ comid: comid, id: userid }, { skip: !userid || !comid })
+
 	const merged = data?.posts?.map((d, i) => {
 		return ({
 			...d,
@@ -29,7 +20,6 @@ const page = () => {
 		}
 		)
 	})
-	console.log(merged)
 	return (
 		<>
 			<div className='grid grid-cols-1 w-full'>

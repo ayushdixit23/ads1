@@ -1,11 +1,10 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "@/firebase.config";
 import OTPInput from "react-otp-input";
 import {
-  AiFillCheckCircle,
   AiOutlineLoading3Quarters,
   AiFillEyeInvisible,
   AiFillEye,
@@ -15,21 +14,20 @@ import { PiWarningCircleFill } from "react-icons/pi";
 import axios from "axios";
 import { API } from "@/Essentials";
 import { FaExclamationTriangle } from "react-icons/fa";
-import { BsFillExclamationCircleFill } from "react-icons/bs";
 import Lotties from "../component/Lotties";
 import Link from "next/link";
-import Cookies from "js-cookie";
-import { encryptaes } from "../utils/security";
-import { changeloading } from "../redux/slice/userData";
 import { useDispatch } from "react-redux";
+import { changeloading } from "@/app/redux/slice/userData";
+import { setCookie } from "cookies-next";
+import { storeInSessionStorage } from "../utils/TokenDataWrapper";
 
 const Login = () => {
-  // const [theme, setTheme] = useState();
   const [phone, setPhone] = useState(1);
   const [pop, setPop] = useState(0);
   const [login, setLogin] = useState(false);
   const router = useRouter();
   const [see, setSee] = useState(true);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [number, setNumber] = useState("");
@@ -112,27 +110,11 @@ const Login = () => {
   };
 
 
-  const cookieSetter = async (dataF) => {
+  const cookieSetter = async (data) => {
     try {
-      const data = {
-        id: dataF.advertiser._id,
-        firstname: dataF.advertiser.firstname,
-        userid: dataF.userid,
-        country: dataF.advertiser.country,
-        city: dataF.advertiser.city,
-        address: dataF.advertiser.address,
-        accounttype: dataF.advertiser.type,
-        taxinfo: dataF.advertiser.taxinfo,
-        email: dataF.advertiser.email,
-        advid: dataF.advertiser.advertiserid,
-        image: dataF.dp
-      }
-      const stringdata = JSON.stringify(data)
-      const encryptedData = encryptaes(stringdata)
-      Cookies.set("adwkpiz", encryptedData)
-      Cookies.set("axetkn", dataF.access_token)
-      Cookies.set("rvktkn", dataF.refresh_token)
-
+      storeInSessionStorage(data.sessionId)
+      setCookie(`axetkn${data.sessionId}`, data.access_token, { secure: false })
+      setCookie(`rvktkn${data.sessionId}`, data.refresh_token, { secure: false })
     } catch (error) {
       console.log(error)
     }
@@ -238,7 +220,7 @@ const Login = () => {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-2 px-[3%]">
+      <div className="grid bg-maincolor md:grid-cols-2 px-[3%]">
         <div className="flex flex-col justify-center items-center h-[100vh]">
           <div className="lg:w-[60%] md:w-[70%] w-[93%] sm:w-[75%]">
             {showOTP ? (
@@ -308,13 +290,13 @@ const Login = () => {
                         Use Email
                       </div>
                     </div>
-                    <div className="flex justify-center border-b-2 px-2 border-2 rounded-xl items-center w-full">
-                      <div>+91</div>
+                    <div className="flex justify-center border-b-2 bg-input px-2 border-2 rounded-xl items-center w-full">
+                      <div className="border-r-2 pr-2 border-border py-2">+91</div>
                       <input
                         maxLength={10}
                         onChange={(e) => setNumber(e.target.value)}
                         value={number}
-                        className="p-2 w-full outline-none my-2 bg-transparent "
+                        className="p-2 w-full outline-none  bg-input  "
                         type="tel"
                       />
                     </div>
@@ -366,7 +348,7 @@ const Login = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="abc@example.com"
-                    className="p-3 outline-none border-2 px-4 rounded-xl"
+                    className="p-3 outline-none bg-input border-2 px-4 rounded-xl"
                     type="Email"
                   />
                 </div>
@@ -400,12 +382,12 @@ const Login = () => {
                     <div className="text-[#3451f7]">Forgot password</div>
                   </div>
                   {see ? (
-                    <div className="flex justify-center border-2 rounded-xl items-center w-full">
+                    <div className="flex justify-center border-2 bg-input rounded-xl items-center w-full">
                       <input
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Enter Your Password"
-                        className="p-3 outline-none border-r-2  w-full
+                        className="p-3 outline-none bg-input border-r-2  w-full
                            px-4 rounded-xl rounded-r-none"
                         type="password"
                       />
@@ -415,13 +397,13 @@ const Login = () => {
                       />
                     </div>
                   ) : (
-                    <div className="flex justify-center border-2 rounded-xl items-center w-full">
+                    <div className="flex justify-center bg-input border-2 rounded-xl items-center w-full">
                       <input
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Enter Your Password"
-                        className="p-3 outline-none border-r-2  w-full
-                           px-4 rounded-xl rounded-r-none"
+                        className="p-3 outline-none bg-input border-r-2  w-full
+                        px-4 rounded-xl rounded-r-none"
                         type="text"
                       />
                       <AiFillEye
@@ -530,13 +512,13 @@ const Login = () => {
                 </div> */}
                 <div className="flex items-center justify-center w-full">
                   <hr className="flex-grow border-t-2 border-gray-200 dark:border-gray-700" />
-                  <span className="px-3 font-medium text-lg bg-white dark:text-black">
+                  <span className="px-3 font-medium text-lg dark:bg-transparent dark:text-white bg-white">
                     or
                   </span>
                   <hr className="flex-grow border-t-2 border-gray-200 dark:border-gray-700" />
                 </div>
                 <button
-                  className="w-full border-2 border-black p-2 rounded-lg text-black hover:bg-black hover:opacity-75 hover:text-white font-bold text-lg"
+                  className="w-full border-2 dark:bg-white dark:text-black dark:border-white border-black p-2 rounded-lg text-black hover:bg-black hover:opacity-75 hover:text-white font-bold text-lg"
                   onClick={Oneclicklogin}
                 >
                   Log in with Grovyo

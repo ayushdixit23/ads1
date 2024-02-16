@@ -7,14 +7,14 @@ import { BiWallet } from "react-icons/bi";
 import { AiOutlineBarChart } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import { BsPeopleFill } from "react-icons/bs";
-import useTokenAndData from "../utils/token";
+import { ModeToggle } from "./ModeToggle";
+import { getData } from "../utils/useful";
 
 
 const Sidebar = () => {
-  const [image, setImage] = useState("");
   const router = useRouter();
   const [color, setColor] = useState(0);
-  const { appData } = useTokenAndData()
+  const { image } = getData()
   useEffect(() => {
     // Retrieve the selected color from sessionStorage
     const storedColor = sessionStorage.getItem("selectedColor");
@@ -48,22 +48,9 @@ const Sidebar = () => {
     }
   };
 
-  const f = async () => {
-    try {
-      const data = await appData()
-      const pics = data.image
-      setImage(pics);
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  useEffect(() => {
-    f()
-  }, []);
-
   return (
     <>
-      <div className="h-screen w-24 bg-white px-4 shadow-sm flex flex-col justify-between py-6 items-center">
+      <div className="h-screen w-24 bg-maincolor px-4 shadow-sm flex flex-col justify-between py-6 items-center">
         <div className="flex flex-col justify-between items-center h-[45%]">
           <div>
             <Image src={logo} alt="logo" className="w-[50px]" />
@@ -161,7 +148,8 @@ const Sidebar = () => {
           </div>
         </div>
         <div>
-          <Image src={image} width={50} height={50} alt="profile" />
+          {image && <Image src={image} width={50} height={50} alt="profile" />}
+          <ModeToggle />
         </div>
       </div>
     </>

@@ -1,16 +1,16 @@
-import {createSlice} from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
 
-export const dataSlice= createSlice({
-	name:"data",
-	initialState:{
-		data:[],
+export const dataSlice = createSlice({
+	name: "data",
+	initialState: {
+		step: 0,
 	},
-	reducers:{
-		dataAction:(state,action)=>{
-			state.data= action.payload
+	reducers: {
+		setStep: (state, action) => {
+			state.step = action.payload
 		}
 	}
 })
 
-export const {dataAction} = dataSlice.actions
+export const { setStep } = dataSlice.actions
 export default dataSlice.reducer

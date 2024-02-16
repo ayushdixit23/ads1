@@ -1,7 +1,16 @@
 import React from 'react'
 import { GrFormAdd } from 'react-icons/gr';
 
-const Organisation = () => {
+const Organisation = ({
+	details,
+	handleChangePhotoClick,
+	setDetails,
+	setChecked,
+	checked,
+	setChange,
+	onSignup,
+	dataValid
+}) => {
 	return (
 		<>
 			<div className="flex justify-center  px-[2%] flex-col">
@@ -75,7 +84,7 @@ const Organisation = () => {
 								})
 							}
 							value={details.firstName}
-							className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+							className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 							type="text"
 						/>
 						<label
@@ -98,7 +107,7 @@ const Organisation = () => {
 								})
 							}
 							value={details.lastName}
-							className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+							className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 							type="text"
 						/>
 						<label
@@ -122,7 +131,7 @@ const Organisation = () => {
 							})
 						}
 						value={details.Organistaion}
-						className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+						className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 						type="text"
 					/>
 					<label
@@ -145,7 +154,7 @@ const Organisation = () => {
 							})
 						}
 						value={details.PAN}
-						className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+						className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 						type="text"
 					/>
 					<label
@@ -168,7 +177,7 @@ const Organisation = () => {
 							})
 						}
 						value={details.GST}
-						className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+						className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 						type="number"
 					/>
 					<label
@@ -201,7 +210,7 @@ const Organisation = () => {
 								})
 							}
 							value={details.phoneNumber}
-							className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+							className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 							type="tel"
 						/>
 						<label
@@ -222,7 +231,7 @@ const Organisation = () => {
 								})
 							}
 							value={details.email}
-							className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+							className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 							type="email"
 						/>
 						<label
@@ -246,7 +255,7 @@ const Organisation = () => {
 								})
 							}
 							value={details.password}
-							className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+							className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 							type="password"
 						/>
 						<label
@@ -268,7 +277,7 @@ const Organisation = () => {
 								})
 							}
 							value={details.confirmPass}
-							className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+							className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 							type="password"
 						/>
 						<label
@@ -290,7 +299,7 @@ const Organisation = () => {
 							})
 						}
 						value={details.address}
-						className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+						className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 						type="text"
 					/>
 					<label
@@ -313,7 +322,7 @@ const Organisation = () => {
 								})
 							}
 							value={details.city}
-							className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+							className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 							type="text"
 						/>
 						<label
@@ -336,7 +345,7 @@ const Organisation = () => {
 								})
 							}
 							value={details.state}
-							className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+							className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 							type="text"
 						/>
 						<label
@@ -362,7 +371,7 @@ const Organisation = () => {
 								})
 							}
 							value={details.postalCode}
-							className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+							className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 							type="number"
 						/>
 						<label
@@ -384,7 +393,7 @@ const Organisation = () => {
 								})
 							}
 							value={details.LandMark}
-							className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+							className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 							type="text"
 						/>
 						<label

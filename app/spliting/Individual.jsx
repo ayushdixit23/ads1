@@ -10,6 +10,7 @@ const Individual = ({
 	checked,
 	setChange,
 	onSignup,
+	dataValid
 }) => {
 	return (
 		<>
@@ -83,7 +84,7 @@ const Individual = ({
 								})
 							}
 							value={details.firstName}
-							className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+							className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 							type="text"
 						/>
 						<label
@@ -106,7 +107,7 @@ const Individual = ({
 								})
 							}
 							value={details.lastName}
-							className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+							className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 							type="text"
 						/>
 						<label
@@ -133,7 +134,7 @@ const Individual = ({
 								})
 							}
 							value={details.phoneNumber}
-							className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+							className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 							type="tel"
 						/>
 						<label
@@ -154,7 +155,7 @@ const Individual = ({
 								})
 							}
 							value={details.email}
-							className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+							className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 							type="email"
 						/>
 						<label
@@ -178,7 +179,7 @@ const Individual = ({
 								})
 							}
 							value={details.password}
-							className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+							className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 							type="password"
 						/>
 						<label
@@ -200,7 +201,7 @@ const Individual = ({
 								})
 							}
 							value={details.confirmPass}
-							className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+							className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 							type="password"
 						/>
 						<label
@@ -222,7 +223,7 @@ const Individual = ({
 							})
 						}
 						value={details.address}
-						className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+						className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 						type="text"
 					/>
 					<label
@@ -244,7 +245,7 @@ const Individual = ({
 								})
 							}
 							value={details.city}
-							className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+							className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 							type="text"
 						/>
 						<label
@@ -267,7 +268,7 @@ const Individual = ({
 								})
 							}
 							value={details.state}
-							className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+							className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 							type="text"
 						/>
 						<label
@@ -291,7 +292,7 @@ const Individual = ({
 								})
 							}
 							value={details.postalCode}
-							className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+							className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 							type="number"
 						/>
 						<label
@@ -313,7 +314,7 @@ const Individual = ({
 								})
 							}
 							value={details.LandMark}
-							className="py-1 transition-colors placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
+							className="py-1 transition-colors bg-maincolor placeholder-transparent h-10 peer outline-none focus:border-[#5c73db] focus:border-b-2 absolute top-0 left-0 duration-300 border-b w-full"
 							type="text"
 						/>
 						<label

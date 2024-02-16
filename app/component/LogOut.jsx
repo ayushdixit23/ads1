@@ -2,21 +2,22 @@
 "use client";
 import { API } from "@/Essentials";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import useTokenAndData from "../utils/token";
+import { getData } from "../utils/useful";
+import { deleteCookie } from "cookies-next"
+import { getItemSessionStorage } from "../utils/TokenDataWrapper";
 
-
-const LogoutModal = ({ isOpen, onClose, onLogout }) => {
+const LogoutModal = ({ isOpen, onClose }) => {
   const [id, setId] = useState();
+  const sessionId = getItemSessionStorage()
   const router = useRouter();
-  const { appData } = useTokenAndData()
+  const { userid } = getData()
   const handleLogout = async () => {
     try {
-      const res = axios.post(`${API}/logoutadv/${id}`);
-      if ((await res).data.success) {
-        Cookies.remove("adwkpiz");
+      const res = await axios.post(`${API}/logoutadv/${id}`);
+      if (res.data.success) {
+        deleteCookies()
         router.push("/login");
       }
     } catch (e) {
@@ -24,17 +25,22 @@ const LogoutModal = ({ isOpen, onClose, onLogout }) => {
     }
   };
 
+  const deleteCookies = () => {
+    deleteCookie(`axetkn${sessionId}`);
+    deleteCookie(`rvktkn${sessionId}`);
+  }
+
   const f = async () => {
     try {
-      const data = await appData()
-      setId(data.id)
+      setId(userid)
     } catch (error) {
       console.log(error)
     }
   }
+
   useEffect(() => {
     f()
-  }, []);
+  }, [getData]);
   return (
     <>
       <div>
@@ -50,7 +56,7 @@ const LogoutModal = ({ isOpen, onClose, onLogout }) => {
           className={`fixed inset-0 flex items-center justify-center z-50 ${isOpen ? "block" : "hidden"
             }`}
         >
-          <div className="w-[330px] shadow-lg rounded-2xl p-3 sm:p-4 bg-white">
+          <div className="w-[330px] shadow-lg rounded-2xl p-3 sm:p-4 bg-maincolor">
             <div className="py-2">
               <h1 className="text-xl font-semibold py-1">
                 Sure Want to LOG OUT
@@ -61,7 +67,7 @@ const LogoutModal = ({ isOpen, onClose, onLogout }) => {
             <div className="flex w-full justify-center mt-3 gap-2 items-center">
               <button
                 onClick={onClose}
-                className="p-2 px-5 w-full rounded-md bg-[#f3f3f3]"
+                className="p-2 px-5 w-full rounded-md dark:bg-transparent dark:border bg-[#f3f3f3]"
               >
                 Cancel
               </button>

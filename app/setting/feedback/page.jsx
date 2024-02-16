@@ -5,16 +5,16 @@ const page = () => {
     <>
       <div className="h-full w-full p-[3%]">
         <h1 className="py-2 font-semibold text-3xl">Submit feedback</h1>
-        <p className="text-[#6B7280] my-5">
+        <p className="text-[#6B7280] dark:text-white my-5">
           We'd really like to hear any feedback that you might have for us! This
           will help us improve our app and make it a better experience for you.
         </p>
         <div className="flex flex-col gap-1">
-          <label htmlFor="text" className="text-[#6B7280]">
+          <label htmlFor="text" className="dark:text-white text-[#6B7280]">
             Label
           </label>
           <textarea
-            className="border-2 shadow-md rounded-2xl max-h-[80px] min-h-[70px] outline-none p-3"
+            className="border-2 shadow-md bg-input rounded-2xl max-h-[80px] min-h-[70px] outline-none p-3"
             name="text"
             id="text"
             cols="10"

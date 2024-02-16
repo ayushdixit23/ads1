@@ -4,7 +4,7 @@ const Square4 = ({ ctr, price, display, duration, daily }) => {
   // const [count, setCount] = useState(1);
   return (
     <>
-      <div className="flex flex-col bg-white border md:min-w-[300px] rounded-2xl mx-3 my-5 p-2">
+      <div className="flex flex-col bg-maincolor dark:border-border border md:min-w-[300px] rounded-2xl mx-3 my-5 p-2">
         {/* <div className="flex justify-around  text-lg font-medium  border-b w-full items-center">
           <div
             onClick={() => setCount(1)}

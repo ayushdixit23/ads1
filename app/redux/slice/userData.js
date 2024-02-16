@@ -1,23 +1,23 @@
-import {createSlice} from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
-export const userSlice= createSlice({
-	name:"userData",
-	initialState:{
-		data:null,
-		loading:false,
-		path:null
+const userData = createSlice({
+	name: "userData",
+	initialState: {
+		loading: false,
+		path: "",
+		data: null,
 	},
-	reducers:{
-		actualData:(state,action)=>{
-			state.data= action.payload
-		},
-		changeloading:(state,action)=>{
+	reducers: {
+		changeloading: (state, action) => {
 			const { loading, path } = action.payload;
 			state.loading = loading
 			state.path = path
-		}
-	}
-})
+		},
+		sendData: (state, action) => {
+			state.data = action.payload
+		},
+	},
+});
 
-export const { actualData,changeloading } = userSlice.actions
-export default userSlice.reducer
+export const { changeloading, sendData } = userData.actions;
+export default userData.reducer;

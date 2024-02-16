@@ -1,24 +1,24 @@
 "use client";
 import { API } from "@/Essentials";
+import { getData } from "@/app/utils/useful";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { AiOutlineUpload } from "react-icons/ai";
 
 const page = () => {
   const [pop, setPop] = useState(false);
-  const [user, setUser] = useState({ name: "", pic: "", picname: "" });
+  const [user, setUser] = useState({ name: "", pic: "" });
+  const { userid } = getData()
 
   const handleSave = async () => {
-    const data = appData()
-    const id = data.id
 
     if (user?.name && user?.pic) {
       try {
         const form = new FormData();
         form.append("name", user?.name);
         form.append("image", user?.pic);
-        form.append("imagename", user?.picname);
-        const res = await axios.post(`${API}/verifyadvertiser/${id}`, form);
+        // form.append("imagename", user?.picname);
+        const res = await axios.post(`${API}/verifyadvertiser/${userid}`, form);
         console.log(res?.data);
       } catch (e) {
         console.log(e);
@@ -43,7 +43,7 @@ const page = () => {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="sm:w-[58%] md:w-[43%] h-auto shadow-lg rounded-2xl bg-white p-[3%]"
+            className="sm:w-[58%] md:w-[43%] h-auto shadow-lg rounded-2xl bg-maincolor p-[3%]"
           >
             {/* p-3 */}
             {/* <div className="flex justify-end p-[1%]">
@@ -54,7 +54,7 @@ const page = () => {
             </div> */}
             {/* div remove1 */}
             <div className="p-[2%]">
-              <div className="p-5 rounded-2xl">
+              <div className="p-4 rounded-2xl">
                 <h1 className="text-3xl font-bold py-1">Verification</h1>
                 <p>
                   Fill in the registration data. It will take a couple of
@@ -62,9 +62,14 @@ const page = () => {
                 </p>
                 <div className="relative w-full mt-6 h-20">
                   <input
-                    placeholder="Johan Liebert"
+                    placeholder=""
                     id="name"
-                    className="py-1 transition-colors placeholder-transparent h-10 peer outline-none absolute top-0 left-0 duration-300 border-b w-full"
+                    onChange={(e) => setUser({
+                      ...user,
+                      name: e.target.value
+                    })}
+                    value={user.name}
+                    className="py-1 transition-colors placeholder-transparent dark:bg-transparent h-10 peer outline-none absolute top-0 left-0 duration-300 border-b w-full"
                     type="text"
                   />
                   <label
@@ -81,7 +86,7 @@ const page = () => {
                   <h1 className="font-medium py-2">
                     Upload your Pan Or Aadhaar
                   </h1>
-                  <div className="w-full flex justify-center flex-col rounded-2xl items-center p-2 h-[160px] border-2 border-black border-dashed">
+                  <div className="w-full flex justify-center flex-col dark:border-border rounded-2xl items-center p-2 h-[160px] border-2 border-black border-dashed">
                     <label htmlFor="image">
                       <AiOutlineUpload className="text-3xl" />
                     </label>
@@ -106,7 +111,6 @@ const page = () => {
                           setUser({
                             ...user,
                             pic: e.target.files[0],
-                            picname: URL.createObjectURL(e.target.files[0]),
                           })
                         }
                         className="w-full hidden"
@@ -125,7 +129,7 @@ const page = () => {
                 </button>
                 <button
                   onClick={() => setPop(false)}
-                  className="bg-[#fff] text-black border-2 border-black p-2 rounded-xl w-full"
+                  className="bg-[#fff] text-black border-2 dark:border-border border-black p-2 rounded-xl w-full"
                 >
                   Cancel
                 </button>
@@ -149,7 +153,7 @@ const page = () => {
           <h1 className="sm:my-5 my-3 font-semibold">
             Verify your identity to build trust with your audience
           </h1>
-          <div className="bg-[#FAFAFA] flex justify-between items-center p-2 sm:p-3 sm:px-5">
+          <div className="bg-[#FAFAFA] dark:border dark:border-border rounded-lg dark:bg-[#273142] flex justify-between items-center p-2 sm:p-3 sm:px-5">
             <div>Your Status</div>
             <div className="text-red-500">Unverified</div>
           </div>

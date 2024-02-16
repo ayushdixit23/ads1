@@ -41,7 +41,7 @@ const MobileNav = () => {
 
   return (
     <>
-      <div className="fixed left-0 w-full sm:hidden bottom-0 bg-white z-10 p-2">
+      <div className="fixed left-0 w-full sm:hidden bottom-0 bg-maincolor z-10 p-2">
         <div className="flex justify-center items-center w-full my-1 p-1">
           <ul className="flex justify-around gap-2 items-center w-full">
             <li

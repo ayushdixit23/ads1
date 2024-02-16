@@ -7,8 +7,8 @@ import { FaAngleDown } from "react-icons/fa";
 import adss from "../assests/adss.svg";
 
 const Ad1 = ({
-  setStep,
-  step,
+  // setStep,
+  // step,
   validDatas,
   three,
   setThree,
@@ -19,10 +19,10 @@ const Ad1 = ({
 }) => {
   return (
     <>
-      <div className={`bg-[#F8F8F8] select-none grid grid-cols-1 w-full`}>
-        <div className="flex flex-col bg-white ">
-          <div className="fixed top-0 left-0 w-full z-50 bg-white">
-            <div className="flex border w-full bg-white justify-between shadow-lg items-center px-5 py-2 pb-4">
+      <div className={`bg-[#F8F8F8]  select-none grid grid-cols-1 w-full`}>
+        <div className="flex flex-col bg-maincolor ">
+          {/* <div className="fixed top-0 left-0 w-full z-50 bg-maincolor">
+            <div className="flex border w-full bg-maincolor justify-between shadow-lg items-center px-5 py-2 pb-4">
               <div className="text-[#555555] pn:max-sm:hidden text-xl font-semibold">
                 Set up a new Ad
               </div>
@@ -47,93 +47,85 @@ const Ad1 = ({
                 )}
               </div>
             </div>
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <div
               style={{ marginTop: "4rem" }}
-              className="flex justify-center bg-[#fafafa] pt-5 py-3 pn:max-sm:text-xs text-center px-3"
+              className="flex justify-center bg-[#fafafa] dark:bg-[#273142] pt-5 py-3 pn:max-sm:text-xs text-center px-3"
             >
               <div className=" flex flex-col gap-1 mr-2 justify-center items-center">
                 <div
-                  className={`h-10 w-10 rounded-full flex items-center justify-center ${
-                    step >= 0
-                      ? "bg-[#2D9AFF] text-white"
-                      : "bg-green-300 text-white"
-                  }`}
+                  className={`h-10 w-10 rounded-full flex items-center justify-center ${step >= 0
+                    ? "bg-[#2D9AFF] text-white"
+                    : "bg-green-300 text-white"
+                    }`}
                 >
                   {step >= 1 ? <BsCheckLg className="text-[#27AE60]" /> : 1}
                 </div>
 
                 <div
-                  className={` flex items-center font-semibold flex-col ${
-                    step === 0 ? "text-blue-600 " : "text-green-300"
-                  }`}
+                  className={` flex items-center font-semibold flex-col ${step === 0 ? "text-blue-600 " : "text-green-300"
+                    }`}
                 >
                   Set up Ad
                 </div>
               </div>
 
               <div
-                className={`border-[#f9f9f9] border-dashed border-t-2 pn:max-sm:w-10 sm:w-20 mt-5 ${
-                  step >= 0 ? "border-black" : "border-black"
-                }`}
+                className={`border-[#f9f9f9] border-dashed border-t-2 pn:max-sm:w-10 sm:w-20 mt-5 ${step >= 0 ? "border-black" : "border-black"
+                  }`}
               />
 
               <div className="flex flex-col gap-1 justify-center items-center">
                 <div
-                  className={`bg-[#f9f9f9] h-10 w-10 rounded-full flex items-center justify-center ${
-                    step >= 1
-                      ? "bg-blue-600 text-white"
-                      : " text-black border-4 border-black/70"
-                  }`}
+                  className={`bg-[#f9f9f9] h-10 w-10 rounded-full flex items-center justify-center ${step >= 1
+                    ? "bg-blue-600 text-white"
+                    : " text-black border-4 border-black/70"
+                    }`}
                 >
                   2
                 </div>
 
                 <div
-                  className={` flex items-center flex-col ${
-                    step >= 1 ? "text-blue-600 " : "text-black"
-                  }`}
+                  className={` flex items-center flex-col ${step >= 1 ? "text-blue-600 " : "text-black"
+                    }`}
                 >
                   Select target
                 </div>
               </div>
               <div
-                className={`border-[#f9f9f9] border-dashed border-t-2  pn:max-sm:w-10 sm:w-20 mt-5 ${
-                  step >= 1 ? "border-black" : "border-black"
-                }`}
+                className={`border-[#f9f9f9] border-dashed border-t-2  pn:max-sm:w-10 sm:w-20 mt-5 ${step >= 1 ? "border-black" : "border-black"
+                  }`}
               />
               <div className="flex flex-col gap-1 -ml-4 justify-center items-center">
                 <div
-                  className={`bg-[#f9f9f9] h-10 w-10 rounded-full flex items-center justify-center ${
-                    step >= 2
-                      ? "bg-blue-600 text-white"
-                      : " text-black border-4 border-black/70"
-                  }`}
+                  className={`bg-[#f9f9f9] h-10 w-10 rounded-full flex items-center justify-center ${step >= 2
+                    ? "bg-blue-600 text-white"
+                    : " text-black border-4 border-black/70"
+                    }`}
                 >
                   3
                 </div>
 
                 <div
-                  className={` flex items-center flex-col justify-center ${
-                    step === 2 ? "text-blue-600 " : "text-black"
-                  }`}
+                  className={` flex items-center flex-col justify-center ${step === 2 ? "text-blue-600 " : "text-black"
+                    }`}
                 >
                   Preview & Launch
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* scroll this */}
           <div className="grid grid-cols-7 my-4 md:h-screen px-3 sm:px-[2%] md:overflow-auto gap-4 md:scrollbar-hidden pn:max-md:grid-cols-1 w-full">
             <div
-              className={` ${styles.customScrollbar} sm:px-4 px-2 bg-[#F0F2F5] w-full md:col-span-4 rounded-xl sm:overflow-y-scroll py-2 pn:max-md:order-1`}
+              className={` ${styles.customScrollbar} sm:px-4 px-2 bg-[#F0F2F5] dark:bg-[#1b2431] w-full md:col-span-4 rounded-xl sm:overflow-y-scroll py-2 pn:max-md:order-1`}
             >
               <h1 className="text-2xl font-semibold py-2 pn:max-sm:px-2 my-2">
                 Ad Details
               </h1>
-              <div className="my-2 rounded-xl bg-white pn:max-sm:px-2">
+              <div className="my-2 rounded-xl bg-maincolor pn:max-sm:px-2">
                 <div className="flex  py-2 px-[2%] flex-col w-full">
                   <label
                     htmlFor="adname"
@@ -150,7 +142,7 @@ const Ad1 = ({
                     value={three.adName}
                     type="text"
                     placeholder="Enter Ad Name"
-                    className="w-full border rounded-xl outline-none p-2"
+                    className="w-full border rounded-xl bg-input outline-none p-2"
                   />
                 </div>
                 <div className=" py-2 px-[2%]">
@@ -160,18 +152,16 @@ const Ad1 = ({
                   <div className="sm:flex grid grid-cols-2 sm:flex-wrap gap-3">
                     <div
                       onClick={() => setThree({ ...three, goal: "Sales" })}
-                      className={`p-1 border-2 inline-block  text-black w-full sm:w-[220px] rounded-xl ${
-                        three.goal === "Sales"
-                          ? "border-2 border-[#2D9AFF]"
-                          : " sm:hover:text-black"
-                      } `}
+                      className={`p-1 border-2 inline-block  text-black w-full sm:w-[220px] rounded-xl ${three.goal === "Sales"
+                        ? "border-2 border-[#2D9AFF]"
+                        : " sm:hover:text-black"
+                        } `}
                     >
                       <div
-                        className={`p-2 h-full rounded-lg ${
-                          three.goal === "Sales"
-                            ? "bg-[#2D9AFF]/30"
-                            : "bg-white sm:hover:bg-[#3e3e3e]/80 sm:hover:text-white"
-                        }  `}
+                        className={`p-2 h-full rounded-lg ${three.goal === "Sales"
+                          ? "bg-[#2D9AFF]/30"
+                          : "bg-maincolor sm:hover:bg-[#3e3e3e]/80 sm:hover:text-white"
+                          }  `}
                       >
                         {" "}
                         <h1 className="sm:text-2xl text-lg  font-robot font-bold py-1">
@@ -184,18 +174,16 @@ const Ad1 = ({
                     </div>
                     <div
                       onClick={() => setThree({ ...three, goal: "Awareness" })}
-                      className={`p-1 border-2 inline-block w-full sm:w-[220px] rounded-xl ${
-                        three.goal === "Awareness"
-                          ? "border-2 border-[#2D9AFF]"
-                          : " sm:hover:text-black"
-                      } `}
+                      className={`p-1 border-2 inline-block w-full sm:w-[220px] rounded-xl ${three.goal === "Awareness"
+                        ? "border-2 border-[#2D9AFF]"
+                        : " sm:hover:text-black"
+                        } `}
                     >
                       <div
-                        className={`p-2 h-full rounded-lg ${
-                          three.goal === "Awareness"
-                            ? "bg-[#2D9AFF]/30"
-                            : "bg-white sm:hover:bg-[#3e3e3e]/80 sm:hover:text-white"
-                        }  `}
+                        className={`p-2 h-full rounded-lg ${three.goal === "Awareness"
+                          ? "bg-[#2D9AFF]/30"
+                          : "bg-maincolor sm:hover:bg-[#3e3e3e]/80 sm:hover:text-white"
+                          }  `}
                       >
                         {" "}
                         <h1 className="sm:text-2xl text-lg  font-robot font-bold py-1">
@@ -208,18 +196,16 @@ const Ad1 = ({
                     </div>
                     <div
                       onClick={() => setThree({ ...three, goal: "Clicks" })}
-                      className={` p-1 border-2 inline-block w-full sm:w-[220px] rounded-xl ${
-                        three.goal === "Clicks"
-                          ? "border-2 border-[#2D9AFF]"
-                          : " sm:hover:text-black"
-                      } `}
+                      className={` p-1 border-2 inline-block w-full sm:w-[220px] rounded-xl ${three.goal === "Clicks"
+                        ? "border-2 border-[#2D9AFF]"
+                        : " sm:hover:text-black"
+                        } `}
                     >
                       <div
-                        className={`p-2 h-full rounded-lg ${
-                          three.goal === "Clicks"
-                            ? "bg-[#2D9AFF]/30"
-                            : "bg-white sm:hover:bg-[#3e3e3e]/80 sm:hover:text-white"
-                        }  `}
+                        className={`p-2 h-full rounded-lg ${three.goal === "Clicks"
+                          ? "bg-[#2D9AFF]/30"
+                          : "bg-maincolor sm:hover:bg-[#3e3e3e]/80 sm:hover:text-white"
+                          }  `}
                       >
                         <h1 className="sm:text-2xl text-lg  font-robot font-bold py-1">
                           Clicks
@@ -231,18 +217,16 @@ const Ad1 = ({
                     </div>
                     <div
                       onClick={() => setThree({ ...three, goal: "Downloads" })}
-                      className={` p-1 border-2 inline-block w-full sm:w-[220px] rounded-xl ${
-                        three.goal === "Downloads"
-                          ? "border-2 border-[#2D9AFF]"
-                          : " sm:hover:text-black"
-                      } `}
+                      className={` p-1 border-2 inline-block w-full sm:w-[220px] rounded-xl ${three.goal === "Downloads"
+                        ? "border-2 border-[#2D9AFF]"
+                        : " sm:hover:text-black"
+                        } `}
                     >
                       <div
-                        className={`p-2 h-full rounded-lg ${
-                          three.goal === "Downloads"
-                            ? "bg-[#2D9AFF]/30"
-                            : "bg-white sm:hover:bg-[#3e3e3e]/80 sm:hover:text-white"
-                        }  `}
+                        className={`p-2 h-full rounded-lg ${three.goal === "Downloads"
+                          ? "bg-[#2D9AFF]/30"
+                          : "bg-maincolor sm:hover:bg-[#3e3e3e]/80 sm:hover:text-white"
+                          }  `}
                       >
                         {" "}
                         <h1 className="sm:text-2xl text-lg  font-robot font-bold py-1">
@@ -255,18 +239,16 @@ const Ad1 = ({
                     </div>
                     <div
                       onClick={() => setThree({ ...three, goal: "Views" })}
-                      className={` p-1 border-2 inline-block w-full sm:w-[220px] rounded-xl ${
-                        three.goal === "Views"
-                          ? "border-2 border-[#2D9AFF]"
-                          : " sm:hover:text-black"
-                      } `}
+                      className={` p-1 border-2 inline-block w-full sm:w-[220px] rounded-xl ${three.goal === "Views"
+                        ? "border-2 border-[#2D9AFF]"
+                        : " sm:hover:text-black"
+                        } `}
                     >
                       <div
-                        className={`p-2 h-full rounded-lg ${
-                          three.goal === "Views"
-                            ? "bg-[#2D9AFF]/30"
-                            : "bg-white sm:hover:bg-[#3e3e3e]/80 sm:hover:text-white"
-                        }  `}
+                        className={`p-2 h-full rounded-lg ${three.goal === "Views"
+                          ? "bg-[#2D9AFF]/30"
+                          : "bg-maincolor sm:hover:bg-[#3e3e3e]/80 sm:hover:text-white"
+                          }  `}
                       >
                         {" "}
                         <h1 className="sm:text-2xl text-lg  font-robot font-bold py-1">
@@ -281,7 +263,7 @@ const Ad1 = ({
                 </div>
               </div>
 
-              <div className="my-[4%] rounded-xl pn:max-sm:px-2 bg-white">
+              <div className="my-[4%] rounded-xl pn:max-sm:px-2 bg-maincolor">
                 <div className="flex flex-col  py-2 px-[2%] w-full">
                   <div className="flex items-center gap-1">
                     <label
@@ -294,7 +276,7 @@ const Ad1 = ({
                       <FiAlertCircle className="text-sm" />
 
                       <div className="absolute hidden text-black/75 bg-[#fff] shadow-lg text-sm p-2 px-4 rounded-b-xl rounded-r-xl group-hover:inline-block top-4 left-2">
-                        <div className="  my-2 h-3 w-3 z-20 bg-white absolute -top-[13px] shadow-2xl left-0 -rotate-45"></div>
+                        <div className="  my-2 h-3 w-3 z-20 bg-maincolor absolute -top-[13px] shadow-2xl left-0 -rotate-45"></div>
                         <div> This is a headline</div>
                       </div>
                     </div> */}
@@ -308,7 +290,7 @@ const Ad1 = ({
                     value={three.Headline}
                     type="text"
                     placeholder="Never have a bad meal"
-                    className="w-full border rounded-xl outline-none p-2"
+                    className="w-full border rounded-xl bg-input outline-none p-2"
                   />
                 </div>
                 <div className="flex flex-col  py-2 px-[2%] w-full">
@@ -319,7 +301,7 @@ const Ad1 = ({
                     {/* <div className="relative w-full cursor-pointer group">
                       <FiAlertCircle className="text-sm" />
                       <div className="absolute hidden text-black/75 bg-[#fff] shadow-lg text-sm p-2 px-4 rounded-b-xl rounded-r-xl group-hover:inline-block top-4 left-2">
-                        <div className="  my-2 h-3 w-3 z-20 bg-white absolute -top-[13px] shadow-2xl left-0 -rotate-45"></div>
+                        <div className="  my-2 h-3 w-3 z-20 bg-maincolor absolute -top-[13px] shadow-2xl left-0 -rotate-45"></div>
                         <div> This is a Description</div>
                       </div>
                     </div> */}
@@ -333,7 +315,7 @@ const Ad1 = ({
                     value={three.Description}
                     type="text"
                     placeholder="healthy and sweet dishes"
-                    className="w-full border rounded-xl outline-none p-2"
+                    className="w-full border rounded-xl bg-input outline-none p-2"
                   />
                 </div>
                 <div className="grid sm:grid-cols-2 px-[2%] w-full grid-cols-1 sm:gap-4 py-2">
@@ -348,7 +330,7 @@ const Ad1 = ({
                       {/* <div className="relative w-full cursor-pointer group">
                         <FiAlertCircle className="text-sm" />
                         <div className="absolute hidden text-black/75 bg-[#fff] shadow-lg text-sm p-2 px-4 rounded-b-xl rounded-r-xl group-hover:inline-block top-4 left-2">
-                          <div className="  my-2 h-3 w-3 z-20 bg-white absolute -top-[13px] shadow-2xl left-0 -rotate-45"></div>
+                          <div className="  my-2 h-3 w-3 z-20 bg-maincolor absolute -top-[13px] shadow-2xl left-0 -rotate-45"></div>
                           <div> This is a Select Call To Action</div>
                         </div>
                       </div> */}
@@ -356,9 +338,8 @@ const Ad1 = ({
 
                     <div
                       onMouseEnter={() => setDown(1)}
-                      className={`flex items-center p-2 border ${
-                        three.Action && down === 0 ? "" : ""
-                      } group-hover:rounded-[0] group-hover:rounded-t-xl rounded-xl`}
+                      className={`flex items-center p-2 border ${three.Action && down === 0 ? "" : ""
+                        } group-hover:rounded-[0] group-hover:rounded-t-xl rounded-xl`}
                     >
                       <div
                         placeholder="Order Now"
@@ -371,11 +352,10 @@ const Ad1 = ({
 
                     {three.Action && down === 0 ? (
                       <div
-                        className={`absolute hidden  ${
-                          down === 0
-                            ? "rounded-2xl "
-                            : "rounded-b-2xl group-hover:block pb-2 top-[99%] left-0 w-full bg-white border"
-                        } `}
+                        className={`absolute hidden  ${down === 0
+                          ? "rounded-2xl "
+                          : "rounded-b-2xl group-hover:block pb-2 top-[99%] left-0 w-full bg-maincolor border"
+                          } `}
                       >
                         <div className="flex flex-col gap-3 px-3 py-3">
                           <div
@@ -417,7 +397,7 @@ const Ad1 = ({
                       </div>
                     ) : (
                       <div
-                        className={`absolute hidden rounded-b-2xl group-hover:block pb-2 top-[99%] left-0 w-full bg-white border`}
+                        className={`absolute hidden rounded-b-2xl group-hover:block pb-2 top-[99%] left-0 w-full bg-maincolor border`}
                       >
                         <div className="flex flex-col gap-3 px-3 py-3">
                           <div
@@ -475,7 +455,7 @@ const Ad1 = ({
                       {/* <div className="relative flex flex-col w-full cursor-pointer group">
                         <FiAlertCircle className="text-sm" />
                         <div className="absolute hidden text-black/75 bg-[#fff] shadow-lg text-sm p-2 px-4 rounded-b-xl rounded-r-xl group-hover:inline-block top-4 left-2">
-                          <div className="  my-2 h-3 w-3 z-20 bg-white absolute -top-[13px] shadow-2xl left-0 -rotate-45"></div>
+                          <div className="  my-2 h-3 w-3 z-20 bg-maincolor absolute -top-[13px] shadow-2xl left-0 -rotate-45"></div>
                           <div> This is a Paste Link To Call To Action</div>
                         </div>
                       </div> */}
@@ -491,7 +471,7 @@ const Ad1 = ({
                         value={three.link}
                         type="text"
                         placeholder="grovyo.com"
-                        className="w-full rounded-xl rounded-l-none outline-none p-2"
+                        className="w-full rounded-xl bg-transparent rounded-l-none outline-none p-2"
                       />
                     </div>
                   </div>
@@ -503,7 +483,7 @@ const Ad1 = ({
                   Create up to 5 ads by Selecting multiple images from the
                   library or by uploading directly.
                 </div> */}
-                  <div className="bg-[#F3F6F8] flex sm:flex-row flex-col justify-around py-3 rounded-2xl items-center w-full">
+                  <div className="bg-[#F3F6F8] dark:bg-[#273142] dark:border dark:border-border  flex sm:flex-row flex-col justify-around py-3 rounded-2xl items-center w-full">
                     <div className="pn:max-sm:text-center pn:max-sm:w-[80%] pn:max-sm:py-2">
                       Image must be JPG, PNG, or GIF, up to 5 mb
                     </div>
@@ -535,7 +515,7 @@ const Ad1 = ({
                   </div>
                 </div>
                 <div className="py-2 px-[2%]">
-                  <div className="bg-[#F3F6F8] py-2 px-[2%]  flex justify-between rounded-2xl items-center w-full">
+                  <div className="bg-[#F3F6F8] dark:bg-[#273142] dark:border dark:border-border py-2 px-[2%]  flex justify-between rounded-2xl items-center w-full">
                     <div className="flex justify-center overflow-hidden space-x-4 items-center">
                       <div>
                         {/* <Image
@@ -602,8 +582,8 @@ const Ad1 = ({
             </div>
 
             <div className="md:col-span-3 pn:max-md:order-2 w-full sm:overflow-y-auto sm:no-scrollbar rounded-xl max-h-[780px]">
-              <div className="bg-[#FAFAFA] rounded-xl w-full flex justify-center items-center">
-                <div className="bg-white rounded-xl flex flex-col w-[85%] sm:w-[500px] md:w-[370px]  my-10 h-auto px-2">
+              <div className="bg-[#FAFAFA] dark:bg-[#1b2431] rounded-xl w-full flex justify-center items-center">
+                <div className="bg-maincolor rounded-xl flex flex-col w-[85%] sm:w-[500px] md:w-[370px]  my-10 h-auto px-2">
                   <div className="flex justify-between items-center w-full">
                     <div className="flex items-center space-x-1 pt-2 w-full">
                       <div>
@@ -644,9 +624,9 @@ const Ad1 = ({
                   ) : null}
 
                   {three.picsend &&
-                  ["mp4", "avi", "mov"].includes(
-                    three.picname.split(".").pop().toLowerCase()
-                  ) ? (
+                    ["mp4", "avi", "mov"].includes(
+                      three.picname.split(".").pop().toLowerCase()
+                    ) ? (
                     <video
                       className="w-auto h-auto rounded-2xl object-cover"
                       width="350"

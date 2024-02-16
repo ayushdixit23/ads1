@@ -12,7 +12,7 @@ import Image from 'next/image';
 import { formatDateToString } from '../utils/useful';
 
 const Ad2 = ({
-	setStep,
+
 	setCLick,
 	setThree,
 	setT,
@@ -32,15 +32,15 @@ const Ad2 = ({
 	totalPrice,
 	myLocation,
 	t,
-	step
+
 }) => {
 	return (
 		<>
 			<div>
 				<div className="grid bg-[#F8F8F8] grid-cols-1 pn:max-md:hidden">
-					<div className="flex bg-white flex-col ">
-						<div className=" sticky top-0 z-50">
-							<div className="flex bg-white w-full justify-between items-center px-5 py-4">
+					<div className="flex bg-[#1b2431] flex-col ">
+						{/* <div className=" sticky top-0 z-50">
+							<div className="flex bg-maincolor w-full justify-between items-center px-5 py-4">
 								<div className="text-[#555555] text-xl font-semibold">
 									Set up a new Ad
 								</div>
@@ -66,10 +66,10 @@ const Ad2 = ({
 									)}
 								</div>
 							</div>
-						</div>
-						<div>
+						</div> */}
+						{/* <div>
 							<div>
-								<div className="flex justify-center bg-[#fafafa] pt-5 py-3 mt-3">
+								<div className="flex justify-center dark:bg-[#273142] shadow-lg bg-[#fafafa] pt-5 py-3 mt-3">
 									<div className=" flex flex-col justify-center items-center">
 										<div
 											className={`h-10 w-10 rounded-full flex items-center justify-center ${step >= 0
@@ -137,15 +137,15 @@ const Ad2 = ({
 									</div>
 								</div>
 							</div>
-						</div>
-						<div className="flex justify-center max-h-[800px] bg-[#fafafa] gap-9 px-[2%] pn:max-md:hidden">
+						</div> */}
+						<div className="flex justify-center max-h-[800px] dark:bg-[#273142] bg-[#fafafa] gap-9 px-[2%] pn:max-md:hidden">
 							<div
-								className={`${styles.customScrollbar} pn:max-md:hidden md:w-[900px] overflow-y-scroll bg-[#F0F2F5] border-2 my-4 rounded-2xl py-5 px-5`}
+								className={`${styles.customScrollbar} pn:max-md:hidden md:w-[900px] overflow-y-scroll dark:bg-[#1b2431] bg-[#F0F2F5] border-2 my-4 rounded-2xl py-5 px-5`}
 							>
 								<h1 className="sm:text-3xl text-xl font-semibold py-2">
 									Select Target
 								</h1>
-								<div className="bg-white my-3 px-[2%] select-none py-2 rounded-xl ">
+								<div className="bg-maincolor my-3 px-[2%] select-none py-2 rounded-xl ">
 									<h2 className="sm:text-xl text-lg font-semibold py-2">
 										Select Optimal section for effective advertising
 									</h2>
@@ -217,7 +217,7 @@ const Ad2 = ({
 								</div>
 
 								<div className="my-[4%] rounded-xl">
-									<div className="py-3 px-[2%] rounded-t-xl bg-white relative">
+									<div className="py-3 px-[2%] rounded-t-xl bg-maincolor relative">
 										<h1 className="text-lg py-1 font-medium">Category</h1>
 										<div className="w-full flex justify-center items-center rounded-xl border ">
 											<BiMap className="border-r-2 p-2 text-4xl" />
@@ -231,7 +231,7 @@ const Ad2 = ({
 
 										<div className="relative overflow-y-scroll my-3 no-scrollbar w-[360px] h-[230px]">
 											<div>
-												<div className="absolute top-0 left-0 h-auto w-full p-3 border rounded-xl z-10 drop-shadow-md bg-white">
+												<div className="absolute top-0 left-0 h-auto w-full p-3 border rounded-xl z-10 drop-shadow-md bg-maincolor">
 													<div className="text-sm text-[#6B778C] mb-2 pb-2">
 														Categories{" "}
 													</div>
@@ -266,7 +266,7 @@ const Ad2 = ({
 										</div>
 									</div>
 
-									<div className="py-2 px-[2%] bg-white rounded-b-xl relative">
+									<div className="py-2 px-[2%] bg-maincolor rounded-b-xl relative">
 										<h1 className="text-lg py-1 font-medium">Enter Tags</h1>
 										<div className="w-full flex justify-center items-center  rounded-xl border ">
 											<BiMap className="border-r-2 p-2 text-4xl" />
@@ -331,7 +331,7 @@ const Ad2 = ({
 									</div>
 								</div>
 
-								<div className="my-[4%] rounded-xl py-2 px-[2%] bg-white">
+								<div className="my-[4%] rounded-xl py-2 px-[2%] bg-maincolor">
 									<h1 className="text-2xl font-semibold py-2">
 										Target Audience
 									</h1>
@@ -399,7 +399,7 @@ const Ad2 = ({
 
 										<div className="relative overflow-y-scroll no-scrollbar w-[360px] h-[230px]">
 											<div>
-												<div className="absolute top-0 left-0 h-auto w-full p-3 border rounded-xl z-10 drop-shadow-md bg-white">
+												<div className="absolute top-0 left-0 h-auto w-full p-3 border rounded-xl z-10 drop-shadow-md bg-maincolor">
 													<div className="text-sm text-[#6B778C] mb-2 pb-2">
 														Trending tags related to Tech{" "}
 													</div>
@@ -534,7 +534,7 @@ const Ad2 = ({
 										</div>
 									</div>
 								</div>
-								<div className="my-[4%] rounded-xl py-3 px-[2%] bg-white">
+								<div className="my-[4%] rounded-xl py-3 px-[2%] bg-maincolor">
 									<div>
 										<h1 className="text-2xl font-semibold">
 											Schedule and duration
@@ -728,7 +728,7 @@ const Ad2 = ({
                     </div>
                   </div> */}
 								</div>
-								{/* <div className="lg:min-w-[700px] bg-white my-4 rounded-2xl py-5 px-5">
+								{/* <div className="lg:min-w-[700px] bg-maincolor my-4 rounded-2xl py-5 px-5">
                   <div className="flex flex-col gap-4">
                     <div className="flex flex-col gap-1">
                       <div className="font-bold">Payment Details</div>
@@ -771,9 +771,9 @@ const Ad2 = ({
 
 				{/* mobile */}
 				<div className="md:hidden">
-					<div className="flex bg-white flex-col py-2">
-						<div className="fixed left-0 w-full top-0 z-50">
-							<div className="flex bg-white justify-between px-5 items-center py-4 shadow-md">
+					<div className="flex bg-maincolor flex-col py-2">
+						{/* <div className="fixed left-0 w-full top-0 z-50">
+							<div className="flex bg-maincolor justify-between px-5 items-center py-4 shadow-md">
 								<div className="text-[#555555] text-xl font-semibold">
 									Ad SetUp
 								</div>
@@ -799,12 +799,12 @@ const Ad2 = ({
 									)}
 								</div>
 							</div>
-						</div>
-						<div>
+						</div> */}
+						{/* <div>
 							<div>
 								<div
 									style={{ marginTop: "4rem" }}
-									className="flex justify-center bg-[#fafafa] pt-5 py-3 mt-3 pn:max-sm:text-xs text-center px-3"
+									className="flex justify-center bg-[#fafafa] dark:bg-[#273142] pt-5 py-3 mt-3 pn:max-sm:text-xs text-center px-3"
 								>
 									<div className=" flex flex-col gap-1 justify-center items-center">
 										<div
@@ -871,7 +871,7 @@ const Ad2 = ({
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> */}
 						<div className="grid grid-cols-1">
 							<div className="flex flex-col">
 								<Square3 display={ProperAudience ? ProperAudience : 0} />
@@ -884,11 +884,11 @@ const Ad2 = ({
 								/>
 							</div>
 
-							<div className="w-full md:hidden bg-[#F0F2F5] my-4 rounded-2xl py-5 px-2">
+							<div className="w-full md:hidden bg-[#F0F2F5] dark:bg-[#1b2431] my-4 rounded-2xl py-5 px-2">
 								<h1 className="text-2xl font-semibold py-2 px-2">
 									Select Target
 								</h1>
-								<div className="my-2 bg-white p-3 rounded-xl">
+								<div className="my-2 bg-maincolor p-3 rounded-xl">
 									<div>
 										<h2 className="text-xl font-semibold py-2">
 											Select Optimal section for
@@ -962,7 +962,7 @@ const Ad2 = ({
 									</div>
 								</div>
 								<div className="rounded-xl">
-									<div className="my-5 bg-white p-3 rounded-xl">
+									<div className="my-5 bg-maincolor p-3 rounded-xl">
 										<div className="my-1 relative">
 											<h1 className="text-lg py-1 font-medium">Category</h1>
 											<div className="w-full flex justify-center items-center rounded-xl border ">
@@ -977,7 +977,7 @@ const Ad2 = ({
 
 											<div className="relative overflow-y-scroll my-5 no-scrollbar w-[360px] h-[230px]">
 												<div>
-													<div className="absolute top-0 left-0 h-auto w-full p-3 border rounded-xl z-10 drop-shadow-md bg-white">
+													<div className="absolute top-0 left-0 h-auto w-full p-3 border rounded-xl z-10 drop-shadow-md bg-maincolor">
 														<div className="text-sm text-[#6B778C] mb-2 pb-2">
 															Trending Categories
 														</div>
@@ -1078,7 +1078,7 @@ const Ad2 = ({
 
 											{/* <div className="relative overflow-y-scroll no-scrollbar w-[330px] h-[230px]">
                         <div>
-                          <div className="absolute top-0 left-0 h-auto w-full p-3 border rounded-xl z-10 drop-shadow-md bg-white">
+                          <div className="absolute top-0 left-0 h-auto w-full p-3 border rounded-xl z-10 drop-shadow-md bg-maincolor">
                             <div className="text-sm text-[#6B778C] mb-2 pb-2">
                               Trending tags related to Tech{" "}
                             </div>
@@ -1124,7 +1124,7 @@ const Ad2 = ({
 										</div>
 									</div>
 
-									<div className="my-5 bg-white p-3 rounded-xl">
+									<div className="my-5 bg-maincolor p-3 rounded-xl">
 										<h1 className="text-2xl font-semibold py-2">
 											Target Audience
 										</h1>
@@ -1192,7 +1192,7 @@ const Ad2 = ({
 
 											<div className="relative overflow-y-scroll no-scrollbar w-[360px] h-[230px]">
 												<div>
-													<div className="absolute top-0 left-0 h-auto w-full p-3 border rounded-xl z-10 drop-shadow-md bg-white">
+													<div className="absolute top-0 left-0 h-auto w-full p-3 border rounded-xl z-10 drop-shadow-md bg-maincolor">
 														<div className="text-sm text-[#6B778C] mb-2 pb-2">
 															Trending tags related to Tech{" "}
 														</div>
@@ -1390,7 +1390,7 @@ const Ad2 = ({
 										</div>
 									</div>
 
-									<div className="my-[4%] rounded-xl py-3 px-[2%] bg-white">
+									<div className="my-[4%] rounded-xl py-3 px-[2%] bg-maincolor">
 										<div>
 											<h1 className="text-2xl font-semibold">
 												Schedule and duration
@@ -1609,7 +1609,7 @@ const Ad2 = ({
                     </div> */}
 									</div>
 									{/* <div
-                    className="w-full bg-white my-4 rounded-2xl py-5 px-5"
+                    className="w-full bg-maincolor my-4 rounded-2xl py-5 px-5"
                   >
                     <div className="flex flex-col gap-4">
                       <div className="flex flex-col gap-1">

@@ -5,28 +5,22 @@ import Sidebar from "../component/Sidebar";
 import LogoutModal from "../component/LogOut";
 import MobileNav from "../component/MobileNav";
 import Image from "next/image";
-import useTokenAndData from "../utils/token";
-
+import { getData } from "../utils/useful";
 
 export default function SettingLayout({ children }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChildrenHidden, setIsChildrenHidden] = useState(false);
   const [user, setUser] = useState({ name: "", image: "", accountid: "" });
-  const {appData} = useTokenAndData()
+  const { image, advid, firstname } = getData()
 
   useEffect(() => {
-    appData()
-      .then((data) => {
-        setUser({
-          name: data.firstname,
-          image: data.image,
-          accountid: data.advid,
-        });
+    if (image && firstname && advid)
+      setUser({
+        name: firstname,
+        image: image,
+        accountid: advid,
       })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  }, [image, firstname, advid]);
 
   const handleToggleChildren = () => {
     setIsChildrenHidden(!isChildrenHidden);
@@ -83,28 +77,27 @@ export default function SettingLayout({ children }) {
             <div
               className={`w-full md:overflow-y-scroll max-h-screen md:no-scrollbar`}
             >
-              <div className="py-4 px-5 shadow-md bg-white">
+              <div className="py-4 px-5 shadow-md bg-maincolor">
                 <div className="text-2xl py-2 font-semibold">Settings</div>
               </div>
-              <div className="bg-[#f8f8f8]  grid grid-cols-1 w-full h-[90%] sm:h-full p-[2%]">
+              <div className="bg-[#f8f8f8] dark:bg-[#1b2431] grid grid-cols-1 w-full h-[90%] sm:h-full p-[2%]">
                 <div className="grid sm:grid-cols-3 grid-cols-1 sm:gap-4 md:gap-8">
                   <div
-                    className={`sm:col-span-1 h-[90%] rounded-2xl bg-white max-h-screen sm:max-md:p-[2%] p-[3%] ${
-                      isChildrenHidden
-                        ? "pn:max-sm:hidden"
-                        : " pn:max-sm:w-full"
-                    }`}
+                    className={`sm:col-span-1 h-[90%] rounded-2xl bg-maincolor max-h-screen sm:max-md:p-[2%] p-[3%] ${isChildrenHidden
+                      ? "pn:max-sm:hidden"
+                      : " pn:max-sm:w-full"
+                      }`}
                   >
                     <div className="flex flex-col">
-                      <div className="flex items-center gap-3 bg-[#f9f9f9] sm:max-md:p-2 p-4 rounded-xl">
+                      <div className="flex items-center gap-3 bg-[#f9f9f9] dark:bg-maincolor dark:border dark:border-border sm:max-md:p-2 p-4 rounded-xl">
                         <div>
-                          <Image
+                          {user.image && <Image
                             src={user?.image}
                             width={60}
                             height={60}
                             className="min-w-[50px]"
                             alt="profile"
-                          />
+                          />}
                         </div>
                         <div>
                           <div className="text-lg sm:max-md:text-base font-semibold">
@@ -117,14 +110,14 @@ export default function SettingLayout({ children }) {
                       <Link
                         onClick={() => setIsChildrenHidden(true)}
                         href="/setting/billing"
-                        className="text-lg rounded-xl focus:bg-[#f9f9f9] hover:bg-[#f9f9f9] my-2 p-2 py-3  font-semibold"
+                        className="text-lg rounded-xl focus:bg-[#f9f9f9] dark:hover:bg-[#3d4654] dark:focus:bg-[#3d4654] hover:bg-[#f9f9f9] my-2 p-2 py-3  font-semibold"
                       >
                         Billing and Payments
                       </Link>
                       <Link
                         onClick={() => setIsChildrenHidden(true)}
                         href="/setting/verfication"
-                        className="text-lg p-2 py-3   my-2 rounded-xl focus:bg-[#f9f9f9] hover:bg-[#f9f9f9] font-semibold"
+                        className="text-lg p-2 py-3 my-2 rounded-xl dark:hover:bg-[#3d4654] dark:focus:bg-[#3d4654] focus:bg-[#f9f9f9] hover:bg-[#f9f9f9] font-semibold"
                       >
                         Advertiser Verification
                       </Link>
@@ -133,13 +126,13 @@ export default function SettingLayout({ children }) {
 											</div> */}
                       <Link
                         href="/setting/feedback"
-                        className=" text-lg p-2 py-3   my-2  rounded-xl focus:bg-[#f9f9f9] hover:bg-[#f9f9f9] font-semibold"
+                        className=" text-lg p-2 py-3 dark:hover:bg-[#3d4654] dark:focus:bg-[#3d4654] my-2 rounded-xl focus:bg-[#f9f9f9] hover:bg-[#f9f9f9] font-semibold"
                       >
                         Feedback
                       </Link>
                       <div
                         onClick={() => setIsModalOpen(true)}
-                        className=" text-lg p-2 py-3 my-1 rounded-xl focus:bg-[#f9f9f9] hover:bg-[#f9f9f9] font-semibold"
+                        className=" text-lg p-2 py-3 dark:hover:bg-[#3d4654] dark:focus:bg-[#3d4654] my-1 rounded-xl focus:bg-[#f9f9f9] hover:bg-[#f9f9f9] font-semibold"
                       >
                         Log Out
                       </div>
@@ -151,9 +144,8 @@ export default function SettingLayout({ children }) {
                     </div>
                   </div>
                   <div
-                    className={`bg-white overflow-y-scroll no-scrollbar max-h-screen sm:col-span-2 rounded-xl ${
-                      isChildrenHidden ? "" : "pn:max-sm:hidden"
-                    }`}
+                    className={`bg-maincolor overflow-y-scroll no-scrollbar max-h-screen sm:col-span-2 rounded-xl ${isChildrenHidden ? "" : "pn:max-sm:hidden"
+                      }`}
                   >
                     {children}
                   </div>

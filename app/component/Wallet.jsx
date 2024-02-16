@@ -11,7 +11,7 @@ import { RxCross2 } from "react-icons/rx";
 import useRazorpay from "react-razorpay";
 import { useRouter } from "next/navigation";
 import moment from "moment";
-import useTokenAndData from "../utils/token";
+import { getData } from "../utils/useful";
 
 const Wallet = () => {
   const [wallet, setWallet] = useState(0);
@@ -21,14 +21,12 @@ const Wallet = () => {
   const [check, setCheck] = useState(false);
   const [inp, setInp] = useState("");
   const [Razorpay] = useRazorpay();
-  const [os, setOs] = useState("");
-  const router = useRouter();
-  const { appData } = useTokenAndData()
+  // const [os, setOs] = useState("");
+
+  const { userid, firstname, lastname } = getData()
   const fetchdata = useCallback(async () => {
-    const data = await appData()
-    const id = data.id;
     try {
-      const response = await axios.get(`${API}/gettransactions/${id}`);
+      const response = await axios.get(`${API}/gettransactions/${userid}`);
       if (response.data.success) {
         setMoney(response.data.amount);
         const pay = response.data.transaction;
@@ -50,12 +48,11 @@ const Wallet = () => {
   const handlePayment = useCallback(
     async (e) => {
       e.preventDefault();
-      const data = await appData()
-      const name = data.fullname;
-      const id = data.id
-      if (id && inp) {
+      const name = firstname + " " + lastname
+
+      if (userid && inp) {
         try {
-          const response = await axios.post(`${API}/addmoneytowallet/${id}`, {
+          const response = await axios.post(`${API}/addmoneytowallet/${userid}`, {
             amount: inp,
           });
 
@@ -88,7 +85,7 @@ const Wallet = () => {
               },
 
               "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
-                "name": "Ayush Dixit", //your customer's name
+                "name": name, //your customer's name
                 "email": "gaurav.kumar@example.com",
                 "contact": "9000090000" //Provide the customer's phone number for better conversion rates 
               },
@@ -141,7 +138,7 @@ const Wallet = () => {
           : "hidden"
           }`}
       >
-        <div className="sm:w-[58%] w-[85%] md:w-[43%] h-auto rounded-2xl bg-white p-5 sm:p-[2%]">
+        <div className="sm:w-[58%] w-[85%] md:w-[43%] h-auto rounded-2xl bg-maincolor p-5 sm:p-[2%]">
           <div className="flex justify-end">
             <RxCross2
               onClick={() => setWallet(0)}
@@ -153,7 +150,7 @@ const Wallet = () => {
             value={inp}
             onChange={(e) => setInp(e.target.value)}
             type="number"
-            className="p-2 w-full my-1 outline-none rounded-xl bg-[#f4f5f7]"
+            className="p-2 w-full my-1 outline-none rounded-xl dark:bg-[#273142] dark:border-border dark:border bg-[#f4f5f7]"
           />
           <div className="text-sm py-2 underline">Min 100 rs</div>
           <div>
@@ -161,25 +158,25 @@ const Wallet = () => {
             <div className="flex items-center gap-2 flex-wrap">
               <div
                 onClick={() => setInp(199)}
-                className="p-3 rounded-xl cursor-pointer bg-[#f4f5f7] "
+                className="p-3 rounded-xl cursor-pointer dark:bg-[#273142] dark:border-border dark:border bg-[#f4f5f7] "
               >
                 199 rs
               </div>
               <div
                 onClick={() => setInp(299)}
-                className="p-3 rounded-xl cursor-pointer bg-[#f4f5f7] "
+                className="p-3 rounded-xl cursor-pointer dark:bg-[#273142] dark:border-border dark:border bg-[#f4f5f7] "
               >
                 299 rs
               </div>
               <div
                 onClick={() => setInp(499)}
-                className="p-3 rounded-xl cursor-pointer bg-[#f4f5f7] "
+                className="p-3 rounded-xl cursor-pointer dark:bg-[#273142] dark:border-border dark:border bg-[#f4f5f7] "
               >
                 499 rs
               </div>
               <div
                 onClick={() => setInp(899)}
-                className="p-3 rounded-xl cursor-pointer bg-[#f4f5f7] "
+                className="p-3 rounded-xl cursor-pointer dark:bg-[#273142] dark:border-border dark:border bg-[#f4f5f7] "
               >
                 899 rs
               </div>
@@ -197,7 +194,7 @@ const Wallet = () => {
         </div>
       </div>
 
-      <div className="py-4 px-5 border bg-white z-10 w-full">
+      <div className="py-4 px-5 border bg-maincolor z-10 w-full">
         <div className="text-2xl font-semibold">Wallet</div>
         <MobileNav />
       </div>
@@ -205,7 +202,7 @@ const Wallet = () => {
       <div className="grid grid-cols-1 z-10">
         <div className="grid grid-cols-1  md:m-5 gap-5 sm:m-5 w-full sm:w-[95%] ">
           <div className="flex p-3 sm:flex-row flex-col gap-4">
-            <div className="md:w-[75%] bg-white p-3 pb-5 sm:w-[60%] border rounded-2xl">
+            <div className="md:w-[75%] bg-maincolor p-3 pb-5 sm:w-[60%] border rounded-2xl">
               <div className="flex items-center space-x-2">
                 <div>
                   <Image src={newWallet} alt="wallet" />
@@ -224,7 +221,7 @@ const Wallet = () => {
             {/* hshs */}
             <div
               onClick={() => setWallet(1)}
-              className="md:w-[25%] bg-white sm:w-[40%] flex flex-col w-full border p-2 rounded-2xl space-y-3 justify-center items-center"
+              className="md:w-[25%] bg-maincolor sm:w-[40%] flex flex-col w-full border p-2 rounded-2xl space-y-3 justify-center items-center"
             >
               <div>
                 <Image src={newWallet} width={80} height={80} alt="money" />
@@ -239,7 +236,7 @@ const Wallet = () => {
               className={`p-3 ${payhistory.length === 0 && " pn:max-sm:mb-[5rem]"
                 } `}
             >
-              <div className="flex justify-between bg-white items-center w-full border md:hidden rounded-t-2xl py-5 px-3 sm:px-[4%]">
+              <div className="flex justify-between bg-maincolor items-center w-full border md:hidden rounded-t-2xl py-5 px-3 sm:px-[4%]">
                 <div className="sm:text-2xl text-lg font-semibold">
                   All Transaction Details
                 </div>
@@ -247,7 +244,7 @@ const Wallet = () => {
                   <div className="w-full border px-3 rounded-full ">
                     <input
                       type="text"
-                      className="w-full p-2 outline-none rounded-full"
+                      className="w-full p-2 outline-none bg-transparent rounded-full"
                       placeholder="'Search Transaction id'"
                     />
                   </div>
@@ -256,7 +253,7 @@ const Wallet = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col w-full justify-center bg-white p-2 mb-3 py-5 md:hidden items-center">
+              <div className="flex flex-col w-full justify-center bg-maincolor p-2 mb-3 py-5 md:hidden items-center">
                 <div>
                   <div className="flex justify-center items-center">
                     <Image src={nodataw} alt="nodataw" />
@@ -276,7 +273,7 @@ const Wallet = () => {
             className={`p-3 ${payhistory.length != 0 ? null : "pn:max-md:hidden"
               }`}
           >
-            <div className="flex justify-between bg-white items-center w-full border rounded-t-2xl py-5 px-3 sm:px-[4%]">
+            <div className="flex justify-between bg-maincolor items-center w-full border rounded-t-2xl py-5 px-3 sm:px-[4%]">
               <div className="sm:text-2xl text-lg font-semibold">
                 All Transaction Details
               </div>
@@ -284,7 +281,7 @@ const Wallet = () => {
                 <div className="w-full border px-3 rounded-full ">
                   <input
                     type="text"
-                    className="w-full p-2 outline-none rounded-full"
+                    className="w-full p-2 outline-none bg-transparent rounded-full"
                     placeholder='Search " Transaction id "'
                   />
                 </div>
@@ -294,9 +291,9 @@ const Wallet = () => {
               </div>
             </div>
 
-            <div className="h-[400px] bg-white border no-scrollbar overflow-x-auto overflow-y-scroll">
+            <div className="h-[400px] bg-maincolor border no-scrollbar overflow-x-auto overflow-y-scroll">
               <table className="w-full min-w-[700px] border-none">
-                <thead className="bg-[#F8FAFC]">
+                <thead className="bg-[#F8FAFC] dark:bg-[#273142] dark:border-border dark:border">
                   <tr>
                     <th className="text-center px-4 py-2">Transactions ID</th>
                     <th className="text-center px-4 py-2">Name</th>
@@ -341,7 +338,7 @@ const Wallet = () => {
                     <>
                       <tr>
                         <td colSpan="7">
-                          <div className="flex flex-col w-full justify-center bg-white p-2 mb-3 py-5 pn:max-md:hidden items-center">
+                          <div className="flex flex-col w-full justify-center bg-maincolor p-2 mb-3 py-5 pn:max-md:hidden items-center">
                             <div>
                               <div className="flex justify-center items-center">
                                 <Image src={nodataw} alt="nodataw" />

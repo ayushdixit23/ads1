@@ -11,8 +11,8 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "../../firebase.config";
-import { RxCross2 } from "react-icons/rx";
-import { GrFormAdd } from "react-icons/gr";
+// import { RxCross2 } from "react-icons/rx";
+// import { GrFormAdd } from "react-icons/gr";
 import Link from "next/link";
 import { BsArrowRight, BsCheckLg } from "react-icons/bs";
 import Individual from "../spliting/Individual";
@@ -52,7 +52,6 @@ const Register = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [showOTP, setShowOTP] = useState(false);
-
   const [OTP, setOTP] = useState();
 
   const handleInputChange = (event, index) => {
@@ -279,18 +278,18 @@ const Register = () => {
     <>
       <div id="recaptcha-container"></div>
 
-      <div className="flex justify-center items-center px-2">
+      <div className="flex justify-center bg-maincolor text-text items-center px-2">
         <div className=" px-[2%] ">
           <h1 className="text-center text-3xl font-semibold mt-[4%] pt-2 pb-1">
             Create an account
           </h1>
           <h1 className="text-center">
             Already have an account?
-            <Link href="/login" className="underline">
+            <Link href="/login" className="underline pl-1">
               Log in
             </Link>
           </h1>
-          <div className="flex justify-center gap-3 rounded-lg sm:my-7 my-4 items-center sm:p-3 p-2 py-4 bg-[#fafafa]">
+          <div className="flex justify-center gap-3 rounded-lg sm:my-7 my-4 items-center sm:p-3 p-2 py-4 bg-maincolor border border-border bg-[#fafafa]">
             <AiFillLock className="text-3xl" />
             <div>
               We take privacy issues seriously. You can be sure that your
@@ -301,11 +300,11 @@ const Register = () => {
           <div className="flex justify-center pn:max-sm:text-xs px-4 pn:max-sm:text-center my-8">
             <div className=" flex flex-col gap-1 justify-center items-center">
               <div
-                className={` h-10 w-10 rounded-full flex items-center justify-center ${change === 1 ? "bg-blue-600 text-white" : "bg-[#27AE60]"
+                className={` h-10 w-10 rounded-full flex items-center justify-center ${change === 1 ? "bg-blue-600 text-text" : "bg-[#27AE60]"
                   }`}
               >
                 {change > 1 ? (
-                  <BsCheckLg className="text-lg font-bold text-white" />
+                  <BsCheckLg className="text-lg font-bold text-text" />
                 ) : (
                   1
                 )}
@@ -326,14 +325,14 @@ const Register = () => {
 
             <div className="flex flex-col gap-1 justify-center items-center">
               <div
-                className={` h-10 w-10 rounded-full flex items-center justify-center ${change === 2 ? "bg-blue-600 text-white" : ""
+                className={` h-10 w-10 rounded-full flex items-center justify-center ${change === 2 ? "bg-blue-600 text-text" : ""
                   } 
                  ${change === 1 ? "border-4 border-black " : "bg-[#27AE60]"}
                  ${change > 2 ? "bg-[#27AE60] " : ""}
                 `}
               >
                 {change > 2 ? (
-                  <BsCheckLg className="text-lg font-bold text-white" />
+                  <BsCheckLg className="text-lg font-bold text-text" />
                 ) : (
                   2
                 )}
@@ -342,7 +341,7 @@ const Register = () => {
               <div
                 className={` flex items-center flex-col ${change === 2 ? "text-blue-600 " : "text-[#27AE60]"
                   }
-                ${change === 1 ? "text-black" : null}
+                ${change === 1 ? "text-white dark:text-black" : null}
                 `}
               >
                 Provide your basic info
@@ -354,7 +353,7 @@ const Register = () => {
             />
             <div className="flex flex-col gap-1 justify-center items-center">
               <div
-                className={`h-10 w-10 rounded-full flex items-center justify-center ${change >= 3 ? "bg-blue-600 text-white" : ""
+                className={`h-10 w-10 rounded-full flex items-center justify-center ${change >= 3 ? "bg-blue-600 text-text" : ""
                   }
                 ${change === 2 || change === 1 ? "border-4 border-black " : null
                   }
@@ -367,7 +366,7 @@ const Register = () => {
               <div
                 className={` flex items-center flex-col justify-center ${change === 3 ? "text-blue-600 " : ""
                   }
-                ${change === 1 ? "text-black" : ""}
+                ${change === 1 ? "text-text" : ""}
                 
                 `}
               >
@@ -442,6 +441,7 @@ const Register = () => {
               setDetails={setDetails}
               setChecked={setChecked}
               checked={checked}
+              dataValid={dataValid}
               setChange={setChange}
               onSignup={onSignup}
             />)
@@ -450,6 +450,7 @@ const Register = () => {
               details={details}
               handleChangePhotoClick={handleChangePhotoClick}
               setDetails={setDetails}
+              dataValid={dataValid}
               setChecked={setChecked}
               checked={checked}
               setChange={setChange}

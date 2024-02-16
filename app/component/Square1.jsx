@@ -4,7 +4,7 @@ const Square1 = () => {
 
   return (
     <>
-      <div className="bg-[#fafafa] w-full">
+      <div className="bg-[#fafafa] dark:bg-[#273142] w-full">
         <div className="flex py-3 justify-center items-center gap-4 sm:gap-8">
           <div className="flex flex-col gap-2 items-center">
             <span className="px-2">

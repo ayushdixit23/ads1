@@ -1,77 +1,57 @@
 "use client";
 import { API } from "@/Essentials";
-import {encryptaes } from "@/app/utils/security";
-import useTokenAndData from "@/app/utils/token";
+import { getItemSessionStorage } from "@/app/utils/TokenDataWrapper";
+import { getData } from "@/app/utils/useful";
 import axios from "axios";
-import Cookies from "js-cookie";
+import { deleteCookie, setCookie } from "cookies-next";
 import React, { useEffect, useState } from "react";
 import { BiPencil } from "react-icons/bi";
 
 const Page = () => {
   const [edit, setEdit] = useState(false);
-  const { appData } = useTokenAndData()
+  const sessionId = getItemSessionStorage()
   const [data, setData] = useState({
     accid: '',
-    name: '',
+    firstname: '',
+    lastname: '',
     country: '',
     city: '',
     address: '',
     accounttype: '',
     taxinfo: '',
   });
-  
+
+  const { advid, firstname, lastname, city, address, country, accounttype, taxinfo, userid } = getData()
+
   useEffect(() => {
-    appData()
-      .then((res) => {
-       setData({
-          ...data,
-          accid: res.advid,
-          name: res.firstname,
-          country: res.country,
-          city: res.city,
-          address: res.address,
-          accounttype: res.accounttype,
-          taxinfo: res.taxinfo,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [appData]);
+    setData({
+      ...data,
+      accid: advid,
+      firstname: firstname,
+      lastname: lastname,
+      country: country,
+      city: city,
+      address: address,
+      accounttype: accounttype,
+      taxinfo: taxinfo,
+    })
+  }, [getData])
 
   const handleSave = async () => {
-   const cookieData= await appData()
-   console.log(cookieData)
-   const id = cookieData?.id
-   console.log(id)
     try {
-      const res = await axios.post(`${API}/editadvertiser/${id}`, {
-        firstname: data?.name,
+      const res = await axios.post(`${API}/editadvertiser/${userid}`, {
+        firstname: data?.firstname,
+        lastname: data?.lastname,
         city: data?.city,
         country: data?.country,
         taxinfo: data?.taxinfo,
         address: data?.address,
         accounttype: data?.accounttype,
       })
-    
-      if(res.data?.success){
-        Cookies.remove("adwkpiz")
-        const datatoputinCookie={
-        id: cookieData.id,
-        userid:cookieData.userid,
-        email: cookieData.email,
-        advid:cookieData.advid,
-        image: cookieData.image,
-        firstname: data?.name,
-        city: data?.city,
-        country: data?.country,
-        taxinfo: data?.taxinfo,
-        address: data?.address,
-        accounttype: data?.accounttype,
-        }
-        const str= JSON.stringify(datatoputinCookie)
-        const en= encryptaes(str)
-        Cookies.set("adwkpiz",en)
+
+      if (res.data?.success) {
+        deleteCookies()
+        setCookieAds(res.data)
       }
       setEdit(false)
     } catch (e) {
@@ -79,13 +59,22 @@ const Page = () => {
     }
   }
 
+  const deleteCookies = () => {
+    deleteCookie(`axetkn${sessionId}`);
+    deleteCookie(`rvktkn${sessionId}`);
+  }
+
+  const setCookieAds = (data) => {
+    setCookie(`axetkn${sessionId}`, data.access_token);
+    setCookie(`rvktkn${sessionId}`, data.refresh_token);
+  }
+
   return (
     <>
       <div className="h-full w-full p-[3%]">
         <h1 className="text-xl font-semibold py-2">Payment Methods</h1>
         <div className=" my-5">
-          <div className="flex hover:bg-[#fafafa] p-2 justify-between items-center">
-            {" "}
+          <div className="flex light:hover:bg-[#fafafa] py-2 justify-between items-center">
             <div>Payments Details</div>
             <div className="cursor-pointer">
               <BiPencil onClick={() => setEdit(!edit)} className="text-2xl" />
@@ -97,50 +86,50 @@ const Page = () => {
               <div className={`${edit ? null : null}`}>
                 <div className="flex justify-between  my-2 items-center">
                   <div className="font-semibold">Name</div>
-                  <input className="text-[#82888D] border outline-none p-2 rounded-lg" value={data?.name} onChange={(e) => {
+                  <input className="text-[#82888D] bg-input border outline-none p-2 rounded-lg" value={data?.name} onChange={(e) => {
                     setData({ ...data, name: e.target.value })
-                    
+
                   }} />
                 </div>
                 <div className="flex justify-between my-2 items-center">
                   <div className="font-semibold">Country</div>
-                  <input className="text-[#82888D] border outline-none p-2 rounded-lg" value={data?.country} onChange={(e) => {
+                  <input className="text-[#82888D] bg-input border outline-none p-2 rounded-lg" value={data?.country} onChange={(e) => {
                     setData({ ...data, country: e.target.value })
-                    
+
                   }} />
 
                 </div>
                 <div className="flex justify-between my-2 items-center">
                   <div className="font-semibold">City</div>
                   <input
-                    className="text-[#82888D] border outline-none p-2 rounded-lg"
+                    className="text-[#82888D] bg-input border outline-none p-2 rounded-lg"
                     value={data.city}
                     onChange={(e) => {
                       setData({ ...data, city: e.target.value })
-                    
+
                     }}
                   />
 
                 </div>
                 <div className="flex justify-between my-2 items-center">
                   <div className="font-semibold">Address</div>
-                  <input className="text-[#82888D] border outline-none p-2 rounded-lg" value={data?.address} onChange={(e) => {
+                  <input className="text-[#82888D] bg-input border outline-none p-2 rounded-lg" value={data?.address} onChange={(e) => {
                     setData({ ...data, address: e.target.value })
-                 
+
                   }} />
                 </div>
                 <div className="flex justify-between my-2 items-center">
                   <div className="font-semibold">Account Type</div>
-                  <input className="text-[#82888D] border outline-none p-2 rounded-lg" value={data?.accounttype} onChange={(e) => {
+                  <input className="text-[#82888D] bg-input border outline-none p-2 rounded-lg" value={data?.accounttype} onChange={(e) => {
                     setData({ ...data, accounttype: e.target.value })
-                    
+
                   }} />
                 </div>
                 <div className="flex justify-between my-2 items-center">
                   <div className="font-semibold">Tax Info</div>
-                  <input className="text-[#82888D] border outline-none p-2 rounded-lg" value={data?.taxinfo} onChange={(e) => {
+                  <input className="text-[#82888D] bg-input border outline-none p-2 rounded-lg" value={data?.taxinfo} onChange={(e) => {
                     setData({ ...data, taxinfo: e.target.value })
-                 
+
                   }} />
 
                 </div>
@@ -209,7 +198,7 @@ const Page = () => {
 
 
         </div>
-        <div className="flex justify-between hover:bg-[#fafafa] p-2 my-5 items-center">
+        <div className="flex justify-between light:hover:bg-[#fafafa] p-2 my-5 items-center">
           <div>Account ID</div>
           <div>{data?.accid}</div>
         </div>

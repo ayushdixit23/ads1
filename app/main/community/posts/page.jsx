@@ -4,15 +4,10 @@ import Image from 'next/image'
 import React, { useMemo } from 'react'
 import feed from "../../../assests/feed.svg"
 import { useGetCommunityQuery } from '@/app/redux/slice/apiSlice'
-import Cookies from 'js-cookie'
-import { decryptaes } from '@/app/utils/security'
-import axios from 'axios'
-import { appData } from '@/app/utils/useful'
+import { getData } from '@/app/utils/useful'
 const page = () => {
-	const cookiedata = appData()
-	const id = useMemo(() => cookiedata.userid, [cookiedata.userid])
-	const { data } = useGetCommunityQuery({ id: id }, { skip: !id })
-	console.log(data)
+	const { userid } = getData()
+	const { data } = useGetCommunityQuery({ id: userid }, { skip: !userid })
 	return (
 		<>
 			<div className='grid grid-cols-1 w-full'>

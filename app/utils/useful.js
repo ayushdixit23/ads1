@@ -1,8 +1,7 @@
-import Cookies from "js-cookie";
-import { decryptaes } from "./security";
-import { useCallback } from "react";
-
-export const formatDateToString=(dateString)=> {
+import jwt from "jsonwebtoken"
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
+export const formatDateToString = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Month is zero-based, so add 1
@@ -11,6 +10,25 @@ export const formatDateToString=(dateString)=> {
     return formattedDate;
 }
 
+export const checkToken = async (token) => {
+    try {
+        const decodedToken = jwt.decode(token, { complete: true });
+        if (decodedToken && decodedToken.header && decodedToken.payload) {
+            const issuedAt = decodedToken.payload.iat;
+            const currentTimestamp = Math.floor(Date.now() / 1000);
+            const isValidIat = issuedAt <= currentTimestamp;
+            const expiration = decodedToken.payload.exp;
+            const isValidExp = currentTimestamp <= expiration;
+            if (isValidIat && isValidExp) {
+                return { check: true, payload: decodedToken.payload }
+            } else {
+                return { check: false, payload: "" }
+            }
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 // export const appData = async ()=>{
 //     try {
@@ -19,6 +37,44 @@ export const formatDateToString=(dateString)=> {
 //         const data = de ? JSON.parse(de) : null
 //        return data
 //     } catch (error) {
-//      console.log(error)   
+//      console.log(error)
 //     }
 // }
+
+export const getData = () => {
+    const data = useSelector((state) => state.userData.data)
+    const memoizedData = useMemo(() => {
+        const {
+            userid = null,
+            advid = null,
+            image = null,
+            firstname = null,
+            lastname = null,
+            country = null,
+            city = null,
+            address = null,
+            accounttype = null,
+            taxinfo = null,
+            email = null,
+            sessionId = null
+
+        } = data || {};
+
+        return {
+            userid,
+            advid,
+            image,
+            firstname,
+            lastname,
+            country,
+            city,
+            address,
+            accounttype,
+            taxinfo,
+            email,
+            sessionId
+        };
+    }, [data]);
+
+    return memoizedData;
+}
