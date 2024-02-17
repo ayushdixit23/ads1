@@ -82,7 +82,7 @@ const page = () => {
                 <p className="-mt-7">
                   Confirm phone number with code from sms message
                 </p>
-                <div>
+                <div className="mt-2">
                   <h1 className="font-medium py-2">
                     Upload your Pan Or Aadhaar
                   </h1>

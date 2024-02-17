@@ -1,5 +1,4 @@
 import React from 'react'
-import { BsCheckLg } from 'react-icons/bs';
 import styles from "../CustomScrollbarComponent.module.css";
 import { AiFillCheckCircle, AiOutlinePlus, AiOutlineClose } from 'react-icons/ai';
 import { BiMap } from 'react-icons/bi';
@@ -15,17 +14,19 @@ const Ad2 = ({
 
 	setCLick,
 	setThree,
+	dispatch,
 	setT,
 	toggleType,
 	three,
 	PointsCategory,
+	handleCheckboxClick,
 	handleCategoryChange,
 	inputValue,
 	setInputValue,
 	myAgeHandle,
 	click,
 	handleAgeRangeChange,
-	isdatavalid,
+	// isdatavalid,
 	ProperAudience,
 	ctr,
 	pricebyDay,
@@ -233,7 +234,7 @@ const Ad2 = ({
 											<div>
 												<div className="absolute top-0 left-0 h-auto w-full p-3 border rounded-xl z-10 drop-shadow-md bg-maincolor">
 													<div className="text-sm text-[#6B778C] mb-2 pb-2">
-														Categories{" "}
+														Categories
 													</div>
 													<div className="flex flex-col gap-2">
 														{PointsCategory?.map((data, i) => (
@@ -280,10 +281,11 @@ const Ad2 = ({
 													if (!t) return;
 													else if (three?.tags?.length < 5) {
 														if (e.key === "Enter") {
-															setThree((three) => ({
-																...three,
-																tags: [...three.tags, e.target.value],
-															}));
+															// setThree((three) => ({
+															// 	...three,
+															// 	tags: [...three.tags, e.target.value],
+															// }));
+															dispatch(setThree({ tags: [...three.tags, e.target.value] }))
 															setT("");
 														}
 													} else {
@@ -294,7 +296,8 @@ const Ad2 = ({
 												}}
 												value={t}
 												placeholder="tags"
-												className="w-full rounded-xl p-2 outline-none "
+												className="w-full rounded-xl bg-transparent p-2 outline-none "
+
 											/>
 										</div>
 										{three?.tags?.length >= 5 && t !== "" && (
@@ -308,15 +311,16 @@ const Ad2 = ({
 											{three?.tags?.map((f, g) => (
 												<div
 													key={g}
-													className="flex justify-center items-center gap-2 bg-[#FAFAFA] p-2 px-3 rounded-full"
+													className="flex justify-center items-center gap-2 dark:bg-border bg-[#FAFAFA] p-2 px-3 rounded-full"
 												>
 													<div>{f}</div>
 													<div
 														onClick={() => {
-															setThree((three) => ({
-																...three,
-																tags: three.tags.filter((_, h) => h !== g),
-															}));
+															// setThree((three) => ({
+															// 	...three,
+															// 	tags: three.tags.filter((_, h) => h !== g),
+															// }));
+															dispatch(setThree({ tags: three.tags.filter((_, h) => h !== g) }))
 														}}
 													>
 														<AiOutlineClose className="text-white bg-black rounded-full" />
@@ -348,15 +352,16 @@ const Ad2 = ({
 												type="text"
 												onChange={() => { }}
 												placeholder="Enter the location to target audience"
-												className="w-full rounded-xl p-2 outline-none"
+												className="w-full rounded-xl p-2 bg-transparent outline-none"
 												value={inputValue}
 												onKeyDown={(e) => {
 													if (e.key === "Enter") {
 														if (inputValue && three.location.length < 3) {
-															setThree((prevState) => ({
-																...prevState,
-																location: [...prevState.location, inputValue],
-															}));
+															// setThree((prevState) => ({
+															// 	...prevState,
+															// 	location: [...prevState.location, inputValue],
+															// }));
+															dispatch(setThree({ location: [...three.location, inputValue] }))
 															setInputValue("");
 														}
 													}
@@ -383,12 +388,17 @@ const Ad2 = ({
 													<div>{m}</div>
 													<div
 														onClick={() => {
-															setThree((three) => ({
-																...three,
+															// setThree((three) => ({
+															// 	...three,
+															// 	location: three.location.filter(
+															// 		(_, a) => a !== i
+															// 	),
+															// }));
+															dispatch(setThree({
 																location: three.location.filter(
 																	(_, a) => a !== i
-																),
-															}));
+																)
+															}))
 														}}
 													>
 														<AiOutlineClose className="text-white bg-black rounded-full" />
@@ -419,12 +429,17 @@ const Ad2 = ({
 																		} else {
 																			// If checkbox is unchecked, clear the input field and remove from location array
 																			setInputValue("");
-																			setThree((prevState) => ({
-																				...prevState,
-																				location: prevState.location.filter(
+																			// setThree((prevState) => ({
+																			// 	...prevState,
+																			// 	location: prevState.location.filter(
+																			// 		(item) => item !== l.name
+																			// 	),
+																			// }));
+																			dispatch(setThree({
+																				location: three.location.filter(
 																					(item) => item !== l.name
-																				),
-																			}));
+																				)
+																			}))
 																		}
 																	}}
 																/>
@@ -450,7 +465,8 @@ const Ad2 = ({
 										<div className="flex flex-wrap gap-2 items-center">
 											<div
 												onClick={() => {
-													setThree({ ...three, gender: "Men" });
+													dispatch(setThree({ gender: "Men" }))
+													// setThree({ ...three, gender: "Men" });
 												}}
 												className={`p-2 px-6 rounded-full ${three.gender === "Men"
 													? "text-white bg-blue-500"
@@ -461,7 +477,8 @@ const Ad2 = ({
 											</div>
 											<div
 												onClick={() => {
-													setThree({ ...three, gender: "Women" });
+													// setThree({ ...three, gender: "Women" });
+													dispatch(setThree({ gender: "Women" }))
 												}}
 												className={`p-2 px-6 rounded-full ${three.gender === "Women"
 													? "text-white bg-blue-500"
@@ -472,7 +489,7 @@ const Ad2 = ({
 											</div>
 											<div
 												onClick={() => {
-													setThree({ ...three, gender: "Both" });
+													dispatch(setThree({ gender: "Both" }))
 												}}
 												className={`p-2 px-6  rounded-full ${three.gender === "Both"
 													? "text-white bg-blue-500"
@@ -490,13 +507,19 @@ const Ad2 = ({
 													<input
 														onClick={() => {
 															setCLick(0);
-															setThree({
-																...three,
+															// setThree({
+															// 	...three,
+															// 	selectedAgeRange: "",
+															// 	age: "All age group",
+															// 	maxage: "",
+															// 	minage: "",
+															// });
+															dispatch(setThree({
 																selectedAgeRange: "",
 																age: "All age group",
 																maxage: "",
 																minage: "",
-															});
+															}))
 														}}
 														type="radio"
 														name="age"
@@ -552,14 +575,15 @@ const Ad2 = ({
 													id="sdate"
 													type="date"
 													onChange={(e) =>
-														setThree({
-															...three,
-															startDate: e.target.value,
-														})
+														// setThree({
+														// 	...three,
+														// 	startDate: e.target.value,
+														// })
+														dispatch(setThree({ startDate: e.target.value }))
 													}
 													value={formatDateToString(three.startDate)}
 													placeholder="Enter Campaign Name"
-													className="w-full border rounded-xl outline-none p-2"
+													className="w-full border rounded-xl bg-transparent outline-none p-2"
 												/>
 											</div>
 											{/* <div
@@ -627,7 +651,10 @@ const Ad2 = ({
 											</h1>
 											<div className="flex flex-wrap my-2 gap-4">
 												<div
-													onClick={() => setThree({ ...three, duration: 1 })}
+													onClick={() =>
+														dispatch(setThree({ duration: 1 }))
+														// setThree({...three, duration: 1 })}
+													}
 													className={`${three.duration == 1
 														? "bg-[#2D9AFF] text-white"
 														: "border border-black"
@@ -636,7 +663,7 @@ const Ad2 = ({
 													1 day
 												</div>
 												<div
-													onClick={() => setThree({ ...three, duration: 7 })}
+													onClick={() => dispatch(setThree({ duration: 7 }))}
 													className={`${three.duration === 7
 														? "bg-[#2D9AFF] text-white"
 														: "border border-black"
@@ -645,7 +672,8 @@ const Ad2 = ({
 													7 days
 												</div>
 												<div
-													onClick={() => setThree({ ...three, duration: 30 })}
+													onClick={() => dispatch(setThree({ duration: 30 }))}
+
 													className={`${three.duration === 30
 														? "bg-[#2D9AFF] text-white"
 														: "border  border-black"
@@ -1024,17 +1052,18 @@ const Ad2 = ({
 															}}
 															value={t}
 															placeholder="tags"
-															className="outline-none border-l-2 rounded-l-none p-2 rounded-xl"
+															className="outline-none border-l-2 bg-transparent w-full rounded-l-none p-2 rounded-xl"
 														/>
 													</div>
 													<div className="bg-[#2D9AFF] p-2 px-3 font-bold text-xl rounded-r-xl text-white">
 														<button
 															onClick={() => {
 																if (t && three?.tags?.length < 5) {
-																	setThree((three) => ({
-																		...three,
-																		tags: [...three.tags, t],
-																	}));
+																	// setThree((three) => ({
+																	// 	...three,
+																	// 	tags: [...three.tags, t],
+																	// }));
+																	dispatch(setThree({ tags: [...three.tags, t] }))
 																	setT("");
 																}
 															}}
@@ -1059,15 +1088,18 @@ const Ad2 = ({
 												{three?.tags?.map((f, g) => (
 													<div
 														key={g}
-														className="flex justify-center items-center gap-2 p-2 px-3 bg-[#fafafa] rounded-full"
+														className="flex justify-center items-center gap-2 p-2 px-3 dark:bg-border bg-[#fafafa] rounded-full"
 													>
 														<div>{f}</div>
 														<div
 															onClick={() => {
-																setThree((three) => ({
-																	...three,
-																	tags: three.tags.filter((_, h) => h !== g),
-																}));
+																// setThree((three) => ({
+																// 	...three,
+																// 	tags: three.tags.filter((_, h) => h !== g),
+																// }));
+																dispatch(setThree({
+																	tags: three.tags.filter((_, h) => h !== g)
+																}))
 															}}
 														>
 															<AiOutlineClose className="text-white bg-black rounded-full" />
@@ -1141,15 +1173,18 @@ const Ad2 = ({
 													type="text"
 													onChange={() => { }}
 													placeholder="Enter the location to target audience"
-													className="w-full rounded-xl p-2 outline-none"
+													className="w-full rounded-xl p-2 bg-transparent outline-none"
 													value={inputValue}
 													onKeyDown={(e) => {
 														if (e.key === "Enter") {
 															if (inputValue && three.location.length < 3) {
-																setThree((prevState) => ({
-																	...prevState,
-																	location: [...prevState.location, inputValue],
-																}));
+																// setThree((prevState) => ({
+																// 	...prevState,
+																// 	location: [...prevState.location, inputValue],
+																// }));
+																dispatch(setThree({
+																	location: [...three.location, inputValue]
+																}))
 																setInputValue("");
 															}
 														}
@@ -1176,12 +1211,17 @@ const Ad2 = ({
 														<div>{m}</div>
 														<div
 															onClick={() => {
-																setThree((three) => ({
-																	...three,
+																// setThree((three) => ({
+																// 	...three,
+																// 	location: three.location.filter(
+																// 		(_, a) => a !== i
+																// 	),
+																// }));
+																dispatch(setThree({
 																	location: three.location.filter(
 																		(_, a) => a !== i
 																	),
-																}));
+																}))
 															}}
 														>
 															<AiOutlineClose className="text-white bg-black rounded-full" />
@@ -1215,12 +1255,17 @@ const Ad2 = ({
 																			} else {
 																				// If checkbox is unchecked, clear the input field and remove from location array
 																				setInputValue("");
-																				setThree((prevState) => ({
-																					...prevState,
-																					location: prevState.location.filter(
+																				// setThree((prevState) => ({
+																				// 	...prevState,
+																				// 	location: prevState.location.filter(
+																				// 		(item) => item !== l.name
+																				// 	),
+																				// }));
+																				dispatch(setThree({
+																					location: three.location.filter(
 																						(item) => item !== l.name
 																					),
-																				}));
+																				}))
 																			}
 																		}}
 																	/>
@@ -1244,7 +1289,7 @@ const Ad2 = ({
 										<div className="flex flex-wrap gap-2 items-center">
 											<div
 												onClick={() => {
-													setThree({ ...three, gender: "Men" });
+													dispatch(setThree({ gender: "Men" }))
 												}}
 												className={`p-2 px-6 rounded-full ${three.gender === "Men"
 													? "text-white bg-blue-500"
@@ -1255,7 +1300,7 @@ const Ad2 = ({
 											</div>
 											<div
 												onClick={() => {
-													setThree({ ...three, gender: "Women" });
+													dispatch(setThree({ gender: "Women" }))
 												}}
 												className={`p-2 px-6 rounded-full ${three.gender === "Women"
 													? "text-white bg-blue-500"
@@ -1266,7 +1311,7 @@ const Ad2 = ({
 											</div>
 											<div
 												onClick={() => {
-													setThree({ ...three, gender: "Both" });
+													dispatch(setThree({ gender: "Both" }))
 												}}
 												className={`p-2 px-6  rounded-full ${three.gender === "Both"
 													? "text-white bg-blue-500"
@@ -1341,13 +1386,19 @@ const Ad2 = ({
 													<input
 														onClick={() => {
 															setCLick(0);
-															setThree({
-																...three,
+															// setThree({
+															// 	...three,
+															// 	selectedAgeRange: "",
+															// 	age: "All age group",
+															// 	maxage: "",
+															// 	minage: "",
+															// });
+															dispatch(setThree({
 																selectedAgeRange: "",
 																age: "All age group",
 																maxage: "",
 																minage: "",
-															});
+															}))
 														}}
 														type="radio"
 														name="ageofmobile"
@@ -1408,14 +1459,17 @@ const Ad2 = ({
 														id="sdate"
 														type="date"
 														onChange={(e) =>
-															setThree({
-																...three,
+															// setThree({
+															// 	...three,
+															// 	startDate: e.target.value,
+															// })
+															dispatch(setThree({
 																startDate: e.target.value,
-															})
+															}))
 														}
 														value={formatDateToString(three.startDate)}
 														placeholder="Enter Campaign Name"
-														className="w-full border rounded-xl outline-none p-2"
+														className="w-full border rounded-xl bg-transparent outline-none p-2"
 													/>
 												</div>
 												{/* <div
@@ -1521,7 +1575,11 @@ const Ad2 = ({
 											</h1>
 											<div className="flex flex-wrap my-2 gap-5">
 												<div
-													onClick={() => setThree({ ...three, duration: 1 })}
+													onClick={() =>
+														dispatch(setThree({
+															duration: 1
+														}))
+													}
 													className={`${three.duration == 1
 														? "bg-[#2D9AFF] text-white"
 														: "border border-black"
@@ -1530,7 +1588,11 @@ const Ad2 = ({
 													1 day
 												</div>
 												<div
-													onClick={() => setThree({ ...three, duration: 7 })}
+													onClick={() =>
+														dispatch(setThree({
+															duration: 7
+														}))
+													}
 													className={`${three.duration === 7
 														? "bg-[#2D9AFF] text-white"
 														: "border border-black"
@@ -1539,7 +1601,11 @@ const Ad2 = ({
 													7 days
 												</div>
 												<div
-													onClick={() => setThree({ ...three, duration: 30 })}
+													onClick={() =>
+														dispatch(setThree({
+															duration: 30
+														}))
+													}
 													className={`${three.duration === 30
 														? "bg-[#2D9AFF] text-white"
 														: "border  border-black"
@@ -1646,7 +1712,7 @@ const Ad2 = ({
 						</div>
 					</div>
 				</div>
-			</div>
+			</div >
 		</>
 	)
 }

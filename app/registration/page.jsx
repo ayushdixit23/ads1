@@ -17,10 +17,14 @@ import Link from "next/link";
 import { BsArrowRight, BsCheckLg } from "react-icons/bs";
 import Individual from "../spliting/Individual";
 import Organisation from "../spliting/Organisation";
+import { useDispatch, useSelector } from "react-redux";
+import { setChange } from "../redux/slice/registerSlice";
 
 const Register = () => {
   const [radio, setRadio] = useState(1);
-  const [change, setChange] = useState(1);
+  const dispatch = useDispatch()
+  const change = useSelector((state) => state.register.change)
+  // const [change, setChange] = useState(3);
   const [details, setDetails] = useState({
     firstName: "",
     lastName: "",
@@ -240,7 +244,8 @@ const Register = () => {
         window.confirmationResult = confirmationResult;
         setLoading(false);
         setShowOTP(true);
-        setChange(3);
+
+        dispatch(setChange(3))
       })
       .catch((error) => {
         console.log(error);
@@ -278,116 +283,19 @@ const Register = () => {
     <>
       <div id="recaptcha-container"></div>
 
-      <div className="flex justify-center bg-maincolor text-text items-center px-2">
+      <div className=" w-full bg-maincolor text-text px-2">
         <div className=" px-[2%] ">
-          <h1 className="text-center text-3xl font-semibold mt-[4%] pt-2 pb-1">
-            Create an account
-          </h1>
-          <h1 className="text-center">
-            Already have an account?
-            <Link href="/login" className="underline pl-1">
-              Log in
-            </Link>
-          </h1>
-          <div className="flex justify-center gap-3 rounded-lg sm:my-7 my-4 items-center sm:p-3 p-2 py-4 bg-maincolor border border-border bg-[#fafafa]">
-            <AiFillLock className="text-3xl" />
-            <div>
-              We take privacy issues seriously. You can be sure that your
-              personal data is securely protected.
-            </div>
-          </div>
 
-          <div className="flex justify-center pn:max-sm:text-xs px-4 pn:max-sm:text-center my-8">
-            <div className=" flex flex-col gap-1 justify-center items-center">
-              <div
-                className={` h-10 w-10 rounded-full flex items-center justify-center ${change === 1 ? "bg-blue-600 text-text" : "bg-[#27AE60]"
-                  }`}
-              >
-                {change > 1 ? (
-                  <BsCheckLg className="text-lg font-bold text-text" />
-                ) : (
-                  1
-                )}
-              </div>
-
-              <div
-                className={` flex items-center  font-semibold flex-col ${change > 1 ? "text-[#27AE60] " : "text-blue-600"
-                  }`}
-              >
-                Select your type
-              </div>
-            </div>
-
-            <div
-              className={`border-[#f9f9f9] border-dashed border-t-2 w-20 mt-5 ${change >= 1 ? "border-black " : "border-black"
-                }`}
-            />
-
-            <div className="flex flex-col gap-1 justify-center items-center">
-              <div
-                className={` h-10 w-10 rounded-full flex items-center justify-center ${change === 2 ? "bg-blue-600 text-text" : ""
-                  } 
-                 ${change === 1 ? "border-4 border-black " : "bg-[#27AE60]"}
-                 ${change > 2 ? "bg-[#27AE60] " : ""}
-                `}
-              >
-                {change > 2 ? (
-                  <BsCheckLg className="text-lg font-bold text-text" />
-                ) : (
-                  2
-                )}
-              </div>
-
-              <div
-                className={` flex items-center flex-col ${change === 2 ? "text-blue-600 " : "text-[#27AE60]"
-                  }
-                ${change === 1 ? "text-white dark:text-black" : null}
-                `}
-              >
-                Provide your basic info
-              </div>
-            </div>
-            <div
-              className={`border-[#f9f9f9] border-dashed border-t-2 w-20  mt-5 ${change >= 2 ? "border-black " : "border-black"
-                }`}
-            />
-            <div className="flex flex-col gap-1 justify-center items-center">
-              <div
-                className={`h-10 w-10 rounded-full flex items-center justify-center ${change >= 3 ? "bg-blue-600 text-text" : ""
-                  }
-                ${change === 2 || change === 1 ? "border-4 border-black " : null
-                  }
-                
-                `}
-              >
-                3
-              </div>
-
-              <div
-                className={` flex items-center flex-col justify-center ${change === 3 ? "text-blue-600 " : ""
-                  }
-                ${change === 1 ? "text-text" : ""}
-                
-                `}
-              >
-                Verify your OTP
-              </div>
-            </div>
-          </div>
 
           <div
-            className={`${change === 1 ? "flex flex-col px-3 mt-4" : "hidden"}`}
+            className={`${change === 1 ? "flex border-2 rounded-xl flex-col px-3 mt-4" : "hidden"}`}
           >
+
             <div className="flex justify-center flex-col my-5 w-full">
               <div className="text-2xl py-2 font-semibold">Who are you?</div>
               <div className="flex flex-col gap-3 my-4">
                 <div className="text-xl flex items-center font-semibold">
-                  {/* <BiRadioCircleMarked
-                    onClick={hundle}
-                    className={`text-4xl ${
-                      radio === 1 ? "text-blue-500" : null
-                    }`}
-                  /> */}
+
                   <div
                     onClick={hundle}
                     className={`w-[20px] h-[20px] border border-black p-[2.8px] rounded-full ${radio === 1 ? "border-blue-800" : null
@@ -423,7 +331,7 @@ const Register = () => {
             </div>
             <div
               onClick={() =>
-                radio == 1 || radio == 2 ? setChange(2) : setChange(1)
+                radio == 1 || radio == 2 ? dispatch(setChange(2)) : dispatch(setChange(1))
               }
               className="p-2 flex justify-center items-center gap-2 my-5 rounded-xl max-w-[130px] px-5 border font-medium"
             >
@@ -434,6 +342,7 @@ const Register = () => {
             </div>
           </div>
 
+
           <div className={`${change === 2 ? "" : "hidden"}`}>
             {radio === 1 && (<Individual
               details={details}
@@ -441,6 +350,7 @@ const Register = () => {
               setDetails={setDetails}
               setChecked={setChecked}
               checked={checked}
+              dispatch={dispatch}
               dataValid={dataValid}
               setChange={setChange}
               onSignup={onSignup}
@@ -450,6 +360,7 @@ const Register = () => {
               details={details}
               handleChangePhotoClick={handleChangePhotoClick}
               setDetails={setDetails}
+              dispatch={dispatch}
               dataValid={dataValid}
               setChecked={setChecked}
               checked={checked}
@@ -522,7 +433,8 @@ const Register = () => {
             <div className="flex pn:max-sm:flex-col sm:justify-between gap-3 my-3 sm:gap-5 sm:items-center">
               <button
                 onClick={() => {
-                  setChange(2);
+                  dispatch(setChange(2))
+
                 }}
                 className="w-full p-2 bg-[#f9f9f9] text-black font-semibold rounded-xl sm:my-2"
               >
@@ -530,7 +442,7 @@ const Register = () => {
               </button>
               <button
                 onClick={() => {
-                  setChange(3);
+                  dispatch(setChange(3))
                   onOTPVerify();
                   // handleSave();
                   // router.push("/login");
@@ -542,7 +454,7 @@ const Register = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div >
     </>
   );
 };

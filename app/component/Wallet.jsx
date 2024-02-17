@@ -2,16 +2,24 @@
 import React, { useCallback, useEffect, useState } from "react";
 import newWallet from "../assests/newWallet.svg";
 import Image from "next/image";
-import { AiOutlinePlus, AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineSearch } from "react-icons/ai";
 import MobileNav from "./MobileNav";
 import axios from "axios";
 import nodataw from "../assests/nodataw.svg";
 import { API } from "@/Essentials";
 import { RxCross2 } from "react-icons/rx";
 import useRazorpay from "react-razorpay";
-import { useRouter } from "next/navigation";
 import moment from "moment";
 import { getData } from "../utils/useful";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { useTheme } from "next-themes";
 
 const Wallet = () => {
   const [wallet, setWallet] = useState(0);
@@ -21,12 +29,13 @@ const Wallet = () => {
   const [check, setCheck] = useState(false);
   const [inp, setInp] = useState("");
   const [Razorpay] = useRazorpay();
+  const { theme } = useTheme()
   // const [os, setOs] = useState("");
 
-  const { userid, firstname, lastname } = getData()
+  const { advid, firstname, lastname } = getData()
   const fetchdata = useCallback(async () => {
     try {
-      const response = await axios.get(`${API}/gettransactions/${userid}`);
+      const response = await axios.get(`${API}/gettransactions/${advid}`);
       if (response.data.success) {
         setMoney(response.data.amount);
         const pay = response.data.transaction;
@@ -42,17 +51,19 @@ const Wallet = () => {
   }, []);
 
   useEffect(() => {
-    fetchdata();
-  }, [fetchdata]);
+    if (advid) {
+      fetchdata();
+    }
+  }, [fetchdata, advid]);
 
   const handlePayment = useCallback(
     async (e) => {
       e.preventDefault();
       const name = firstname + " " + lastname
 
-      if (userid && inp) {
+      if (advid && inp) {
         try {
-          const response = await axios.post(`${API}/addmoneytowallet/${userid}`, {
+          const response = await axios.post(`${API}/addmoneytowallet/${advid}`, {
             amount: inp,
           });
 
@@ -79,22 +90,19 @@ const Wallet = () => {
                 } catch (error) {
                   console.log(error)
                 }
-                // alert(response.razorpay_payment_id);
-                // alert(response.razorpay_order_id);
-                // alert(response.razorpay_signature)
               },
 
               "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
                 "name": name, //your customer's name
-                "email": "gaurav.kumar@example.com",
-                "contact": "9000090000" //Provide the customer's phone number for better conversion rates 
+                // "email": "gaurav.kumar@example.com",
+                // "contact": "9000090000" 
+                //Provide the customer's phone number for better conversion rates 
               },
               "notes": {
                 "address": "Razorpay Corporate Office"
               },
-              "theme": {
-                "color": "#3399cc"
-              }
+              "theme": theme === "dark" ? "#000" : "#fff"
+
             };
             const rzpay = new Razorpay(options);
             rzpay.open();
@@ -194,13 +202,13 @@ const Wallet = () => {
         </div>
       </div>
 
-      <div className="py-4 px-5 border bg-maincolor z-10 w-full">
+      <div className="py-4 px-5 sticky top-0 left-0 bg-maincolor z-10 w-full">
         <div className="text-2xl font-semibold">Wallet</div>
         <MobileNav />
       </div>
 
       <div className="grid grid-cols-1 z-10">
-        <div className="grid grid-cols-1  md:m-5 gap-5 sm:m-5 w-full sm:w-[95%] ">
+        <div className="grid grid-cols-1 sm:m-5 w-full sm:w-[95%] ">
           <div className="flex p-3 sm:flex-row flex-col gap-4">
             <div className="md:w-[75%] bg-maincolor p-3 pb-5 sm:w-[60%] border rounded-2xl">
               <div className="flex items-center space-x-2">
@@ -292,7 +300,71 @@ const Wallet = () => {
             </div>
 
             <div className="h-[400px] bg-maincolor border no-scrollbar overflow-x-auto overflow-y-scroll">
-              <table className="w-full min-w-[700px] border-none">
+              <Table>
+
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="text-center">Transactions ID</TableHead>
+                    <TableHead className="text-center">Name</TableHead>
+                    <TableHead className="text-center">Date</TableHead>
+                    <TableHead className="text-center">Status</TableHead>
+                    <TableHead className="text-center">Amount</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {payhistory.length > 0 ? (
+                    <>
+                      {payhistory?.map((p, i) => (
+                        <TableRow key={i}>
+                          <TableCell className=" text-center px-4 py-2">
+                            {p?.transactionid ? p?.transactionid : "-"}
+                          </TableCell>
+                          <TableCell className=" text-center px-4 py-2">
+                            {p?.type ? p?.type : "-"}
+                          </TableCell>
+                          <TableCell className=" text-center px-4 py-2">
+                            {p?.createdAt
+                              ? moment(p?.createdAt).format("DD/MM/yy")
+                              : "-"}
+                          </TableCell>
+                          <TableCell
+                            className={`text-center font-medium px-4 py-2 ${p?.status === "Pending" ? "text-[#F9943B]" : null
+                              }
+                          ${p?.status === "Success" ? "text-[#03A65A]" : null}
+                          ${p?.status === "Failed" ? "text-[#FC2E20]" : null}`}
+                          >
+                            {p?.status ? p?.status : "-"}
+                          </TableCell>
+                          <TableCell className=" text-center px-4 py-2">
+                            ₹{p?.amount ? p?.amount : "-"}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </>
+                  ) : (
+                    <>
+                      <TableRow>
+                        <TableCell colSpan="7">
+                          <div className="flex flex-col w-full justify-center bg-maincolor p-2 mb-3 py-5 pn:max-md:hidden items-center">
+                            <div>
+                              <div className="flex justify-center items-center">
+                                <Image src={nodataw} alt="nodataw" />
+                              </div>
+                              <div className="text-xl font-semibold text-center py-2">
+                                No transactions
+                              </div>
+                              <div className="py-2 text-sm text-[#8B8D97]">
+                                You have no transactions during this period.
+                              </div>
+                            </div>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    </>
+                  )}
+                </TableBody>
+              </Table>
+              {/* <table className="w-full min-w-[700px] border-none">
                 <thead className="bg-[#F8FAFC] dark:bg-[#273142] dark:border-border dark:border">
                   <tr>
                     <th className="text-center px-4 py-2">Transactions ID</th>
@@ -323,8 +395,7 @@ const Wallet = () => {
                             className={`text-center font-medium px-4 py-2 ${p?.status === "Pending" ? "text-[#F9943B]" : null
                               }
                           ${p?.status === "Success" ? "text-[#03A65A]" : null}
-                          ${p?.status === "Failed" ? "text-[#FC2E20]" : null}
-    `}
+                          ${p?.status === "Failed" ? "text-[#FC2E20]" : null}`}
                           >
                             {p?.status ? p?.status : "-"}
                           </td>
@@ -356,7 +427,7 @@ const Wallet = () => {
                     </>
                   )}
                 </tbody>
-              </table>
+              </table> */}
             </div>
           </div>
         </div>

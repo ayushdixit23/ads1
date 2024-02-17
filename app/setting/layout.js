@@ -77,7 +77,7 @@ export default function SettingLayout({ children }) {
             <div
               className={`w-full md:overflow-y-scroll max-h-screen md:no-scrollbar`}
             >
-              <div className="py-4 px-5 shadow-md bg-maincolor">
+              <div className="py-4 sticky top-0 left-0 px-5 shadow-md bg-maincolor">
                 <div className="text-2xl py-2 font-semibold">Settings</div>
               </div>
               <div className="bg-[#f8f8f8] dark:bg-[#1b2431] grid grid-cols-1 w-full h-[90%] sm:h-full p-[2%]">

@@ -12,7 +12,7 @@ const LogoutModal = ({ isOpen, onClose }) => {
   const [id, setId] = useState();
   const sessionId = getItemSessionStorage()
   const router = useRouter();
-  const { userid } = getData()
+  const { advid } = getData()
   const handleLogout = async () => {
     try {
       const res = await axios.post(`${API}/logoutadv/${id}`);
@@ -32,15 +32,17 @@ const LogoutModal = ({ isOpen, onClose }) => {
 
   const f = async () => {
     try {
-      setId(userid)
+      setId(advid)
     } catch (error) {
       console.log(error)
     }
   }
 
   useEffect(() => {
-    f()
-  }, [getData]);
+    if (advid) {
+      f()
+    }
+  }, [getData, advid]);
   return (
     <>
       <div>

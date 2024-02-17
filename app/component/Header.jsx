@@ -19,10 +19,10 @@ const Header = () => {
   // };
   return (
     <>
-      <div className="flex justify-between bg-maincolor items-center px-4 sm:px-[2%]">
+      <div className="flex justify-between  bg-maincolor items-center px-4 sm:px-[2%]">
         <div className="sm:text-3xl text-xl py-5 font-semibold">Overview</div>
         <Link
-          href="/createAd"
+          href="/createAd?step=1"
           className="flex justify-center cursor-pointer items-center bg-[#1A73E8] text-white p-2 sm:px-4 px-3 rounded-full space-x-2"
         >
           <div>

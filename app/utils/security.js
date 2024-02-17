@@ -3,7 +3,7 @@ const getKey = () => {
   try {
     return JSON.parse(process.env.NEXT_PUBLIC_KEY);
   } catch (e) {
-   console.log(e)
+    console.log(e)
   }
 };
 

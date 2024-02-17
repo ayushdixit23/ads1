@@ -12,8 +12,7 @@ const Page = () => {
   const sessionId = getItemSessionStorage()
   const [data, setData] = useState({
     accid: '',
-    firstname: '',
-    lastname: '',
+    name: '',
     country: '',
     city: '',
     address: '',
@@ -27,15 +26,14 @@ const Page = () => {
     setData({
       ...data,
       accid: advid,
-      firstname: firstname,
-      lastname: lastname,
+      name: firstname + " " + lastname,
       country: country,
       city: city,
       address: address,
       accounttype: accounttype,
       taxinfo: taxinfo,
     })
-  }, [getData])
+  }, [advid, firstname, lastname, city, address, country, accounttype, taxinfo, userid])
 
   const handleSave = async () => {
     try {
@@ -86,7 +84,7 @@ const Page = () => {
               <div className={`${edit ? null : null}`}>
                 <div className="flex justify-between  my-2 items-center">
                   <div className="font-semibold">Name</div>
-                  <input className="text-[#82888D] bg-input border outline-none p-2 rounded-lg" value={data?.name} onChange={(e) => {
+                  <input className="text-[#82888D] bg-input border outline-none p-2 rounded-lg" value={data.name} onChange={(e) => {
                     setData({ ...data, name: e.target.value })
 
                   }} />
@@ -95,7 +93,6 @@ const Page = () => {
                   <div className="font-semibold">Country</div>
                   <input className="text-[#82888D] bg-input border outline-none p-2 rounded-lg" value={data?.country} onChange={(e) => {
                     setData({ ...data, country: e.target.value })
-
                   }} />
 
                 </div>

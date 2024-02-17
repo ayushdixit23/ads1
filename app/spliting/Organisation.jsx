@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react'
 import { GrFormAdd } from 'react-icons/gr';
 
@@ -5,6 +6,7 @@ const Organisation = ({
 	details,
 	handleChangePhotoClick,
 	setDetails,
+	dispatch,
 	setChecked,
 	checked,
 	setChange,
@@ -420,7 +422,8 @@ const Organisation = ({
 				<div className="flex justify-between space-x-5 items-center">
 					<button
 						onClick={() => {
-							setChange(1);
+							dispatch(setChange(1))
+
 						}}
 						className="w-full p-2 bg-[#f9f9f9] text-black font-semibold rounded-xl my-2"
 					>
@@ -432,9 +435,11 @@ const Organisation = ({
 								{
 									// onSignup();
 									details.password === details.confirmPass
-										? setChange(3)
+										?
+										dispatch(setChange(3))
 										: // setToast(true),
-										setChange(2);
+
+										dispatch(setChange(2))
 								}
 							}}
 							className="w-full p-2 bg-black text-white font-semibold rounded-xl my-2"
@@ -447,7 +452,7 @@ const Organisation = ({
 						</button>
 					)}
 				</div>
-			</div>
+			</div >
 		</>
 	)
 }

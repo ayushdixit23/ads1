@@ -11,13 +11,13 @@ const page = () => {
 	return (
 		<>
 			<div className='grid grid-cols-1 w-full'>
-				<div className='p-3 bg-white'>
+				<div className='p-3 bg-maincolor'>
 					<div className='text-2xl p-2 font-semibold'>Posts</div>
 				</div>
 				<div className='flex flex-col gap-12 justify-center items-center my-10'>
 					<div className="w-[90%] flex flex-col gap-4">
 						<div className='text-2xl font-semibold'>Promoted Posts</div>
-						<div className='flex bg-white justify-center items-center border-2'>
+						<div className='flex bg-maincolor justify-center items-center border-2'>
 							{/* <table className="w-full rounded-xl border-collapse">
 								<thead>
 									<tr className="bg-gray-50">
@@ -88,10 +88,10 @@ const page = () => {
 					</div>
 					<div className="w-[90%] flex flex-col gap-4">
 						<div className='text-2xl font-semibold'>Available Posts</div>
-						<div className='flex bg-white justify-center items-center border-2'>
+						<div className='flex bg-maincolor justify-center items-center border-2'>
 							<table className="w-full rounded-xl border-collapse">
 								<thead>
-									<tr className="bg-gray-50">
+									<tr className="bg-gray-50  dark:bg-border ">
 										<th
 											colSpan={3}
 											className="text-left text-xs leading-4 py-2 px-3 font-medium uppercase tracking-wider"

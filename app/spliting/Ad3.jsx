@@ -4,15 +4,15 @@ import { BsCheckLg, BsThreeDots } from 'react-icons/bs'
 import adss from "../assests/adss.svg";
 import { formatDateToString } from '../utils/useful';
 const Ad3 = ({
-  sendData,
+  setStep,
   // step,
   three,
+  dispatch,
   pricebyDay,
   totalPrice,
   tax,
   addTax,
 }) => {
-  const setStep = 2
   return (
     <>
       <div>
@@ -128,7 +128,8 @@ const Ad3 = ({
                 <div className="flex justify-between items-center">
                   <div className="text-xl font-semibold py-2">Preview</div>
                   <div
-                    onClick={() => setStep(0)}
+                    onClick={() => dispatch(setStep(0))}
+                    // onClick={() => setStep(0)}
                     className="flex justify-center border cursor-pointer border-black p-1 px-4 rounded-full items-center"
                   >
                     <div>
@@ -139,11 +140,11 @@ const Ad3 = ({
                 </div>
                 <div className="grid grid-cols-2 px-2">
                   <div className="flex flex-col space-y-2 my-1">
-                    <div className=" text-[#333333]">Ad Name</div>
+                    <div className="  dark:text-white text-[#333333]">Ad Name</div>
                     <div className="font-medium">{three.adName}</div>
                   </div>
                   <div className="flex flex-col space-y-2 my-1">
-                    <div className="text-[#333333]">Ad Goal</div>
+                    <div className=" dark:text-white text-[#333333]">Ad Goal</div>
                     <div className="font-medium">{three.goal}</div>
                   </div>
                 </div>
@@ -155,13 +156,13 @@ const Ad3 = ({
                     <h1 className="text-lg font-semibold py-2">Budget</h1>
                     <div className="flex items-center gap-5 ">
                       <div className="flex flex-col space-y-2 my-1">
-                        <div className="text-[#333333]">Total Budget</div>
+                        <div className=" dark:text-white text-[#333333]">Total Budget</div>
                         <div className="font-medium">
                           {Math.ceil(pricebyDay)}
                         </div>
                       </div>
                       <div className="flex flex-col space-y-2 my-1">
-                        <div className="text-[#333333]">Daily Budget</div>
+                        <div className=" dark:text-white text-[#333333]">Daily Budget</div>
                         <div className="font-medium">
                           {Math.ceil(totalPrice)}
                         </div>
@@ -173,11 +174,11 @@ const Ad3 = ({
                     <h1 className="text-lg font-semibold py-2">Date & Time</h1>
                     <div className="flex items-center gap-5">
                       <div className="flex flex-col space-y-2 my-1">
-                        <div className="text-[#333333]">Start Date</div>
+                        <div className=" dark:text-white text-[#333333]">Start Date</div>
                         <div className="font-medium">{formatDateToString(three.startDate)}</div>
                       </div>
                       {/* <div className="flex flex-col space-y-2 my-1">
-                        <div className="text-[#333333]">End Date</div>
+                        <div className=" dark:text-white text-[#333333]">End Date</div>
                         <div className="font-medium">
                           {date
                             ? formastEndDate > formastStartDate
@@ -187,7 +188,7 @@ const Ad3 = ({
                         </div>
                       </div> */}
                       <div className="flex flex-col space-y-2 my-1">
-                        <div className="text-[#333333]">Ad Duration</div>
+                        <div className=" dark:text-white text-[#333333]">Ad Duration</div>
                         <div className="font-medium">{three.duration}</div>
                       </div>
                     </div>
@@ -200,11 +201,11 @@ const Ad3 = ({
                   <h1 className="text-xl font-semibold py-2">Target People</h1>
                   <div className="flex items-center gap-7 px-2">
                     <div className="flex flex-col space-y-2 my-1">
-                      <div className="text-[#333333]">Gender</div>
+                      <div className=" dark:text-white text-[#333333]">Gender</div>
                       <div className="font-medium">{three.gender}</div>
                     </div>
                     <div className="flex flex-col space-y-2 my-1">
-                      <div className="text-[#333333]">Age Group</div>
+                      <div className=" dark:text-white text-[#333333]">Age Group</div>
                       <div className="font-medium">
                         {three.selectedAgeRange
                           ? three.selectedAgeRange
@@ -212,11 +213,11 @@ const Ad3 = ({
                       </div>
                     </div>
                     <div className="flex flex-col space-y-2 my-1">
-                      <div className="text-[#333333]">Call to Action</div>
+                      <div className=" dark:text-white text-[#333333]">Call to Action</div>
                       <div className="font-medium">{three.Action}</div>
                     </div>
                     <div className="flex flex-col space-y-2 my-1">
-                      <div className="text-[#333333]">Category</div>
+                      <div className=" dark:text-white text-[#333333]">Category</div>
                       <div className="font-medium">{three.category}</div>
                     </div>
                   </div>
@@ -249,7 +250,7 @@ const Ad3 = ({
                     {three.type.map((data, i) => (
                       <div
                         key={i}
-                        className="bg-[#F3F4F6] font-semibold p-1 px-3 rounded-full"
+                        className="bg-[#F3F4F6] dark:bg-border font-semibold p-1 px-3 rounded-full"
                       >
                         {data}
                       </div>
@@ -291,7 +292,7 @@ const Ad3 = ({
                 <div className="flex flex-col gap-4">
                   <div className="flex flex-col gap-1">
                     <div className="font-bold">Payment Details</div>
-                    {/* <div className="text-[#333333] text-sm">
+                    {/* <div className=" dark:text-white text-[#333333] text-sm">
                       Your Ad will run for 7 days
                     </div> */}
                   </div>
@@ -301,7 +302,7 @@ const Ad3 = ({
                         <div className="font-medium">Ad Budget</div>
                         <div>₹ {Math.ceil(pricebyDay)}</div>
                       </div>
-                      {/* <div className="text-[#333333] text-sm">
+                      {/* <div className=" dark:text-white text-[#333333] text-sm">
                         ₹83.60 a day x 7 days
                       </div> */}
 
@@ -442,7 +443,7 @@ const Ad3 = ({
                   <div className="flex justify-between items-center">
                     <div className="text-xl font-semibold py-2">Ad Details</div>
                     <div
-                      onClick={() => setStep(0)}
+                      onClick={() => dispatch(setStep(0))}
                       className="flex cursor-pointer justify-center border border-black p-1 px-3 sm:px-4 rounded-full items-center"
                     >
                       <div>
@@ -453,11 +454,11 @@ const Ad3 = ({
                   </div>
                   <div className="grid sm:grid-cols-2 gap-1 my-2">
                     <div className="flex flex-col space-y-2 my-1">
-                      <div className="text-[#333333]">Ad Name</div>
+                      <div className=" dark:text-white text-[#333333]">Ad Name</div>
                       <div className="font-medium">{three.adName}</div>
                     </div>
                     <div className="flex flex-col space-y-2 my-1">
-                      <div className="text-[#333333]">Ad Goal</div>
+                      <div className=" dark:text-white text-[#333333]">Ad Goal</div>
                       <div className="font-medium">{three.goal}</div>
                     </div>
                   </div>
@@ -469,13 +470,13 @@ const Ad3 = ({
                       <h1 className="text-lg font-semibold py-2">Budget</h1>
                       <div className="flex items-center gap-5 ">
                         <div className="flex flex-col space-y-2 my-1">
-                          <div className="text-[#333333]">Total Budget</div>
+                          <div className=" dark:text-white text-[#333333]">Total Budget</div>
                           <div className="font-medium">
                             {Math.ceil(pricebyDay)}
                           </div>
                         </div>
                         <div className="flex flex-col space-y-2 my-1">
-                          <div className="text-[#333333]">Daily Budget</div>
+                          <div className=" dark:text-white text-[#333333]">Daily Budget</div>
                           <div className="font-medium">
                             {Math.ceil(totalPrice)}
                           </div>
@@ -489,11 +490,11 @@ const Ad3 = ({
                       </h1>
                       <div className="flex items-center space-x-5 ">
                         <div className="flex flex-col space-y-2 my-1">
-                          <div className="text-[#333333]">Start Date</div>
+                          <div className=" dark:text-white text-[#333333]">Start Date</div>
                           <div className="font-medium">{formatDateToString(three.startDate)}</div>
                         </div>
                         {/* <div className="flex flex-col space-y-2 my-1">
-                          <div className="text-[#333333]">End Date</div>
+                          <div className=" dark:text-white text-[#333333]">End Date</div>
                           <div className="font-medium">
                             {date
                               ? formastEndDate > formastStartDate
@@ -503,7 +504,7 @@ const Ad3 = ({
                           </div>
                         </div> */}
                         <div className="flex flex-col space-y-2 my-1">
-                          <div className="text-[#333333]">Ad Duration</div>
+                          <div className=" dark:text-white text-[#333333]">Ad Duration</div>
                           <div className="font-medium">{three.duration}</div>
                         </div>
                       </div>
@@ -518,11 +519,11 @@ const Ad3 = ({
                     </h1>
                     <div className="grid grid-cols-2">
                       <div className="flex flex-col space-y-2 my-1">
-                        <div className="text-[#333333]">Gender</div>
+                        <div className=" dark:text-white text-[#333333]">Gender</div>
                         <div className="font-medium">{three.gender}</div>
                       </div>
                       <div className="flex flex-col space-y-2 my-1">
-                        <div className="text-[#333333]">Age Group</div>
+                        <div className=" dark:text-white text-[#333333]">Age Group</div>
                         <div className="font-medium">
                           {" "}
                           {three.selectedAgeRange
@@ -531,11 +532,11 @@ const Ad3 = ({
                         </div>
                       </div>
                       <div className="flex flex-col space-y-2 my-1">
-                        <div className="text-[#333333]">Call to Action</div>
+                        <div className=" dark:text-white text-[#333333]">Call to Action</div>
                         <div className="font-medium">{three.Action}</div>
                       </div>
                       <div className="flex flex-col space-y-2 my-1">
-                        <div className="text-[#333333]">Category</div>
+                        <div className=" dark:text-white text-[#333333]">Category</div>
                         <div className="font-medium">{three.category}</div>
                       </div>
                     </div>
@@ -622,7 +623,7 @@ const Ad3 = ({
                   <div className="flex flex-col gap-4">
                     <div className="flex flex-col gap-1">
                       <div className="font-bold">Payment Details</div>
-                      {/* <div className="text-[#333333] text-sm">
+                      {/* <div className=" dark:text-white text-[#333333] text-sm">
                         Your Ad will run for 7 days
                       </div> */}
                     </div>
@@ -632,7 +633,7 @@ const Ad3 = ({
                           <div className="font-medium">Ad Budget</div>
                           <div>₹ {Math.ceil(pricebyDay)}</div>
                         </div>
-                        {/* <div className="text-[#333333] text-sm">
+                        {/* <div className=" dark:text-white text-[#333333] text-sm">
                           ₹83.60 a day x 7 days
                         </div> */}
 

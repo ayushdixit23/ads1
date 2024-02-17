@@ -6,6 +6,7 @@ const Individual = ({
 	details,
 	handleChangePhotoClick,
 	setDetails,
+	dispatch,
 	setChecked,
 	checked,
 	setChange,
@@ -343,7 +344,8 @@ const Individual = ({
 				<div className="flex justify-between space-x-5 items-center">
 					<button
 						onClick={() => {
-							setChange(1);
+							dispatch(setChange(1))
+
 						}}
 						className="w-full p-2 bg-[#f9f9f9] text-black font-semibold rounded-xl my-2"
 					>
@@ -356,7 +358,8 @@ const Individual = ({
 									details.password === details.confirmPass
 										? onSignup()
 										: // setToast(true),
-										setChange(2);
+										dispatch(setChange(2))
+
 								}
 							}}
 							className="w-full p-2 bg-black text-white font-semibold rounded-xl my-2"
@@ -365,11 +368,7 @@ const Individual = ({
 						</button>
 					) : (
 						<button
-							onClick={() => {
-								{
-									// setChange(3);
-								}
-							}}
+							disabled
 							className="w-full p-2 bg-[#dacbcb9a] text-black font-semibold rounded-xl my-2"
 						>
 							Save

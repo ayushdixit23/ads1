@@ -9,8 +9,9 @@ import adss from "../assests/adss.svg";
 const Ad1 = ({
   // setStep,
   // step,
-  validDatas,
+  // validDatas,
   three,
+  dispatch,
   setThree,
   down,
   setDown,
@@ -136,9 +137,7 @@ const Ad1 = ({
                   <input
                     name="myForm"
                     id="adname"
-                    onChange={(e) =>
-                      setThree({ ...three, adName: e.target.value })
-                    }
+                    onChange={(e) => dispatch(setThree({ adName: e.target.value }))}
                     value={three.adName}
                     type="text"
                     placeholder="Enter Ad Name"
@@ -151,8 +150,9 @@ const Ad1 = ({
                   </h1>
                   <div className="sm:flex grid grid-cols-2 sm:flex-wrap gap-3">
                     <div
-                      onClick={() => setThree({ ...three, goal: "Sales" })}
-                      className={`p-1 border-2 inline-block  text-black w-full sm:w-[220px] rounded-xl ${three.goal === "Sales"
+                      onClick={() => dispatch(setThree({ goal: "Sales" }))}
+                      // onClick={() => setThree({ ...three, goal: "Sales" })}
+                      className={`p-1 border-2 inline-block  text-text w-full sm:w-[220px] rounded-xl ${three.goal === "Sales"
                         ? "border-2 border-[#2D9AFF]"
                         : " sm:hover:text-black"
                         } `}
@@ -173,7 +173,8 @@ const Ad1 = ({
                       </div>
                     </div>
                     <div
-                      onClick={() => setThree({ ...three, goal: "Awareness" })}
+                      onClick={() => dispatch(setThree({ goal: "Awareness" }))}
+
                       className={`p-1 border-2 inline-block w-full sm:w-[220px] rounded-xl ${three.goal === "Awareness"
                         ? "border-2 border-[#2D9AFF]"
                         : " sm:hover:text-black"
@@ -195,7 +196,8 @@ const Ad1 = ({
                       </div>{" "}
                     </div>
                     <div
-                      onClick={() => setThree({ ...three, goal: "Clicks" })}
+
+                      onClick={() => dispatch(setThree({ goal: "Clicks" }))}
                       className={` p-1 border-2 inline-block w-full sm:w-[220px] rounded-xl ${three.goal === "Clicks"
                         ? "border-2 border-[#2D9AFF]"
                         : " sm:hover:text-black"
@@ -216,7 +218,9 @@ const Ad1 = ({
                       </div>
                     </div>
                     <div
-                      onClick={() => setThree({ ...three, goal: "Downloads" })}
+
+                      onClick={() => dispatch(setThree({ goal: "Downloads" }))}
+
                       className={` p-1 border-2 inline-block w-full sm:w-[220px] rounded-xl ${three.goal === "Downloads"
                         ? "border-2 border-[#2D9AFF]"
                         : " sm:hover:text-black"
@@ -238,7 +242,8 @@ const Ad1 = ({
                       </div>
                     </div>
                     <div
-                      onClick={() => setThree({ ...three, goal: "Views" })}
+
+                      onClick={() => dispatch(setThree({ goal: "Views" }))}
                       className={` p-1 border-2 inline-block w-full sm:w-[220px] rounded-xl ${three.goal === "Views"
                         ? "border-2 border-[#2D9AFF]"
                         : " sm:hover:text-black"
@@ -285,7 +290,7 @@ const Ad1 = ({
                     name="myForm"
                     id="headline"
                     onChange={(e) =>
-                      setThree({ ...three, Headline: e.target.value })
+                      dispatch(setThree({ Headline: e.target.value }))
                     }
                     value={three.Headline}
                     type="text"
@@ -309,8 +314,9 @@ const Ad1 = ({
                   <input
                     name="myForm"
                     id="des"
+
                     onChange={(e) =>
-                      setThree({ ...three, Description: e.target.value })
+                      dispatch(setThree({ Description: e.target.value }))
                     }
                     value={three.Description}
                     type="text"
@@ -360,35 +366,35 @@ const Ad1 = ({
                         <div className="flex flex-col gap-3 px-3 py-3">
                           <div
                             onClick={() => {
-                              setThree({ ...three, Action: "Order Now" });
+                              dispatch(setThree({ Action: "Order Now" }))
                             }}
                           >
                             Order Now
                           </div>
                           <div
                             onClick={() => {
-                              setThree({ ...three, Action: "Learn More" });
+                              dispatch(setThree({ Action: "Learn More" }))
                             }}
                           >
                             Learn More
                           </div>
                           <div
                             onClick={() => {
-                              setThree({ ...three, Action: "Install Now" });
+                              dispatch(setThree({ Action: "Install Now" }))
                             }}
                           >
                             Install Now
                           </div>
                           <div
                             onClick={() => {
-                              setThree({ ...three, Action: "Buy Now" });
+                              dispatch(setThree({ Action: "Buy Now" }))
                             }}
                           >
                             Buy Now
                           </div>
                           <div
                             onClick={() => {
-                              setThree({ ...three, Action: "Visit" });
+                              dispatch(setThree({ Action: "Visit" }))
                             }}
                           >
                             Visit
@@ -402,7 +408,8 @@ const Ad1 = ({
                         <div className="flex flex-col gap-3 px-3 py-3">
                           <div
                             onClick={() => {
-                              setThree({ ...three, Action: "Order Now" });
+                              dispatch(setThree({ Action: "Order Now" }))
+
                               setDown(0);
                             }}
                           >
@@ -410,7 +417,8 @@ const Ad1 = ({
                           </div>
                           <div
                             onClick={() => {
-                              setThree({ ...three, Action: "Learn More" });
+                              dispatch(setThree({ Action: "Learn More" }))
+
                               setDown(0);
                             }}
                           >
@@ -418,7 +426,7 @@ const Ad1 = ({
                           </div>
                           <div
                             onClick={() => {
-                              setThree({ ...three, Action: "Install Now" });
+                              dispatch(setThree({ Action: "Install Now" }))
                               setDown(0);
                             }}
                           >
@@ -426,7 +434,7 @@ const Ad1 = ({
                           </div>
                           <div
                             onClick={() => {
-                              setThree({ ...three, Action: "Buy Now" });
+                              dispatch(setThree({ Action: "Buy Now" }))
                               setDown(0);
                             }}
                           >
@@ -434,7 +442,7 @@ const Ad1 = ({
                           </div>
                           <div
                             onClick={() => {
-                              setThree({ ...three, Action: "Visit" });
+                              dispatch(setThree({ Action: "Visit" }))
                               setDown(0);
                             }}
                           >
@@ -465,9 +473,10 @@ const Ad1 = ({
                       <input
                         name="myForm"
                         id="link"
-                        onChange={(e) =>
-                          setThree({ ...three, link: e.target.value })
-                        }
+                        // onChange={(e) =>
+                        //   setThree({ ...three, link: e.target.value })
+                        // }
+                        onChange={(e) => dispatch(setThree({ link: e.target.value }))}
                         value={three.link}
                         type="text"
                         placeholder="grovyo.com"

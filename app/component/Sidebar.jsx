@@ -50,7 +50,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="h-screen w-24 bg-maincolor px-4 shadow-sm flex flex-col justify-between py-6 items-center">
+      <div className="h-screen w-[100px] bg-maincolor px-4 shadow-sm flex flex-col justify-between py-6 items-center">
         <div className="flex flex-col justify-between items-center h-[45%]">
           <div>
             <Image src={logo} alt="logo" className="w-[50px]" />
