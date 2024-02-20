@@ -52,7 +52,7 @@ const Ad3 = ({
                 <div className="w-full my-3 h-[1px] bg-[#D4D5D7]"></div>
 
                 <div className="grid grid-cols-2 px-2">
-                  <div className="my-3">
+                  {/* <div className="my-3">
                     <h1 className="text-lg font-semibold py-2">Budget</h1>
                     <div className="flex items-center gap-5 ">
                       <div className="flex flex-col space-y-2 my-1">
@@ -68,7 +68,7 @@ const Ad3 = ({
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="my-3">
                     <h1 className="text-lg font-semibold py-2">Date & Time</h1>
@@ -188,13 +188,13 @@ const Ad3 = ({
                   </div>
                 </div>
               </div>
-              <div className="lg:min-w-[700px] bg-maincolor my-4 rounded-2xl py-5 px-5">
+              {/* <div className="lg:min-w-[700px] bg-maincolor my-4 rounded-2xl py-5 px-5">
                 <div className="flex flex-col gap-4">
                   <div className="flex flex-col gap-1">
                     <div className="font-bold">Payment Details</div>
-                    {/* <div className=" dark:text-white text-[#333333] text-sm">
+                    <div className=" dark:text-white text-[#333333] text-sm">
                       Your Ad will run for 7 days
-                    </div> */}
+                    </div>
                   </div>
                   <div className="bg-[#FAFAFA] dark:bg-maincolor p-5 rounded-2xl">
                     <div className="flex flex-col gap-2">
@@ -202,9 +202,7 @@ const Ad3 = ({
                         <div className="font-medium">Ad Budget</div>
                         <div>₹ {Math.ceil(pricebyDay)}</div>
                       </div>
-                      {/* <div className=" dark:text-white text-[#333333] text-sm">
-                        ₹83.60 a day x 7 days
-                      </div> */}
+                    
 
                       <div className="flex justify-between p-[2px] items-center">
                         <div className="font-medium">Taxes and Charges</div>
@@ -219,7 +217,7 @@ const Ad3 = ({
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             {/* <div className="flex flex-col">
@@ -366,7 +364,7 @@ const Ad3 = ({
                   <div className="w-full my-3 h-[1px] bg-[#D4D5D7]"></div>
 
                   <div className="grid sm:grid-cols-2 px-2">
-                    <div className="my-3">
+                    {/* <div className="my-3">
                       <h1 className="text-lg font-semibold py-2">Budget</h1>
                       <div className="flex items-center gap-5 ">
                         <div className="flex flex-col space-y-2 my-1">
@@ -382,7 +380,7 @@ const Ad3 = ({
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="my-3">
                       <h1 className="text-lg font-semibold py-2">
@@ -515,7 +513,7 @@ const Ad3 = ({
                     </div>
                   </div>
                 </div>
-
+                {/* 
                 <div
 
                   className="w-full bg-maincolor my-4 rounded-2xl py-5 px-5"
@@ -523,9 +521,7 @@ const Ad3 = ({
                   <div className="flex flex-col gap-4">
                     <div className="flex flex-col gap-1">
                       <div className="font-bold">Payment Details</div>
-                      {/* <div className=" dark:text-white text-[#333333] text-sm">
-                        Your Ad will run for 7 days
-                      </div> */}
+
                     </div>
                     <div className="bg-[#FAFAFA] dark:bg-maincolor p-3 rounded-2xl">
                       <div className="flex flex-col gap-2">
@@ -533,9 +529,7 @@ const Ad3 = ({
                           <div className="font-medium">Ad Budget</div>
                           <div>₹ {Math.ceil(pricebyDay)}</div>
                         </div>
-                        {/* <div className=" dark:text-white text-[#333333] text-sm">
-                          ₹83.60 a day x 7 days
-                        </div> */}
+                      
 
                         <div className="flex justify-between p-[2px] items-center">
                           <div className="font-medium">Taxes and Charges</div>
@@ -553,7 +547,7 @@ const Ad3 = ({
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
               {/* <div className="sm:hidden fixed bottom-0 bg-maincolor w-full p-3">
                 <button className="bg-[#2D9AFF] text-lg font-medium rounded-2xl text-white p-3 w-full">

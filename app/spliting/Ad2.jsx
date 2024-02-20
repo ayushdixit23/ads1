@@ -763,13 +763,13 @@ const Ad2 = ({
 							</div>
 							<div className="flex flex-col items-center">
 								<Square3 display={ProperAudience ? ProperAudience : 0} />
-								<Square4
+								{/* <Square4
 									ctr={ctr ? ctr : 0}
 									duration={three.duration ? three.duration : 1}
 									price={pricebyDay ? pricebyDay : 0}
 									daily={totalPrice ? totalPrice : 0}
 									display={ProperAudience ? ProperAudience : 0}
-								/>
+								/> */}
 							</div>
 						</div>
 					</div>
@@ -881,13 +881,13 @@ const Ad2 = ({
 						<div className="grid grid-cols-1">
 							<div className="flex flex-col">
 								<Square3 display={ProperAudience ? ProperAudience : 0} />
-								<Square4
+								{/* <Square4
 									ctr={ctr ? ctr : 0}
 									duration={three.duration ? three.duration : 1}
 									price={pricebyDay ? pricebyDay : 0}
 									daily={totalPrice ? totalPrice : 0}
 									display={ProperAudience ? ProperAudience : 0}
-								/>
+								/> */}
 							</div>
 
 							<div className="w-full md:hidden bg-[#F0F2F5] dark:bg-[#1b2431] my-4 rounded-2xl py-5 px-2">
