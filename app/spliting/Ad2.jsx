@@ -26,7 +26,6 @@ const Ad2 = ({
 	myAgeHandle,
 	click,
 	handleAgeRangeChange,
-	// isdatavalid,
 	ProperAudience,
 	ctr,
 	pricebyDay,
@@ -357,10 +356,7 @@ const Ad2 = ({
 												onKeyDown={(e) => {
 													if (e.key === "Enter") {
 														if (inputValue && three.location.length < 3) {
-															// setThree((prevState) => ({
-															// 	...prevState,
-															// 	location: [...prevState.location, inputValue],
-															// }));
+
 															dispatch(setThree({ location: [...three.location, inputValue] }))
 															setInputValue("");
 														}
@@ -383,17 +379,12 @@ const Ad2 = ({
 											{three?.location?.map((m, i) => (
 												<div
 													key={i}
-													className="flex justify-center items-center gap-2 bg-[#FAFAFA] p-2 px-3 rounded-full "
+													className="flex justify-center items-center gap-2 dark:bg-border bg-[#FAFAFA] p-2 px-3 rounded-full "
 												>
 													<div>{m}</div>
 													<div
 														onClick={() => {
-															// setThree((three) => ({
-															// 	...three,
-															// 	location: three.location.filter(
-															// 		(_, a) => a !== i
-															// 	),
-															// }));
+
 															dispatch(setThree({
 																location: three.location.filter(
 																	(_, a) => a !== i
@@ -424,17 +415,12 @@ const Ad2 = ({
 																	onChange={(event) => {
 																		const isChecked = event.target.checked;
 																		if (isChecked) {
-																			// If checkbox is checked, set the value to the input field
+
 																			setInputValue(l.name);
 																		} else {
-																			// If checkbox is unchecked, clear the input field and remove from location array
+
 																			setInputValue("");
-																			// setThree((prevState) => ({
-																			// 	...prevState,
-																			// 	location: prevState.location.filter(
-																			// 		(item) => item !== l.name
-																			// 	),
-																			// }));
+
 																			dispatch(setThree({
 																				location: three.location.filter(
 																					(item) => item !== l.name
@@ -466,7 +452,6 @@ const Ad2 = ({
 											<div
 												onClick={() => {
 													dispatch(setThree({ gender: "Men" }))
-													// setThree({ ...three, gender: "Men" });
 												}}
 												className={`p-2 px-6 rounded-full ${three.gender === "Men"
 													? "text-white bg-blue-500"
@@ -477,7 +462,6 @@ const Ad2 = ({
 											</div>
 											<div
 												onClick={() => {
-													// setThree({ ...three, gender: "Women" });
 													dispatch(setThree({ gender: "Women" }))
 												}}
 												className={`p-2 px-6 rounded-full ${three.gender === "Women"
@@ -507,13 +491,7 @@ const Ad2 = ({
 													<input
 														onClick={() => {
 															setCLick(0);
-															// setThree({
-															// 	...three,
-															// 	selectedAgeRange: "",
-															// 	age: "All age group",
-															// 	maxage: "",
-															// 	minage: "",
-															// });
+
 															dispatch(setThree({
 																selectedAgeRange: "",
 																age: "All age group",
@@ -1059,10 +1037,6 @@ const Ad2 = ({
 														<button
 															onClick={() => {
 																if (t && three?.tags?.length < 5) {
-																	// setThree((three) => ({
-																	// 	...three,
-																	// 	tags: [...three.tags, t],
-																	// }));
 																	dispatch(setThree({ tags: [...three.tags, t] }))
 																	setT("");
 																}
@@ -1178,10 +1152,7 @@ const Ad2 = ({
 													onKeyDown={(e) => {
 														if (e.key === "Enter") {
 															if (inputValue && three.location.length < 3) {
-																// setThree((prevState) => ({
-																// 	...prevState,
-																// 	location: [...prevState.location, inputValue],
-																// }));
+
 																dispatch(setThree({
 																	location: [...three.location, inputValue]
 																}))
@@ -1206,17 +1177,12 @@ const Ad2 = ({
 												{three?.location?.map((m, i) => (
 													<div
 														key={i}
-														className="flex justify-center items-center gap-2 bg-[#FAFAFA] p-2 px-3 rounded-full "
+														className="flex justify-center items-center gap-2 dark:bg-border bg-[#FAFAFA] p-2 px-3 rounded-full "
 													>
 														<div>{m}</div>
 														<div
 															onClick={() => {
-																// setThree((three) => ({
-																// 	...three,
-																// 	location: three.location.filter(
-																// 		(_, a) => a !== i
-																// 	),
-																// }));
+
 																dispatch(setThree({
 																	location: three.location.filter(
 																		(_, a) => a !== i
@@ -1234,7 +1200,7 @@ const Ad2 = ({
 												<div>
 													<div className="absolute top-0 left-0 h-auto w-full p-3 border rounded-xl z-10 drop-shadow-md bg-maincolor">
 														<div className="text-sm text-[#6B778C] mb-2 pb-2">
-															Trending tags related to Tech{" "}
+															Trending tags related to Tech
 														</div>
 														<div className="flex flex-col gap-2">
 															{myLocation.map((l, i) => (
@@ -1253,14 +1219,9 @@ const Ad2 = ({
 																				// If checkbox is checked, set the value to the input field
 																				setInputValue(l.name);
 																			} else {
-																				// If checkbox is unchecked, clear the input field and remove from location array
+
 																				setInputValue("");
-																				// setThree((prevState) => ({
-																				// 	...prevState,
-																				// 	location: prevState.location.filter(
-																				// 		(item) => item !== l.name
-																				// 	),
-																				// }));
+
 																				dispatch(setThree({
 																					location: three.location.filter(
 																						(item) => item !== l.name

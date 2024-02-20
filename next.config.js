@@ -11,7 +11,7 @@ const nextConfig = {
   //     ],
   //   },
   images: {
-    domains: ["minio.grovyo.xyz"],
+    domains: ["minio.grovyo.xyz", "dt46iilh1kepb.cloudfront.net"]
   },
 };
 

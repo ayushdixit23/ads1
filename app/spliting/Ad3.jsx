@@ -3,6 +3,7 @@ import { AiOutlineEdit, AiTwotoneEdit } from 'react-icons/ai'
 import { BsCheckLg, BsThreeDots } from 'react-icons/bs'
 import adss from "../assests/adss.svg";
 import { formatDateToString } from '../utils/useful';
+import Link from 'next/link';
 const Ad3 = ({
   setStep,
   // step,
@@ -11,115 +12,14 @@ const Ad3 = ({
   pricebyDay,
   totalPrice,
   tax,
+  communityData,
   addTax,
 }) => {
+
   return (
     <>
       <div>
         <div className="grid bg-[#f8f8f8] dark:bg-maincolor grid-cols-1 pn:max-md:hidden">
-          {/* <div className="flex flex-col"> */}
-          {/* <div className="fixed left-0 w-full top-0 z-10 bg-maincolor ">
-              <div className="flex justify-between px-5 items-center py-4">
-                <div className="text-[#555555] text-xl font-semibold">
-                  Set up a new Ad
-                </div>
-                <div className="flex justify-center items-center gap-3 ">
-                  <div
-                    onClick={() => setStep(1)}
-                    className="border-b cursor-pointer border-black"
-                  >
-                    Discard
-                  </div>
-
-                  <div
-                    className="p-2 px-7 rounded-full cursor-pointer bg-[#2D9AFF] text-white"
-                    onClick={sendData}
-                  >
-
-                    Save
-
-                  </div>
-                </div>
-              </div>
-            </div> */}
-          {/* <div>
-              <div
-                style={{ marginTop: "5rem" }}
-                className="flex justify-center dark:bg-maincolor bg-[#fafafa] pt-5 py-3 mt-3"
-              >
-                <div className=" flex flex-col justify-center items-center">
-                  <div
-                    className={` h-10 w-10 rounded-full flex items-center justify-center ${step >= 0
-                      ? "bg-[#27AE60] text-white"
-                      : "bg-green-300 text-white"
-                      }`}
-                  >
-                    {step >= 1 ? (
-                      <BsCheckLg className="text-lg font-bold" />
-                    ) : (
-                      1
-                    )}
-                  </div>
-
-                  <div
-                    className={` flex items-center font-semibold flex-col ${step >= 0 ? "text-[#27AE60] " : "text-green-300"
-                      }`}
-                  >
-                    Set up Ad
-                  </div>
-                </div>
-
-                <div
-                  className={`border-[#f9f9f9] border-dashed border-t-2 w-20 mt-5 ${step >= 0 ? "border-black" : "border-black"
-                    }`}
-                />
-
-                <div className="flex flex-col justify-center items-center">
-                  <div
-                    className={` h-10 w-10 rounded-full flex items-center justify-center ${step >= 1
-                      ? "bg-[#27AE60] text-white"
-                      : "bg-green-300 text-white"
-                      }`}
-                  >
-                    {step >= 1 ? (
-                      <BsCheckLg className="text-lg font-bold" />
-                    ) : (
-                      2
-                    )}
-                  </div>
-
-                  <div
-                    className={` flex items-center flex-col ${step >= 1 ? "text-[#27AE60]" : ""
-                      }`}
-                  >
-                    Select target
-                  </div>
-                </div>
-                <div
-                  className={`border-[#f9f9f9] border-dashed border-t-2 w-20  mt-5 ${step >= 1 ? "border-blue-600 " : "border-green-300"
-                    }`}
-                />
-                <div className="flex flex-col justify-center items-center">
-                  <div
-                    className={`h-10 w-10 rounded-full flex items-center justify-center ${step >= 2
-                      ? "bg-blue-600 text-white"
-                      : "border-2 border-black "
-                      }`}
-                  >
-                    3
-                  </div>
-
-                  <div
-                    className={` flex items-center flex-col justify-center ${step === 2 ? "text-blue-600 " : ""
-                      }`}
-                  >
-                    Preview & Launch
-                  </div>
-                </div>
-              </div>
-            </div> */}
-          {/* </div> */}
-
           <div className="flex justify-center gap-4 px-[2%] w-full pn:max-md:hidden">
             <div
               className={`flex bg-[#F0F2F5] dark:bg-[#1b2431] p-4 px-[2%] md:min-w-[800px] lg:min-w-[1024px] my-4 pn:max-md:hidden rounded-2xl flex-col`}
@@ -127,7 +27,7 @@ const Ad3 = ({
               <div className="md:min-w-[800px]  lg:min-w-[1024px] bg-maincolor  rounded-2xl py-5 px-5">
                 <div className="flex justify-between items-center">
                   <div className="text-xl font-semibold py-2">Preview</div>
-                  <div
+                  <Link href="/createAd?step=1"
                     onClick={() => dispatch(setStep(0))}
                     // onClick={() => setStep(0)}
                     className="flex justify-center border cursor-pointer border-black p-1 px-4 rounded-full items-center"
@@ -136,7 +36,7 @@ const Ad3 = ({
                       <AiOutlineEdit />
                     </div>
                     <div className="font-medium mx-1">Edit</div>
-                  </div>
+                  </Link>
                 </div>
                 <div className="grid grid-cols-2 px-2">
                   <div className="flex flex-col space-y-2 my-1">
@@ -234,7 +134,7 @@ const Ad3 = ({
                       {three.location.map((loc, i) => (
                         <div
                           key={i}
-                          className="bg-[#F3F4F6] font-semibold p-1 px-3 rounded-full"
+                          className="bg-[#F3F4F6] dark:bg-border font-semibold p-1 px-3 rounded-full"
                         >
                           {loc}
                         </div>
@@ -442,7 +342,7 @@ const Ad3 = ({
                 <div className="bg-maincolor w-full my-4 rounded-2xl py-5 px-3">
                   <div className="flex justify-between items-center">
                     <div className="text-xl font-semibold py-2">Ad Details</div>
-                    <div
+                    <Link href="/createAd?step=1"
                       onClick={() => dispatch(setStep(0))}
                       className="flex cursor-pointer justify-center border border-black p-1 px-3 sm:px-4 rounded-full items-center"
                     >
@@ -450,7 +350,7 @@ const Ad3 = ({
                         <AiOutlineEdit />
                       </div>
                       <div className="font-medium mx-1">Edit</div>
-                    </div>
+                    </Link>
                   </div>
                   <div className="grid sm:grid-cols-2 gap-1 my-2">
                     <div className="flex flex-col space-y-2 my-1">
@@ -554,7 +454,7 @@ const Ad3 = ({
                       {three.location.map((loc, i) => (
                         <div
                           key={i}
-                          className="bg-[#F3F4F6] dark:bg-maincolor font-semibold p-1 px-3 rounded-full"
+                          className="bg-[#F3F4F6]  dark:bg-border font-semibold p-1 px-3 rounded-full"
                         >
                           {loc}
                         </div>
@@ -617,7 +517,7 @@ const Ad3 = ({
                 </div>
 
                 <div
-                  style={{ marginBottom: "5rem" }}
+
                   className="w-full bg-maincolor my-4 rounded-2xl py-5 px-5"
                 >
                   <div className="flex flex-col gap-4">
@@ -655,12 +555,12 @@ const Ad3 = ({
                   </div>
                 </div>
               </div>
-              <div className="sm:hidden fixed bottom-0 bg-maincolor w-full p-3">
+              {/* <div className="sm:hidden fixed bottom-0 bg-maincolor w-full p-3">
                 <button className="bg-[#2D9AFF] text-lg font-medium rounded-2xl text-white p-3 w-full">
-                  {/* Proceed To Pay */}
+
                   Save
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

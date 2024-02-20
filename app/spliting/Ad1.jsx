@@ -1,15 +1,15 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { BsCheckLg, BsLink, BsThreeDotsVertical } from "react-icons/bs";
+import { BsLink, BsThreeDotsVertical } from "react-icons/bs";
 import styles from "../CustomScrollbarComponent.module.css";
 import { FaAngleDown } from "react-icons/fa";
 import adss from "../assests/adss.svg";
+import { getData } from "../utils/useful";
+import { useGetCommunityQuery } from "../redux/slice/apiSlice";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const Ad1 = ({
-  // setStep,
-  // step,
-  // validDatas,
   three,
   dispatch,
   setThree,
@@ -18,111 +18,112 @@ const Ad1 = ({
   handleFileChanges,
   user,
 }) => {
+  const [select, setSelect] = useState()
+  const [comimage, setComimage] = useState("")
+  const { userid, firstname, lastname } = getData()
+  const { data } = useGetCommunityQuery({ id: userid }, { skip: !userid })
+
+  useEffect(() => {
+    setComimage(data?.communitywithDps[0].dps)
+    setSelect(data?.communitywithDps[0].title)
+    dispatch(setThree({ comid: data?.communitywithDps[0]._id }))
+  }, [data])
+
   return (
     <>
       <div className={`bg-[#F8F8F8]  select-none grid grid-cols-1 w-full`}>
         <div className="flex flex-col bg-maincolor ">
-          {/* <div className="fixed top-0 left-0 w-full z-50 bg-maincolor">
-            <div className="flex border w-full bg-maincolor justify-between shadow-lg items-center px-5 py-2 pb-4">
-              <div className="text-[#555555] pn:max-sm:hidden text-xl font-semibold">
-                Set up a new Ad
-              </div>
-              <div className="text-[#555555] sm:hidden text-xl font-semibold">
-                Ad SetUp
-              </div>
-              <div className="flex justify-center items-center gap-3">
-                <div className="border-b cursor-pointer pn:max-sm:hidden border-black">
-                  Discard
-                </div>
-                {validDatas ? (
-                  <div
-                    onClick={() => setStep(1)}
-                    className="p-2 px-7 rounded-full cursor-pointer bg-[#2D9AFF] text-white"
-                  >
-                    <div>Next</div>
-                  </div>
-                ) : (
-                  <div className="p-2 px-7 rounded-full cursor-pointer bg-[#b3bbc3]/30 text-white">
-                    <div>Next</div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div> */}
-          {/* <div>
-            <div
-              style={{ marginTop: "4rem" }}
-              className="flex justify-center bg-[#fafafa] dark:bg-[#273142] pt-5 py-3 pn:max-sm:text-xs text-center px-3"
-            >
-              <div className=" flex flex-col gap-1 mr-2 justify-center items-center">
-                <div
-                  className={`h-10 w-10 rounded-full flex items-center justify-center ${step >= 0
-                    ? "bg-[#2D9AFF] text-white"
-                    : "bg-green-300 text-white"
-                    }`}
-                >
-                  {step >= 1 ? <BsCheckLg className="text-[#27AE60]" /> : 1}
-                </div>
 
-                <div
-                  className={` flex items-center font-semibold flex-col ${step === 0 ? "text-blue-600 " : "text-green-300"
-                    }`}
-                >
-                  Set up Ad
-                </div>
-              </div>
-
-              <div
-                className={`border-[#f9f9f9] border-dashed border-t-2 pn:max-sm:w-10 sm:w-20 mt-5 ${step >= 0 ? "border-black" : "border-black"
-                  }`}
-              />
-
-              <div className="flex flex-col gap-1 justify-center items-center">
-                <div
-                  className={`bg-[#f9f9f9] h-10 w-10 rounded-full flex items-center justify-center ${step >= 1
-                    ? "bg-blue-600 text-white"
-                    : " text-black border-4 border-black/70"
-                    }`}
-                >
-                  2
-                </div>
-
-                <div
-                  className={` flex items-center flex-col ${step >= 1 ? "text-blue-600 " : "text-black"
-                    }`}
-                >
-                  Select target
-                </div>
-              </div>
-              <div
-                className={`border-[#f9f9f9] border-dashed border-t-2  pn:max-sm:w-10 sm:w-20 mt-5 ${step >= 1 ? "border-black" : "border-black"
-                  }`}
-              />
-              <div className="flex flex-col gap-1 -ml-4 justify-center items-center">
-                <div
-                  className={`bg-[#f9f9f9] h-10 w-10 rounded-full flex items-center justify-center ${step >= 2
-                    ? "bg-blue-600 text-white"
-                    : " text-black border-4 border-black/70"
-                    }`}
-                >
-                  3
-                </div>
-
-                <div
-                  className={` flex items-center flex-col justify-center ${step === 2 ? "text-blue-600 " : "text-black"
-                    }`}
-                >
-                  Preview & Launch
-                </div>
-              </div>
-            </div>
-          </div> */}
 
           {/* scroll this */}
           <div className="grid grid-cols-7 my-4 md:h-screen px-3 sm:px-[2%] md:overflow-auto gap-4 md:scrollbar-hidden pn:max-md:grid-cols-1 w-full">
             <div
               className={` ${styles.customScrollbar} sm:px-4 px-2 bg-[#F0F2F5] dark:bg-[#1b2431] w-full md:col-span-4 rounded-xl sm:overflow-y-scroll py-2 pn:max-md:order-1`}
             >
+
+              {
+                data?.communitywithDps.length > 0 ?
+
+                  <div className=" px-[2%] my-2 rounded-xl bg-maincolor pn:max-sm:px-2 pb-4">
+                    <div className="text-2xl font-semibold py-2 pn:max-sm:px-2 my-2">Community</div>
+                    <Select
+                      className="dark:text-white dark:bg-[#323b4e] w-full dark:border-none "
+                      onValueChange={(selectValue) => {
+                        console.log(selectValue)
+                        const selectedData = data?.communitywithDps?.find(
+                          (item) => item._id === selectValue
+                        );
+                        console.log(selectedData)
+                        if (selectedData) {
+                          dispatch(setThree({ comid: selectValue }))
+
+                          setComimage(selectedData.dps)
+                          setSelect(selectedData.title)
+                        }
+                      }}
+
+                    >
+                      <SelectTrigger className="w-full dark:text-white dark:bg-[#323b4e] dark:border-none ">
+                        <SelectValue
+                          value={select}
+                          placeholder={select}
+                          className="dark:text-white dark:bg-[#323b4e] dark:border-none "
+                        />
+                      </SelectTrigger>
+                      <SelectContent className="dark:text-white dark:bg-[#323b4e] dark:border-none ">
+                        <SelectGroup className="max-h-[200px] gap-1 w-full flex flex-col justify-center items-center">
+                          {data?.communitywithDps?.map((d, i) => (
+                            <SelectItem
+                              value={d._id}
+                              key={i}
+                              className="flex justify-start p-2 gap-2 w-full items-center "
+                            >
+
+
+                              <div className="flex justify-center gap-2 items-center w-full">
+                                <div>
+                                  <img
+                                    src={d?.dps}
+                                    className="max-w-[30px] rounded-lg min-h-[30px] min-w-[30px] max-h-[30px]"
+                                    alt="image"
+                                  />
+                                </div>
+                                <div className="flex flex-col">
+                                  <div className="text-xs">{d?.title}</div>
+                                </div>
+                              </div>
+
+                            </SelectItem>
+                          ))}
+
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  :
+                  <div>
+                    <h1 className="text-2xl font-semibold py-2 pn:max-sm:px-2 my-2">Community Details</h1>
+                    <div className="my-2 rounded-xl bg-maincolor pn:max-sm:px-2">
+                      <div className="flex gap-2 py-2 px-[2%] flex-col w-full">
+                        <div>Community Name</div>
+                        <input value={three.communityName} onChange={(e) => dispatch(setThree({ communityName: e.target.value }))} type="text" className="w-full border rounded-xl bg-input outline-none p-2" placeholder="Enter Community Name" />
+                      </div>
+                      <div className="flex gap-2 py-2 px-[2%] flex-col w-full">
+                        <div>Community Description</div>
+                        <textarea value={three.communityDesc} onChange={(e) => dispatch(setThree({ communityDesc: e.target.value }))} className="w-full border rounded-xl bg-input max-h-[200px] outline-none p-2" placeholder="Enter Community Name" />
+                      </div>
+                      <div className="flex gap-2 py-2 px-[2%] flex-col w-full">
+                        <div>Category</div>
+                        <input value={three.communityCategory} onChange={(e) => dispatch(setThree({ communityCategory: e.target.value }))} type="text" className="w-full border rounded-xl bg-input outline-none p-2" placeholder="Enter Community Name" />
+                      </div>
+                      <div className="flex gap-2 py-2 px-[2%] flex-col w-full">
+                        <div>Image</div>
+                        <input onChange={(e) => dispatch(setThree({ communityImage: e.target.files[0] }))} type="file" className="w-full border rounded-xl bg-input outline-none p-2" placeholder="Enter Community Name" />
+                      </div>
+                    </div>
+                  </div>
+              }
+
               <h1 className="text-2xl font-semibold py-2 pn:max-sm:px-2 my-2">
                 Ad Details
               </h1>
@@ -186,14 +187,13 @@ const Ad1 = ({
                           : "bg-maincolor sm:hover:bg-[#3e3e3e]/80 sm:hover:text-white"
                           }  `}
                       >
-                        {" "}
                         <h1 className="sm:text-2xl text-lg  font-robot font-bold py-1">
                           Awareness
                         </h1>
                         <p className="text-sm w-[90%]">
                           Generate trust for your brand between audience.
                         </p>
-                      </div>{" "}
+                      </div>
                     </div>
                     <div
 
@@ -498,20 +498,6 @@ const Ad1 = ({
                     </div>
                     <div className="text-[#5585FF] border pn:max-sm:w-[80%] pn:max-sm:text-center hover:border-[#5585FF] p-2 rounded-2xl">
                       <label htmlFor="files">Select and Upload</label>
-                      {/* <input
-                        name="myForm"
-                        onChange={(e) =>
-                          setThree({
-                            ...three,
-                            pic: URL.createObjectURL(e.target.files[0]),
-                            picname: e.target.files[0].name,
-                            picsend: e.target.files[0],
-                          })
-                        }
-                        type="file"
-                        id="files"
-                        className="hidden"
-                      /> */}
 
                       <input
                         name="myForm"
@@ -527,13 +513,7 @@ const Ad1 = ({
                   <div className="bg-[#F3F6F8] dark:bg-[#273142] dark:border dark:border-border py-2 px-[2%]  flex justify-between rounded-2xl items-center w-full">
                     <div className="flex justify-center overflow-hidden space-x-4 items-center">
                       <div>
-                        {/* <Image
-                          width={50}
-                          height={50}
-                          className="max-w-[50px] max-h-[50px]"
-                          src={three.pic ? three.pic : adss}
-                          alt="image"
-                        /> */}
+
                         {three.pic === "" && (
                           <Image
                             src={three.pic ? three.pic : adss}
@@ -592,64 +572,89 @@ const Ad1 = ({
 
             <div className="md:col-span-3 pn:max-md:order-2 w-full sm:overflow-y-auto sm:no-scrollbar rounded-xl max-h-[780px]">
               <div className="bg-[#FAFAFA] dark:bg-[#1b2431] rounded-xl w-full flex justify-center items-center">
-                <div className="bg-maincolor rounded-xl flex flex-col w-[85%] sm:w-[500px] md:w-[370px]  my-10 h-auto px-2">
+                <div className="bg-maincolor rounded-xl flex flex-col w-[85%] sm:w-[500px] md:w-[370px]  my-10 px-2">
                   <div className="flex justify-between items-center w-full">
-                    <div className="flex items-center space-x-1 pt-2 w-full">
+                    <div className="flex items-center gap-2 pt-2 w-full">
                       <div>
-                        <img
-                          width={40}
-                          height={30}
-                          alt={user?.fullname}
-                          src={user?.photo}
-                          className="min-w-[40px] min-h-[40px] max-w-[60px] max-h-[60px] h-auto"
-                        />
+                        {
+                          data?.communitywithDps.length > 0 ? <img
+                            width={40}
+                            height={30}
+                            alt="commmunityImage"
+                            src={comimage}
+                            className="min-w-[40px] min-h-[40px] rounded-xl h-[45px] w-[45px]"
+                          />
+                            :
+                            (
+                              three.communityImage && <img src={(URL.createObjectURL(three.communityImage))} width={40}
+                                height={30}
+                                alt="commmunityImage"
+                                className="min-w-[40px] min-h-[40px] rounded-xl h-[45px] w-[45px]" />
+                            )
+
+                        }
+
                       </div>
-                      <div className="flex flex-col">
-                        <div className="font-semibold">{user?.fullname}</div>
-                        <div>Sponsored</div>
+                      <div className="flex -mt-1 flex-col ">
+                        {
+                          data?.communitywithDps.length > 0 ? <div className="font-semibold">{select}</div>
+                            :
+                            <div className="font-semibold">{three.communityName}</div>
+
+                        }
+
+                        <div className="flex items-center gap-1 text-xs">
+                          <div>By {firstname + " " + lastname + " •"}</div>
+                          <div>Sponsored</div>
+                        </div>
+
                       </div>
                     </div>
                     <div>
                       <BsThreeDotsVertical />
                     </div>
                   </div>
-                  {three.pic === "" && (
-                    <Image
-                      src={three.pic ? three.pic : adss}
-                      alt={three.picname}
-                      width={350}
-                      height={200}
-                      className="w-auto h-auto rounded-xl object-cover"
-                    />
-                  )}
-                  {three.pic ? (
-                    <Image
-                      src={three.pic ? three.pic : adss}
-                      alt={three.picname}
-                      width={350}
-                      height={200}
-                      className="w-auto h-auto rounded-xl object-cover"
-                    />
-                  ) : null}
+                  <div className="mt-2  h-full w-full">
 
-                  {three.picsend &&
-                    ["mp4", "avi", "mov"].includes(
-                      three.picname.split(".").pop().toLowerCase()
-                    ) ? (
-                    <video
-                      className="w-auto h-auto rounded-2xl object-cover"
-                      width="350"
-                      height="200"
-                      controls
-                    >
-                      <source
-                        src={URL.createObjectURL(three.picsend)}
-                        type={three.picsend.type}
+                    {three.pic === "" && (
+                      <Image
+                        src={adss}
+                        alt={three.picname}
+                        width={350}
+                        height={200}
+                        className="w-auto h-auto min-w-full  rounded-lg object-cover"
                       />
-                    </video>
-                  ) : null}
+                    )}
+                    {three.pic ? (
+                      <Image
+                        src={three.pic}
+                        alt={three.picname}
+                        width={350}
+                        height={200}
+                        className="w-auto min-w-full h-auto rounded-lg object-cover"
+                      />
+                    ) : null}
 
-                  <div className="py-1 font-semibold">
+                    {three.picsend &&
+                      ["mp4", "avi", "mov"].includes(
+                        three.picname.split(".").pop().toLowerCase()
+                      ) ? (
+                      <video
+                        className="w-auto h-auto rounded-2xl object-cover"
+                        width="350"
+                        height="200"
+                        controls
+                      >
+                        <source
+                          src={URL.createObjectURL(three.picsend)}
+                          type={three.picsend.type}
+                        />
+                      </video>
+                    ) : null}
+
+                  </div>
+
+                  <div className="py-1 mt-2 font-semibold">
                     {three.Headline != ""
                       ? three.Headline
                       : "Never have a bad meal"}
@@ -669,7 +674,7 @@ const Ad1 = ({
             </div>
           </div>
         </div>
-      </div>
+      </div >
     </>
   );
 };

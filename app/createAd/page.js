@@ -2,18 +2,18 @@
 import Ad1 from "@/app/spliting/Ad1";
 import Ad2 from "@/app/spliting/Ad2";
 import Ad3 from "@/app/spliting/Ad3";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API } from "@/Essentials";
 import { getData } from "../utils/useful";
 import { useDispatch, useSelector } from "react-redux";
 import { setValidateStep1, setValidateStep2, setThree, setStep } from "../redux/slice/dataSlice";
+import { useGetCommunityQuery } from "../redux/slice/apiSlice";
 
 function page() {
-
+  const { data: communityData } = useGetCommunityQuery()
   const three = useSelector((state) => state.data.three)
-
   const { firstname, lastname, userid, image, advid } = getData()
   const [inputValue, setInputValue] = useState("");
   const [t, setT] = useState("");
@@ -516,6 +516,7 @@ function page() {
           dispatch={dispatch}
           step={urlSteps}
           setStep={setStep}
+          communityData={communityData}
           three={three}
           pricebyDay={pricebyDay}
           totalPrice={totalPrice}

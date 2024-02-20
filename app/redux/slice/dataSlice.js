@@ -7,6 +7,10 @@ export const dataSlice = createSlice({
 		validateStep1: false,
 		validateStep2: false,
 		three: {
+			communityName: "",
+			communityDesc: "",
+			communityCategory: "",
+			communityImage: "",
 			location: [],
 			Headline: "",
 			adName: "",
@@ -28,6 +32,7 @@ export const dataSlice = createSlice({
 			DailyBudget: "",
 			category: "",
 			startDate: Date.now(),
+			comid: "",
 			// endDate: Date.now(),
 			duration: "1",
 			random_id: Date.now().toString(),

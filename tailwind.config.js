@@ -14,6 +14,7 @@ module.exports = {
       'vs': '360px',
       'pp': '500px',
       'sm': '720px',
+      'nn': '900px',
       'md': '1024px',
       'lg': '1280px',
       'xxl': '1800px',

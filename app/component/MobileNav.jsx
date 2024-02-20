@@ -41,7 +41,7 @@ const MobileNav = () => {
 
   return (
     <>
-      <div className="fixed left-0 w-full sm:hidden bottom-0 bg-maincolor z-10 p-2">
+      <div style={{ marginTop: "10rem" }} className="fixed left-0 w-full sm:hidden bottom-0 bg-maincolor z-10 p-2">
         <div className="flex justify-center items-center w-full my-1 p-1">
           <ul className="flex justify-around gap-2 items-center w-full">
             <li
@@ -52,9 +52,8 @@ const MobileNav = () => {
               <div className="flex flex-col justify-center gap-2 hover:text-blue-500 items-center">
                 <div>
                   <AiOutlineBarChart
-                    className={`text-[26px] ${
-                      colors === 0 ? "text-blue-600 " : null
-                    }`}
+                    className={`text-[26px] ${colors === 0 ? "text-blue-600 " : null
+                      }`}
                   />
                 </div>
                 <div className={`${colors === 0 ? "text-blue-600 " : null}`}>
@@ -69,9 +68,8 @@ const MobileNav = () => {
               }}
             >
               <div
-                className={` flex flex-col justify-center gap-2 hover:text-blue-500 items-center ${
-                  colors === 1 ? "text-blue-600 " : null
-                }`}
+                className={` flex flex-col justify-center gap-2 hover:text-blue-500 items-center ${colors === 1 ? "text-blue-600 " : null
+                  }`}
               >
                 <div>
                   <BiWallet className={` text-[26px]`} />
@@ -92,9 +90,8 @@ const MobileNav = () => {
               >
                 <div>
                   <FiSettings
-                    className={`text-[26px] ${
-                      colors === 2 ? "text-blue-600 " : null
-                    }`}
+                    className={`text-[26px] ${colors === 2 ? "text-blue-600 " : null
+                      }`}
                   />
                 </div>
                 <div className={`${colors === 2 ? "text-blue-600 " : null}`}>

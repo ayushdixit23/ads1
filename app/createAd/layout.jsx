@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function createAdLayout({ children }) {
-	const { advid } = getData()
+	const { advid, userid } = getData()
 	const step = useSelector((state) => state.data.step)
 	const validateStep1 = useSelector((state) => state.data.validateStep1)
 	const three = useSelector((state) => state.data.three)
@@ -64,6 +64,7 @@ export default function createAdLayout({ children }) {
 	}, [step, validateStep1, validateStep2])
 
 	const sendData = async (e) => {
+		console.log("runde")
 		e.preventDefault();
 		try {
 			const formDataToSend = new FormData();
@@ -71,7 +72,11 @@ export default function createAdLayout({ children }) {
 			formDataToSend.append("headline", three.Headline);
 			formDataToSend.append("desc", three.Description);
 			formDataToSend.append("age", three.age);
-			formDataToSend.append("image", three.picsend);
+			formDataToSend.append("communityName", three.communityName);
+			formDataToSend.append("communityDesc", three.communityDesc);
+			formDataToSend.append("communityCategory", three.communityCategory);
+			formDataToSend.append("communityImage", three.communityImage);
+			formDataToSend.append("file", three.picsend);
 			formDataToSend.append("cta", three.Action);
 			formDataToSend.append("ctalink", three.link);
 			formDataToSend.append("adname", three.adName);
@@ -83,6 +88,7 @@ export default function createAdLayout({ children }) {
 			// formDataToSend.append("dailybudget", totalPrice);
 			// formDataToSend.append("totalbudget", pricebyDay);
 			formDataToSend.append("agerange", three.selectedAgeRange);
+			formDataToSend.append("comid", three.comid)
 			formDataToSend.append("minage", three.minage);
 			formDataToSend.append("preferedsection", three.type);
 			formDataToSend.append("maxage", three.maxage);
@@ -92,36 +98,17 @@ export default function createAdLayout({ children }) {
 			formDataToSend.append("goal", three.goal);
 			formDataToSend.append("advertiserid", advid);
 
-			const res = await axios.post(`${API}/newad/${advid}`, formDataToSend);
+			let res
+			if (three.comid) {
+				res = await axios.post(`${API}/v1/createad/${advid}`, formDataToSend);
+				console.log("first")
+			} else {
+				console.log("irst")
+				res = await axios.post(`${API}/newad/${advid}/${userid}`, formDataToSend);
+			}
 			console.log(res.data)
 			if (res?.data?.success) {
-				dispatch(setStep(0))
-				dispatch(setThree({
-					location: [],
-					Headline: "",
-					adName: "",
-					Description: "",
-					Action: "",
-					link: "",
-					pic: "",
-					picname: "",
-					goal: "",
-					picsend: "",
-					tags: [],
-					maxage: "",
-					minage: "",
-					selectedAgeRange: "",
-					gender: "",
-					age: "",
-					type: [],
-					TotalBudget: "",
-					DailyBudget: "",
-					category: "",
-					startDate: Date.now(),
-					// endDate: Date.now(),
-					duration: "1",
-					random_id: Date.now().toString(),
-				}))
+				router.refresh()
 				router.push("/main/dashboard");
 			}
 		} catch (err) {

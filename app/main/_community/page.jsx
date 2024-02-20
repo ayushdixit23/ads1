@@ -9,7 +9,6 @@ import { getData } from '@/app/utils/useful'
 import {
 	Table,
 	TableBody,
-	TableCaption,
 	TableCell,
 	TableHead,
 	TableHeader,
@@ -19,9 +18,6 @@ import {
 const page = () => {
 	const { userid } = getData()
 	const { data } = useGetCommunityQuery({ id: userid }, { skip: !userid })
-	const merged = data?.data?.community?.map((d, i) => {
-		return ({ ...d, dptomerged: data?.data?.dps[i] })
-	})
 	const router = useRouter()
 	return (
 		<>
@@ -34,7 +30,7 @@ const page = () => {
 						<div className='text-2xl font-semibold'>Community</div>
 						<div className='flex bg-maincolor justify-center items-center border-2'>
 							<Table className="min-w-[900px]">
-								
+
 								<TableHeader>
 									<TableRow>
 										<TableHead>Communities</TableHead>
@@ -46,18 +42,19 @@ const page = () => {
 								</TableHeader>
 								<TableBody>
 									{
-										merged?.map((d, i) => (
+										data?.communitywithDps?.map((d, i) => (
 											<TableRow onClick={() => router.push(`/main/community/posts/${encryptaes(d?._id)}`)} key={i} >
 												<TableCell className="font-medium text-left  text-sm py-2 leading-5 text-gray-900">
 													<div className="flex gap-2 items-center">
 														<div>
 															<Image
-																src={d?.dptomerged}
+																src={d?.dps}
 																width={50}
 																height={50}
 																className="min-w-[30px] min-h-[30px] max-w-[35px] rounded-lg max-h-[35px]"
 																alt="image"
 															/>
+															{console.log(d?.dps)}
 														</div>
 														<div className="flex flex-col text-xs font-medium gap-1">
 															{d?.title}

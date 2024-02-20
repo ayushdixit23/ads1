@@ -202,12 +202,12 @@ const Wallet = () => {
         </div>
       </div>
 
-      <div className="py-4 px-5 sticky top-0 left-0 bg-maincolor z-10 w-full">
+      <div className="py-4 px-5 pn:max-sm:sticky pn:max-sm:top-0 pn:max-sm:left-0 bg-maincolor z-10 w-full">
         <div className="text-2xl font-semibold">Wallet</div>
-        <MobileNav />
+
       </div>
 
-      <div className="grid grid-cols-1 z-10">
+      <div className="grid sm:mt-0 grid-cols-1 z-10">
         <div className="grid grid-cols-1 sm:m-5 w-full sm:w-[95%] ">
           <div className="flex p-3 sm:flex-row flex-col gap-4">
             <div className="md:w-[75%] bg-maincolor p-3 pb-5 sm:w-[60%] border rounded-2xl">

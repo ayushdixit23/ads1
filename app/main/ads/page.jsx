@@ -22,7 +22,6 @@ const page = () => {
 	const { advid } = getData()
 	const { CampaignFetch } = useAdFetching()
 
-
 	function formatDate(inputDate) {
 		const date = new Date(inputDate);
 		const day = date.getDate();
@@ -54,7 +53,7 @@ const page = () => {
 				</div>
 
 				<div
-					className={`p-3 ${campdata.length != 0
+					className={`p-3 ${campdata?.length != 0
 						? "max-w-full my-3 overflow-x-scroll no-scrollbar"
 						: "pn:max-md:hidden"
 						}`}
@@ -69,12 +68,12 @@ const page = () => {
 								<TableHead className="text-center">CONVERSION</TableHead>
 								<TableHead className="text-center">AVG. COST</TableHead>
 								<TableHead className="text-center">START DATE</TableHead>
-								<TableHead className="text-center">DURATION</TableHead>
+								<TableHead className="text-center">DURATION (in days)</TableHead>
 							</TableRow>
 						</TableHeader>
 						<TableBody>
 
-							{campdata.length > 0 ? (
+							{campdata?.length > 0 ? (
 								<>
 									{campdata?.map((d, i) => (
 										<TableRow>
@@ -85,10 +84,10 @@ const page = () => {
 												{d?.a?.status}
 											</TableCell>
 											<TableCell className="font-medium text-center">
-												5,00,000
+												__
 											</TableCell>
 											<TableCell className="font-medium text-center">
-												10%
+												__
 											</TableCell>
 											<TableCell className="font-medium text-center">
 												{d?.a?.budget ? d?.a?.budget : "___"}
@@ -99,7 +98,7 @@ const page = () => {
 													: "___"}
 											</TableCell>
 											<TableCell className="font-medium text-center">
-												{d?.a?.enddate}
+												{d?.a?.enddate} {d?.a?.enddate == "1" ? "day" : "days"}
 											</TableCell>
 										</TableRow>
 

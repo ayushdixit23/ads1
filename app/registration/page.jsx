@@ -1,18 +1,12 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { AiFillLock } from "react-icons/ai";
-// import Indiv from "../component/Indiv";
-// import Organ from "../component/Organ";
-// import Question from "../component/Question";
-// import ads from "../assests/image/zm.svg";
 import { BiRadioCircleMarked } from "react-icons/bi";
 import { API } from "@/Essentials";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "../../firebase.config";
-// import { RxCross2 } from "react-icons/rx";
-// import { GrFormAdd } from "react-icons/gr";
 import Link from "next/link";
 import { BsArrowRight, BsCheckLg } from "react-icons/bs";
 import Individual from "../spliting/Individual";
@@ -177,6 +171,7 @@ const Register = () => {
 
   const handleSave = async () => {
     try {
+      console.log("ren")
       const formDataToSend = new FormData();
       formDataToSend.append("lastname", details.lastName);
       formDataToSend.append("firstname", details.firstName);
@@ -214,6 +209,7 @@ const Register = () => {
   };
 
   function onCaptchaVerify() {
+    console.log("hel")
     if (!window.recaptchaVerifier) {
       window.recaptchaVerifier = new RecaptchaVerifier(
         auth,
@@ -233,6 +229,7 @@ const Register = () => {
   }
 
   function onSignup() {
+    console.log("ren1")
     setLoading(true);
     onCaptchaVerify();
     setSeconds(30);
@@ -241,10 +238,11 @@ const Register = () => {
     const formatPh = "+91" + details.phoneNumber;
     signInWithPhoneNumber(auth, formatPh, appVerifier)
       .then((confirmationResult) => {
+        console.log(confirmationResult)
         window.confirmationResult = confirmationResult;
+        console.log("first")
         setLoading(false);
         setShowOTP(true);
-
         dispatch(setChange(3))
       })
       .catch((error) => {
@@ -254,7 +252,6 @@ const Register = () => {
   }
 
   const handleChangePhotoClick = () => {
-    // Trigger the hidden file input to select a new image
     document.getElementById("image").click();
   };
 
@@ -265,6 +262,7 @@ const Register = () => {
   // };
 
   function onOTPVerify() {
+    console.log("ver")
     setLoading(true);
     window.confirmationResult
       .confirm(OTP)

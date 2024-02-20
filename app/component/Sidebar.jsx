@@ -17,8 +17,7 @@ const Sidebar = () => {
   const { image } = getData()
   useEffect(() => {
     // Retrieve the selected color from sessionStorage
-    const storedColor = sessionStorage.getItem("selectedColor");
-
+    const storedColor = sessionStorage.getItem("selectedColor")
     if (storedColor !== null) {
       setColor(parseInt(storedColor, 10));
     }
@@ -50,9 +49,9 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="h-screen w-[100px] bg-maincolor px-4 shadow-sm flex flex-col justify-between py-6 items-center">
+      <div className="min-h-screen pn:max-sm:hidden w-[100px] bg-maincolor px-4 shadow-sm flex flex-col justify-between py-6 items-center">
         <div className="flex flex-col justify-between items-center h-[45%]">
-          <div>
+          <div className="-mt-2">
             <Image src={logo} alt="logo" className="w-[50px]" />
           </div>
           <div className="flex justify-center items-center">
@@ -78,7 +77,7 @@ const Sidebar = () => {
                 </div>
               </li>
 
-              <li
+              {/* <li
                 onClick={() => {
                   handleColor(3);
                 }}
@@ -98,7 +97,7 @@ const Sidebar = () => {
                     Community
                   </div>
                 </div>
-              </li>
+              </li> */}
 
               <li
                 onClick={() => {
@@ -147,9 +146,11 @@ const Sidebar = () => {
             </ul>
           </div>
         </div>
-        <div>
-          {image && <Image src={image} width={50} height={50} alt="profile" />}
+        <div className="flex justify-center items-center flex-col gap-3">
           <ModeToggle />
+          <div>
+            {image && <Image src={image} width={50} height={50} alt="profile" className="rounded-2xl h-[40px] object-cover w-[40px]" />}
+          </div>
         </div>
       </div>
     </>
